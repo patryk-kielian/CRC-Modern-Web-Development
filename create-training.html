@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New Training</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <div id="header-left">
+        <img src="icons\company_icon.svg" alt="Trainings App Logo" />
+        <h1>Trainings</h1>
+      </div>
+      <div id="header-right">
+        <button class="violet-button all-trainings">All trainings</button>
+        <button class="violet-button my-trainings">My trainings</button>
+      </div>
+    </header>
+
+    <main id="container">
+      <h1>Create a new training:</h1>
+      <form class="form-training">
+        <div class="form-columns">
+          <div class="left-content">
+            <div>
+              <label for="name">Name</label><br />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Type name"
+              /><br />
+            </div>
+            <div class="language">
+              <p>Language</p>
+              <div class="language-options">
+                <input type="radio" id="language" name="language" value="PL" />
+                <label for="language">Polish</label>
+                <input type="radio" id="language" name="language" value="EN" />
+                <label for="language">English</label>
+              </div>
+            </div>
+            <div>
+              <label for="location">Location</label><br />
+              <input
+                type="text"
+                id="location"
+                name="location"
+                placeholder="Type location"
+              />
+            </div>
+            <div class="dropdown">
+              <label for="level">Level</label><br />
+              <select id="level" name="level" placeholder="Select level">
+                <option value="" disabled selected>Select level</option>
+                <option value="Easy">Easy</option>
+                <option value="Easy">Intermediate</option>
+                <option value="Easy">Advanced</option>
+              </select>
+            </div>
+            <div>
+              <label for="trainer">Trainer</label><br />
+              <input
+                type="text"
+                id="trainer"
+                name="trainer"
+                placeholder="Type trainer's name"
+              />
+            </div>
+          </div>
+
+          <div class="right-content">
+            <div>
+              <label class="ghost-button upload-button">
+                <input type="file" />
+                Upload an image
+              </label>
+              <span>No file chosen</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-datetime">
+          <div class="two-inputs">
+            <div>
+              <label for="start-date">Start Date</label><br />
+              <input type="date" id="start-date" name="start-date" />
+            </div>
+            <div>
+              <label for="end-date">End Date</label><br />
+              <input type="date" id="end-date" name="end-date" />
+            </div>
+          </div>
+          <div class="two-inputs">
+            <div>
+              <label for="start-time">Start Time</label><br />
+              <input type="time" id="start-time" name="start-time" />
+            </div>
+            <div>
+              <label for="end-time">End Time</label><br />
+              <input type="time" id="end-time" name="end-time" />
+            </div>
+          </div>
+        </div>
+        <div class="form-buttons">
+          <input class="violet-button" type="submit" value="Create training" />
+          <button class="ghost-button">Cancel</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
