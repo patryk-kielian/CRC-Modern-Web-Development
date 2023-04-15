@@ -212,6 +212,7 @@ dist
 dist-ssr
 *.local
 .vite
+*.vite
 
 # Editor directories and files
 .vscode/*
@@ -223,3 +224,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+archive

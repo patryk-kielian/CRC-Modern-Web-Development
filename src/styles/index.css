@@ -12,6 +12,8 @@
 * {
   margin: 0;
   padding: 0;
+  color: unset;
+  text-decoration: none;
 }
 
 html {
@@ -21,7 +23,7 @@ html {
 body {
   font-family: "Poppins", Montserrat, Roboto, sans-serif;
   margin: 0;
-  background-image: url("img/background.png");
+  background-image: url("../assets/img/background.png");
 }
 
 header {
@@ -40,6 +42,7 @@ header {
 }
 
 #header-left h1 {
+  display: inline-block;
   font-size: 32px;
   margin-left: 5px;
   color: var(--white);
@@ -142,7 +145,7 @@ header {
 }
 
 .training-logo {
-  background-image: url("img/icon1.webp");
+  background-image: url("../assets/img/icon1.webp");
   background-position: center;
   background-repeat: no-repeat;
   /* background-size: cover; */
@@ -197,7 +200,8 @@ footer {
 /* CREATE-TRAINING */
 /* **************************** */
 
-.form-training {
+.form-training,
+.form-login {
   background-color: var(--white);
   border-radius: 40px;
   padding: 60px 30px 30px;
@@ -236,13 +240,15 @@ label,
   margin: 0 auto;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   width: 380px;
 }
 
 input[type="text"],
 input[type="date"],
-input[type="time"] {
+input[type="time"],
+input[type="password"] {
   height: 36px;
   border: 1px solid var(--lightgrey);
   border-radius: 4px;
@@ -345,4 +351,19 @@ input[type="file"] {
   gap: 40px;
   width: 100%;
   margin-top: 40px;
+}
+
+/* **************************** */
+/* LOGIN */
+/* **************************** */
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 30px;
+}
+
+.login-button {
+  width: 380px;
 }
