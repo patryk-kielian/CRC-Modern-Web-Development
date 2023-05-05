@@ -1,11 +1,14 @@
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 
-function Home() {
+function Login() {
+  const [registerMode, setRegisterMode] = useState(false);
+
   return (
     <>
       <Navbar />
       <main id="container">
-        <h1>Welcome back!</h1>
+        <h1>{registerMode ? "Create an account" : "Welcome back!"}</h1>
         <form className="form-login">
           <label htmlFor="login">Login:</label>
 
@@ -24,12 +27,24 @@ function Home() {
           <input
             className="violet-button login-button"
             type="submit"
-            value="Login"
+            value={registerMode ? "Register" : "Login"}
           />
+          <button
+            className="ghost-button register-account-button"
+            onClick={(e) => {
+              e.preventDefault();
+              setRegisterMode(!registerMode);
+            }}
+          >
+            <span className="fine-button">
+              {registerMode ? "Already have an account? " : "No account yet? "}
+            </span>{" "}
+            {registerMode ? "Login" : "Register"}
+          </button>
         </form>
       </main>
     </>
   );
 }
 
-export default Home;
+export default Login;
