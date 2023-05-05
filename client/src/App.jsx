@@ -3,17 +3,20 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import CreateNewTraining from "./pages/CreateNewTraining";
 import Login from "./pages/Login";
+import { LoggedUserContext } from "./contexts/LoggedUserContext";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [loggedUser, setLoggedUser] = useState(null);
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/create-new-training" element={<CreateNewTraining />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <LoggedUserContext.Provider value={{ loggedUser, setLoggedUser }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/create-new-training" element={<CreateNewTraining />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </LoggedUserContext.Provider>
     </>
   );
 }
