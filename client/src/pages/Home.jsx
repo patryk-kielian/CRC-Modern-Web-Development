@@ -1,6 +1,31 @@
+import { useState, useEffect, useContext } from "react";
+import Axios from "axios";
+
+import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
+import CourseCard from "../components/CourseCard";
 
 function Home() {
+  const [courses, setCourses] = useState([]);
+  const { loggedUser } = useContext(LoggedUserContext);
+
+  useEffect(() => {
+    // Fetch courses from the server
+    Axios.get("http://localhost:3001/courses").then((response) => {
+      setCourses(response.data.courses);
+    });
+  }, []);
+
+  const handleRegister = (courseId) => {
+    if (loggedUser) {
+      // Enroll the user to the course
+      Axios.post("http://localhost:3001/course-attendance", {
+        course_id: courseId,
+        user_id: loggedUser.id,
+      });
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -10,174 +35,14 @@ function Home() {
           start training now!
         </h1>
         <div className="cards-container">
-          <div className="card">
-            <div
-              className="training-logo"
-              src="img\icon1.webp"
-              alt="Python Logo"
-            />
-            <div className="training-content">
-              <h2>
-                TrainingTrainingTrainingTrainingTrainingTraining
-                TrainingTrainingTrainingTrainingTrainingTrainingTrainingTraining
-              </h2>
-              <div className="training-items">
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/calendar_icon.svg"
-                    alt="Calendar Icon"
-                  />
-                  <span>17.04.2023 - 21.04.2023</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/clock_icon.svg"
-                    alt="Clock Icon"
-                  />
-                  <span>08:00 - 16:00 (5x8h)</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/language_icon.svg"
-                    alt="UK Flag Icon"
-                  />
-                  <span>English</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/level_icon.svg"
-                    alt="Level Icon"
-                  />
-                  <span>Basic</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/location_icon.svg"
-                    alt="Location Icon"
-                  />
-                  <span>Remote</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/trainer_logo.svg"
-                    alt="Trainer Icon"
-                  />
-                  <span>Trainer: Jan Kowalski</span>
-                </div>
-              </div>
-            </div>
-            <button className="violet-button register-button">Register</button>
-          </div>
-          <div className="card">
-            <div
-              className="training-logo"
-              src="img\icon1.webp"
-              alt="Python Logo"
-            />
-            <div className="training-content">
-              <h2>Training</h2>
-              <div className="training-items">
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/calendar_icon.svg"
-                    alt="Calendar Icon"
-                  />
-                  <span>17.04.2023 - 21.04.2023</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/clock_icon.svg"
-                    alt="Clock Icon"
-                  />
-                  <span>08:00 - 16:00 (5x8h)</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/language_icon.svg"
-                    alt="UK Flag Icon"
-                  />
-                  <span>English</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/level_icon.svg"
-                    alt="Level Icon"
-                  />
-                  <span>Basic</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/location_icon.svg"
-                    alt="Location Icon"
-                  />
-                  <span>Remote</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/trainer_logo.svg"
-                    alt="Trainer Icon"
-                  />
-                  <span>Trainer: Jan Kowalski</span>
-                </div>
-              </div>
-            </div>
-            <button className="violet-button register-button">Register</button>
-          </div>
-          <div className="card">
-            <div
-              className="training-logo"
-              src="img\icon1.webp"
-              alt="Python Logo"
-            />
-            <div className="training-content">
-              <h2>Training</h2>
-              <div className="training-items">
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/calendar_icon.svg"
-                    alt="Calendar Icon"
-                  />
-                  <span>17.04.2023 - 21.04.2023</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/clock_icon.svg"
-                    alt="Clock Icon"
-                  />
-                  <span>08:00 - 16:00 (5x8h)</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/language_icon.svg"
-                    alt="UK Flag Icon"
-                  />
-                  <span>English</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/level_icon.svg"
-                    alt="Level Icon"
-                  />
-                  <span>Basic</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/location_icon.svg"
-                    alt="Location Icon"
-                  />
-                  <span>Remote</span>
-                </div>
-                <div className="training-item">
-                  <img
-                    src="/src/assets/icons/trainer_logo.svg"
-                    alt="Trainer Icon"
-                  />
-                  <span>Trainer: Jan Kowalski</span>
-                </div>
-              </div>
-            </div>
-            <button className="violet-button register-button">Register</button>
-          </div>
+          {courses.map((course) => (
+            <CourseCard
+              key={course.id}
+              course={course}
+              loggedUser={loggedUser}
+              handleRegister={handleRegister}
+            ></CourseCard>
+          ))}
         </div>
       </main>
     </>
