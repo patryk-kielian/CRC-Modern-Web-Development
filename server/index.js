@@ -88,6 +88,17 @@ app.post("/register", (req, res) => {
   });
 });
 
+app.get("/courses", (req, res) => {
+  db.query("SELECT * FROM courses", (err, result) => {
+    if (err) {
+      console.log("Error executing the MySQL query: " + err.message);
+      res.status(500).send("Internal Server Error");
+    } else {
+      res.send({ courses: result });
+    }
+  });
+});
+
 // app.get("/init", (req, res) => {
 //   const sqlQuery =
 //     "CREATE TABLE IF NOT EXISTS emails(id int AUTO_INCREMENT, firstname VARCHAR(50), lastname VARCHAR(50), email VARCHAR(50), PRIMARY KEY(id))";
