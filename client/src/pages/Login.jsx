@@ -25,7 +25,7 @@ function Login() {
         setLoginStatus(response.data.message);
       } else {
         setLoginStatus("Succesfully logged in!");
-        setLoggedUser(response.data[0].login);
+        setLoggedUser(response.data);
         navigate("/");
       }
     });

@@ -43,19 +43,16 @@ app.post("/login", (req, res) => {
 
     if (result.length > 0) {
       if (result[0].password === password) {
-        res.send(result);
+        console.log(result);
+        const user = {
+          id: result[0].id,
+          login: result[0].login,
+          isAdmin: result[0].isAdmin,
+        };
+        res.send(user);
       } else {
         res.send({ message: "Wrong username/password combination!" });
       }
-      // bcrypt.compare(password, result[0].password, (error, response) => {
-      //   if (response) {
-      //     req.session.user = result;
-      //     console.log(req.session.user);
-      //     res.send(result);
-      //   } else {
-      //     res.send({ message: "Wrong username/password combination!" });
-      //   }
-      // });
     } else {
       res.send({ message: "User doesn't exist" });
     }
