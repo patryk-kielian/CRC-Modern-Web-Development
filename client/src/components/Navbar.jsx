@@ -27,10 +27,14 @@ function Navbar() {
             <div className="counter">
               <span className="number">2</span>
             </div>
-            <button className="violet-button my-trainings">My trainings</button>
             <button className="violet-button my-trainings">
-              <Link to="/create-new-training">Create a training</Link>
+              {loggedUser.login}
             </button>
+            {loggedUser.isAdmin && (
+              <button className="violet-button my-trainings">
+                <Link to="/create-new-training">Create a training</Link>
+              </button>
+            )}
             <button className="violet-button my-trainings" onClick={logout}>
               Log out
             </button>

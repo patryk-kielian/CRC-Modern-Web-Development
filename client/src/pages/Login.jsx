@@ -25,8 +25,26 @@ function Login() {
         setLoginStatus(response.data.message);
       } else {
         setLoginStatus("Succesfully logged in!");
-        setLoggedUser(response.data[0].login);
+        setLoggedUser(response.data);
         navigate("/");
+      }
+    });
+  };
+
+  const registerUser = (e) => {
+    e.preventDefault();
+    Axios.post("http://localhost:3001/register", {
+      username: username,
+      password: password,
+    }).then((response) => {
+      if (response.data.message) {
+        setLoginStatus(response.data.message);
+        console.log(response);
+      } else {
+        setLoginStatus("Succesfully registered user!");
+        setRegisterMode(false);
+        setUsername("");
+        setPassword("");
       }
     });
   };
@@ -44,6 +62,7 @@ function Login() {
             id="login"
             name="login"
             placeholder="Type login"
+            value={username}
             onChange={(e) => {
               setUsername(e.target.value);
             }}
@@ -56,6 +75,7 @@ function Login() {
             id="password"
             name="password"
             placeholder="Type password"
+            value={password}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -73,6 +93,8 @@ function Login() {
             onClick={(e) => {
               e.preventDefault();
               setRegisterMode(!registerMode);
+              setUsername("");
+              setPassword("");
             }}
           >
             <span className="fine-button">
@@ -81,7 +103,7 @@ function Login() {
             {registerMode ? "Login" : "Register"}
           </button>
         </form>
-        <h1>{loginStatus}</h1>
+        <h1 className="form-status">{loginStatus}</h1>
       </main>
     </>
   );

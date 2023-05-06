@@ -8,6 +8,14 @@ import { LoggedUserContext } from "./contexts/LoggedUserContext";
 function App() {
   const [loggedUser, setLoggedUser] = useState(null);
 
+  // const setLoggedUserWithAdmin = (user) => {
+  //   console.log(user);
+  //   if (user && user.isAdmin) {
+  //     user.isAdmin = true;
+  //   }
+  //   setLoggedUser({ loggedUser: user });
+  // };
+
   return (
     <>
       <LoggedUserContext.Provider value={{ loggedUser, setLoggedUser }}>
