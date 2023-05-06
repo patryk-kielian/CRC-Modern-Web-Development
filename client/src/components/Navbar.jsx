@@ -1,12 +1,25 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useState, useContext, useEffect } from "react";
+import Axios from "axios";
+
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
 function Navbar() {
   const { loggedUser, setLoggedUser } = useContext(LoggedUserContext);
+  const [courseCount, setCourseCount] = useState(null);
+
+  useEffect(() => {
+    if (loggedUser) {
+      Axios.get(`http://localhost:3001/courses/${loggedUser.id}`).then(
+        (response) => {
+          setCourseCount(response.data.courses.length);
+        }
+      );
+    }
+  }, [loggedUser]);
 
   const logout = function () {
-    if (!loggedUser) return;
+    // if (!loggedUser) return;
     setLoggedUser(null);
   };
 
@@ -25,7 +38,7 @@ function Navbar() {
         {loggedUser ? (
           <>
             <div className="counter">
-              <span className="number">2</span>
+              <span className="number">{courseCount}</span>
             </div>
             <button className="violet-button my-trainings">
               <Link to="/user">{loggedUser.login}</Link>

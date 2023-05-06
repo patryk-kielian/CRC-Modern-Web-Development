@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 function CourseCard(props) {
   const { course, loggedUser, handleRegister } = props;
 
-  useEffect(() => console.log(handleRegister), []);
   return (
     <div className="card" key={course.id}>
       <div className="training-logo" src="img\icon1.webp" alt="Python Logo" />

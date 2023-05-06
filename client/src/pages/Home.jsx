@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
-import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
+import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
 
@@ -37,6 +37,7 @@ function Home() {
         <div className="cards-container">
           {courses.map((course) => (
             <CourseCard
+              key={course.id}
               course={course}
               loggedUser={loggedUser}
               handleRegister={handleRegister}
