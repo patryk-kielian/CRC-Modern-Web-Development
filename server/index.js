@@ -99,6 +99,22 @@ app.get("/courses", (req, res) => {
   });
 });
 
+app.get("/courses/:userId", (req, res) => {
+  const userId = req.params.userId;
+  db.query(
+    "SELECT * FROM courses INNER JOIN course_attendance ON courses.id = course_attendance.course_id WHERE course_attendance.user_id = ?",
+    userId,
+    (err, result) => {
+      if (err) {
+        console.log("Error executing the MySQL query: " + err.message);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.send({ courses: result });
+      }
+    }
+  );
+});
+
 app.post("/course-attendance", (req, res) => {
   const course_id = req.body.course_id;
   const user_id = req.body.user_id;

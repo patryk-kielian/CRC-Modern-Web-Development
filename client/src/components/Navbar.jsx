@@ -28,7 +28,7 @@ function Navbar() {
               <span className="number">2</span>
             </div>
             <button className="violet-button my-trainings">
-              {loggedUser.login}
+              <Link to="/user">{loggedUser.login}</Link>
             </button>
             {loggedUser.isAdmin && (
               <button className="violet-button my-trainings">

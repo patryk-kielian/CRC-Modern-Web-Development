@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function CourseCard(props) {
   const { course, loggedUser, handleRegister } = props;
 
+  useEffect(() => console.log(handleRegister), []);
   return (
     <div className="card" key={course.id}>
       <div className="training-logo" src="img\icon1.webp" alt="Python Logo" />
@@ -46,18 +47,19 @@ function CourseCard(props) {
           </div>
         </div>
       </div>
-      {loggedUser ? (
-        <button
-          className="violet-button register-button"
-          onClick={() => handleRegister(course.id)}
-        >
-          Register
-        </button>
-      ) : (
-        <button className="violet-button register-button">
-          <Link to="/login">Log in first to enroll</Link>
-        </button>
-      )}
+      {handleRegister &&
+        (loggedUser ? (
+          <button
+            className="violet-button register-button"
+            onClick={() => handleRegister(course.id)}
+          >
+            Register
+          </button>
+        ) : (
+          <button className="violet-button register-button">
+            <Link to="/login">Log in first to enroll</Link>
+          </button>
+        ))}
     </div>
   );
 }
