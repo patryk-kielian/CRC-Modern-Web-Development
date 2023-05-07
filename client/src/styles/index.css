@@ -364,6 +364,12 @@ input[type="file"] {
   padding: 60px 30px;
 }
 
+.form-status {
+  margin-top: 30px;
+  font-size: 48px !important;
+  text-align: center;
+}
+
 .login-button {
   width: 380px;
 }

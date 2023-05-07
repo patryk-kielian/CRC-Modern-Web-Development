@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import CreateNewTraining from "./pages/CreateNewTraining";
 import Login from "./pages/Login";
+import User from "./pages/User";
 import { LoggedUserContext } from "./contexts/LoggedUserContext";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <LoggedUserContext.Provider value={{ loggedUser, setLoggedUser }}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/user" element={<User />} />
           <Route path="/create-new-training" element={<CreateNewTraining />} />
           <Route path="/login" element={<Login />} />
         </Routes>
