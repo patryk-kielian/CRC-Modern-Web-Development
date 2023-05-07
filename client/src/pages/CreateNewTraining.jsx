@@ -1,10 +1,31 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
+import Axios from "axios";
 
 import Navbar from "../components/Navbar";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
 function CreateNewTraining() {
   const { loggedUser } = useContext(LoggedUserContext);
+  const formRef = useRef(null);
+  const submitRef = useRef(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = formRef.current;
+    const submitter = submitRef.current;
+
+    const formData = new FormData(form, submitter);
+    const dataToSend = {};
+    for (const [key, value] of formData) {
+      dataToSend[key] = value;
+    }
+
+    const response = await Axios.post(
+      "http://localhost:3001/new-course",
+      dataToSend
+    );
+    console.log(response);
+  };
 
   return (
     <>
@@ -13,7 +34,11 @@ function CreateNewTraining() {
         {loggedUser && loggedUser.isAdmin ? (
           <>
             <h1>Create a new training:</h1>
-            <form className="form-training">
+            <form
+              className="form-training"
+              onSubmit={handleSubmit}
+              ref={formRef}
+            >
               <div className="form-columns">
                 <div className="left-content">
                   <div>
@@ -29,22 +54,22 @@ function CreateNewTraining() {
                   </div>
                   <div className="language">
                     <p>Language</p>
-                    <div className="language-options">
+                    <fieldset className="language-options">
                       <input
                         type="radio"
-                        id="language"
+                        id="language-pl"
                         name="language"
-                        defaultValue="PL"
+                        value="Polish"
                       />
-                      <label htmlFor="language">Polish</label>
+                      <label htmlFor="language-pl">Polish</label>
                       <input
                         type="radio"
-                        id="language"
+                        id="language-en"
                         name="language"
-                        defaultValue="EN"
+                        value="English"
                       />
-                      <label htmlFor="language">English</label>
-                    </div>
+                      <label htmlFor="language-en">English</label>
+                    </fieldset>
                   </div>
                   <div>
                     <label htmlFor="location">Location</label>
@@ -60,7 +85,7 @@ function CreateNewTraining() {
                     <label htmlFor="level">Level</label>
                     <br />
                     <select id="level" name="level" placeholder="Select level">
-                      <option value="" disabled="" selected="">
+                      <option value="" disabled defaultValue>
                         Select level
                       </option>
                       <option value="Easy">Easy</option>
@@ -78,6 +103,16 @@ function CreateNewTraining() {
                       placeholder="Type trainer's name"
                     />
                   </div>
+                  <div>
+                    <label htmlFor="frequency">Frequency (e.g. 5x8h)</label>
+                    <br />
+                    <input
+                      type="text"
+                      id="frequency"
+                      name="frequency"
+                      placeholder="Type frequency"
+                    />
+                  </div>
                 </div>
                 <div className="right-content">
                   <div>
@@ -92,26 +127,26 @@ function CreateNewTraining() {
               <div className="form-datetime">
                 <div className="two-inputs">
                   <div>
-                    <label htmlFor="start-date">Start Date</label>
+                    <label htmlFor="dateStart">Start Date</label>
                     <br />
-                    <input type="date" id="start-date" name="start-date" />
+                    <input type="date" id="dateStart" name="dateStart" />
                   </div>
                   <div>
-                    <label htmlFor="end-date">End Date</label>
+                    <label htmlFor="dateEnd">End Date</label>
                     <br />
-                    <input type="date" id="end-date" name="end-date" />
+                    <input type="date" id="dateEnd" name="dateEnd" />
                   </div>
                 </div>
                 <div className="two-inputs">
                   <div>
-                    <label htmlFor="start-time">Start Time</label>
+                    <label htmlFor="timeStart">Start Time</label>
                     <br />
-                    <input type="time" id="start-time" name="start-time" />
+                    <input type="time" id="timeStart" name="timeStart" />
                   </div>
                   <div>
-                    <label htmlFor="end-time">End Time</label>
+                    <label htmlFor="timeEnd">End Time</label>
                     <br />
-                    <input type="time" id="end-time" name="end-time" />
+                    <input type="time" id="timeEnd" name="timeEnd" />
                   </div>
                 </div>
               </div>
@@ -120,6 +155,7 @@ function CreateNewTraining() {
                   className="violet-button"
                   type="submit"
                   value="Create training"
+                  ref={submitRef}
                 />
                 <button className="ghost-button">Cancel</button>
               </div>
@@ -132,5 +168,4 @@ function CreateNewTraining() {
     </>
   );
 }
-
 export default CreateNewTraining;
