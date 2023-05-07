@@ -115,6 +115,46 @@ app.get("/courses/:userId", (req, res) => {
   );
 });
 
+app.post("/new-course", (req, res) => {
+  const name = req.body.name;
+  const language = req.body.language;
+  const location = req.body.location;
+  const level = req.body.level;
+  const trainer = req.body.trainer;
+  const dateStart = req.body.dateStart;
+  const dateEnd = req.body.dateEnd;
+  const timeStart = req.body.timeStart;
+  const timeEnd = req.body.timeEnd;
+  const frequency = req.body.frequency;
+
+  const sql = `INSERT INTO courses (name, language, location, level, trainer, dateStart, dateEnd, timeStart, timeEnd, frequency) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  db.query(
+    sql,
+    [
+      name,
+      language,
+      location,
+      level,
+      trainer,
+      dateStart,
+      dateEnd,
+      timeStart,
+      timeEnd,
+      frequency,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error saving data to database");
+      } else {
+        res.status(200).send("Course added successfully!");
+      }
+    }
+  );
+});
+
 app.post("/course-attendance", (req, res) => {
   const course_id = req.body.course_id;
   const user_id = req.body.user_id;
