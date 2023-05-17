@@ -26,13 +26,17 @@ function CreateNewTraining() {
       }
       dataToSend[key] = value;
     }
-    if (missingFields) {
+    if (missingFields.length) {
       setError(
         `Missing value(s) in field(s): 
         ${missingFields.join(", ")}`
       );
       return;
     } else {
+      // Course image is a random icon from 4 presets
+      const randomInt = Math.floor(Math.random() * 4) + 1;
+      dataToSend.image = `icon${randomInt}.png`;
+
       const response = await Axios.post(
         "http://localhost:3001/new-course",
         dataToSend
