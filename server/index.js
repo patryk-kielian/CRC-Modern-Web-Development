@@ -147,9 +147,10 @@ app.post("/new-course", (req, res) => {
   const timeStart = req.body.timeStart;
   const timeEnd = req.body.timeEnd;
   const frequency = req.body.frequency;
+  const image = req.body.image;
 
-  const sql = `INSERT INTO courses (name, language, location, level, trainer, dateStart, dateEnd, timeStart, timeEnd, frequency) 
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO courses (name, language, location, level, trainer, dateStart, dateEnd, timeStart, timeEnd, frequency, image) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   db.query(
     sql,
@@ -164,6 +165,7 @@ app.post("/new-course", (req, res) => {
       timeStart,
       timeEnd,
       frequency,
+      image,
     ],
     (err, result) => {
       if (err) {

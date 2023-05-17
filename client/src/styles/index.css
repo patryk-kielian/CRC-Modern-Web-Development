@@ -145,10 +145,9 @@ header {
 }
 
 .training-logo {
-  background-image: url("../assets/img/icon1.webp");
   background-position: center;
   background-repeat: no-repeat;
-  /* background-size: cover; */
+  background-size: cover;
   width: 100%;
   height: 225px;
   border-radius: 30px;
@@ -266,7 +265,7 @@ input[type="text"]::placeholder {
 
 .dropdown select {
   width: 380px;
-  height: 36px;
+  height: 38px;
   border: 1px solid var(--lightgrey);
   border-radius: 4px;
   font-family: "Poppins";
@@ -314,11 +313,16 @@ input[type="time"]::-webkit-datetime-edit {
   left: 40px;
 }
 
-.left-content {
+.left-content,
+.right-content {
   display: flex;
   flex-direction: column;
   align-items: start;
   gap: 40px;
+}
+
+.language-options {
+  height: 36px;
 }
 
 .language label {
@@ -351,6 +355,13 @@ input[type="file"] {
   gap: 40px;
   width: 100%;
   margin-top: 40px;
+}
+
+.form-error {
+  margin-top: 30px;
+  font-size: 36px !important;
+  text-align: center;
+  color: var(--accent1);
 }
 
 /* **************************** */

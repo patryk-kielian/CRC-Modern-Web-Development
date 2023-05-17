@@ -1,0 +1,82 @@
+##############################################################################################################################################
+    Only for course purposes!
+    This document describes the process of finding and eliminating a bug. It was one of assignments for the course.
+##############################################################################################################################################
+
+Kroki wyprowadzenia:
+    1. Zalogować się jako admin
+    2. Przejść do formularza tworzenia nowego kursu (button "Create a training")
+    3. Wypełnić wszystkie pola formularza
+    4. Nacisnąć button "Create training"
+
+Stan obecny:
+    Kurs nie jest tworzony, dane nie są wysyłane, otrzymujemy wiadomość: "Missing value(s) in field(s): ".
+
+Stan oczekiwany:
+    Dane są wysyłane, kurs jest tworzony i jesteśmy przenoszeni pod adres "/user".
+
+Na czym polega błąd:
+    Błąd znajdował się w pliku CreateNewTraining.jsx
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const form = formRef.current;
+        const submitter = submitRef.current;
+
+        const formData = new FormData(form, submitter);
+        const dataToSend = {};
+        const missingFields = [];
+        for (const [key, value] of formData) {
+            if (!value) {
+                missingFields.push(key);
+            }
+            dataToSend[key] = value;
+        }
+        if (missingFields) {
+            setError(
+                `Missing value(s) in field(s): 
+                ${missingFields.join(", ")}`
+            );
+            return;
+        } else {
+            // Course image is a random icon from 4 presets
+            const randomInt = Math.floor(Math.random() * 4) + 1;
+            dataToSend.image = `icon${randomInt}.png`;
+
+            const response = await Axios.post(
+                "http://localhost:3001/new-course",
+                dataToSend
+        );
+        console.log(response);
+        navigate("/user");
+        }
+    };
+
+    Powyższy kod jest wywoływany przy naciśnięciu przycisku "Create training", pobiera on dane z formularza i wysyła je do endpointu.
+    Jeśli któreś z pól nie jest wypełnione, aplikacja zwraca o tym informację użytkownikowi i nie wysyła danych do endpointu.
+    Jednak z tą funkcjonalnością jest problem, ponieważ sprawdzenie "pustości" pól polega na sprawdzeniu czy array "missingFields" jest truthy,
+    a array-e zawsze są truthy, nawet jeśli są puste, dlatego dane nigdy nie zostaną wysłane do endpointu, a użytkownik dostaje kryptyczną wiadomość: "Missing value(s) in field(s): ".
+
+Rozwiązanie:
+    Zamiana warunku z if(missingFields) na if (missingFields.length).
+    Jeśli nie ma pustych pól, to długość missingFields wynosi 0. 0 jest wartością falsy, więc kod wewnątrz bloku if nie zostaje wykonany.
+
+    if (missingFields.length) {
+      setError(
+        `Missing value(s) in field(s): 
+        ${missingFields.join(", ")}`
+      );
+      return;
+    } else {
+            // Course image is a random icon from 4 presets
+            const randomInt = Math.floor(Math.random() * 4) + 1;
+            dataToSend.image = `icon${randomInt}.png`;
+
+            const response = await Axios.post(
+                "http://localhost:3001/new-course",
+                dataToSend
+        );
+        console.log(response);
+        navigate("/user");
+        }
+    

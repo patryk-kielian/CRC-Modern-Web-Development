@@ -1,13 +1,16 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
 function CreateNewTraining() {
   const { loggedUser } = useContext(LoggedUserContext);
+  const [error, setError] = useState(null);
   const formRef = useRef(null);
   const submitRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,15 +19,31 @@ function CreateNewTraining() {
 
     const formData = new FormData(form, submitter);
     const dataToSend = {};
+    const missingFields = [];
     for (const [key, value] of formData) {
+      if (!value) {
+        missingFields.push(key);
+      }
       dataToSend[key] = value;
     }
+    if (missingFields.length) {
+      setError(
+        `Missing value(s) in field(s): 
+        ${missingFields.join(", ")}`
+      );
+      return;
+    } else {
+      // Course image is a random icon from 4 presets
+      const randomInt = Math.floor(Math.random() * 4) + 1;
+      dataToSend.image = `icon${randomInt}.png`;
 
-    const response = await Axios.post(
-      "http://localhost:3001/new-course",
-      dataToSend
-    );
-    console.log(response);
+      const response = await Axios.post(
+        "http://localhost:3001/new-course",
+        dataToSend
+      );
+      console.log(response);
+      navigate("/user");
+    }
   };
 
   return (
@@ -52,25 +71,6 @@ function CreateNewTraining() {
                     />
                     <br />
                   </div>
-                  <div className="language">
-                    <p>Language</p>
-                    <fieldset className="language-options">
-                      <input
-                        type="radio"
-                        id="language-pl"
-                        name="language"
-                        value="Polish"
-                      />
-                      <label htmlFor="language-pl">Polish</label>
-                      <input
-                        type="radio"
-                        id="language-en"
-                        name="language"
-                        value="English"
-                      />
-                      <label htmlFor="language-en">English</label>
-                    </fieldset>
-                  </div>
                   <div>
                     <label htmlFor="location">Location</label>
                     <br />
@@ -79,28 +79,6 @@ function CreateNewTraining() {
                       id="location"
                       name="location"
                       placeholder="Type location"
-                    />
-                  </div>
-                  <div className="dropdown">
-                    <label htmlFor="level">Level</label>
-                    <br />
-                    <select id="level" name="level" placeholder="Select level">
-                      <option value="" disabled defaultValue>
-                        Select level
-                      </option>
-                      <option value="Easy">Easy</option>
-                      <option value="Easy">Intermediate</option>
-                      <option value="Easy">Advanced</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="trainer">Trainer</label>
-                    <br />
-                    <input
-                      type="text"
-                      id="trainer"
-                      name="trainer"
-                      placeholder="Type trainer's name"
                     />
                   </div>
                   <div>
@@ -115,13 +93,55 @@ function CreateNewTraining() {
                   </div>
                 </div>
                 <div className="right-content">
+                  <div className="language">
+                    <p>Language</p>
+                    <div className="language-options">
+                      <input
+                        type="radio"
+                        id="language-pl"
+                        name="language"
+                        value="Polish"
+                      />
+                      <label htmlFor="language-pl">Polish</label>
+                      <input
+                        type="radio"
+                        id="language-en"
+                        name="language"
+                        value="English"
+                      />
+                      <label htmlFor="language-en">English</label>
+                    </div>
+                  </div>
+                  <div className="dropdown">
+                    <label htmlFor="level">Level</label>
+                    <br />
+                    <select id="level" name="level" placeholder="Select level">
+                      <option value="" disabled defaultValue>
+                        Select level
+                      </option>
+                      <option value="Easy">Easy</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Advanced">Advanced</option>
+                    </select>
+                  </div>
                   <div>
+                    <label htmlFor="trainer">Trainer</label>
+                    <br />
+                    <input
+                      type="text"
+                      id="trainer"
+                      name="trainer"
+                      placeholder="Type trainer's name"
+                    />
+                  </div>
+
+                  {/* <div>
                     <label className="ghost-button upload-button">
                       <input type="file" />
                       Upload an image
                     </label>
                     <span>No file chosen</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="form-datetime">
@@ -157,9 +177,12 @@ function CreateNewTraining() {
                   value="Create training"
                   ref={submitRef}
                 />
-                <button className="ghost-button">Cancel</button>
+                <button className="ghost-button" onClick={() => navigate("/")}>
+                  Cancel
+                </button>
               </div>
             </form>
+            <h1 className="form-error">{error}</h1>
           </>
         ) : (
           <h1>You must have admin permissions to view this page</h1>

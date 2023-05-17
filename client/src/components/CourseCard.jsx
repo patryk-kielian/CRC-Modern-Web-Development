@@ -6,7 +6,11 @@ function CourseCard(props) {
 
   return (
     <div className="card" key={course.id}>
-      <div className="training-logo" src="img\icon1.webp" alt="Python Logo" />
+      <div
+        className="training-logo"
+        style={{ backgroundImage: `url(src/assets/img/${course.image})` }}
+        alt="Python Logo"
+      />
       <div className="training-content">
         <h2>{course.name}</h2>
         <div className="training-items">
