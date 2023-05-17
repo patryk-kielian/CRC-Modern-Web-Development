@@ -1,13 +1,16 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
 function CreateNewTraining() {
   const { loggedUser } = useContext(LoggedUserContext);
+  const [error, setError] = useState(null);
   const formRef = useRef(null);
   const submitRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,15 +19,27 @@ function CreateNewTraining() {
 
     const formData = new FormData(form, submitter);
     const dataToSend = {};
+    const missingFields = [];
     for (const [key, value] of formData) {
+      if (!value) {
+        missingFields.push(key);
+      }
       dataToSend[key] = value;
     }
-
-    const response = await Axios.post(
-      "http://localhost:3001/new-course",
-      dataToSend
-    );
-    console.log(response);
+    if (missingFields) {
+      setError(
+        `Missing value(s) in field(s): 
+        ${missingFields.join(", ")}`
+      );
+      return;
+    } else {
+      const response = await Axios.post(
+        "http://localhost:3001/new-course",
+        dataToSend
+      );
+      console.log(response);
+      navigate("/user");
+    }
   };
 
   return (
@@ -158,9 +173,12 @@ function CreateNewTraining() {
                   value="Create training"
                   ref={submitRef}
                 />
-                <button className="ghost-button">Cancel</button>
+                <button className="ghost-button" onClick={() => navigate("/")}>
+                  Cancel
+                </button>
               </div>
             </form>
+            <h1 className="form-error">{error}</h1>
           </>
         ) : (
           <h1>You must have admin permissions to view this page</h1>

@@ -358,6 +358,13 @@ input[type="file"] {
   margin-top: 40px;
 }
 
+.form-error {
+  margin-top: 30px;
+  font-size: 36px !important;
+  text-align: center;
+  color: var(--accent1);
+}
+
 /* **************************** */
 /* LOGIN */
 /* **************************** */
