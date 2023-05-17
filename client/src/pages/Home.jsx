@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
+import Popup from "../components/Popup";
 
 function Home() {
   const [courses, setCourses] = useState([]);
@@ -54,6 +55,7 @@ function Home() {
             ></CourseCard>
           ))}
         </div>
+        <Popup message="You are already registered to this course!" />
       </main>
     </>
   );
