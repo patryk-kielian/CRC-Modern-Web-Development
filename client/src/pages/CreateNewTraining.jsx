@@ -120,8 +120,8 @@ function CreateNewTraining() {
                         Select level
                       </option>
                       <option value="Easy">Easy</option>
-                      <option value="Easy">Intermediate</option>
-                      <option value="Easy">Advanced</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Advanced">Advanced</option>
                     </select>
                   </div>
                   <div>
