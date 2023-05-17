@@ -55,7 +55,7 @@ function Login() {
       <main id="container">
         <h1>{registerMode ? "Create an account" : "Welcome back!"}</h1>
         <form className="form-login">
-          <label htmlFor="login">Login:</label>
+          <label htmlFor="login">{registerMode ? "Username:" : "Login:"}</label>
 
           <input
             type="text"
