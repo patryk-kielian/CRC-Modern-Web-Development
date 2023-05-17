@@ -266,7 +266,7 @@ input[type="text"]::placeholder {
 
 .dropdown select {
   width: 380px;
-  height: 36px;
+  height: 38px;
   border: 1px solid var(--lightgrey);
   border-radius: 4px;
   font-family: "Poppins";
@@ -314,11 +314,16 @@ input[type="time"]::-webkit-datetime-edit {
   left: 40px;
 }
 
-.left-content {
+.left-content,
+.right-content {
   display: flex;
   flex-direction: column;
   align-items: start;
   gap: 40px;
+}
+
+.language-options {
+  height: 36px;
 }
 
 .language label {

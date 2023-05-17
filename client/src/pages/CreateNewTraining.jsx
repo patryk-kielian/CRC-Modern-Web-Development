@@ -52,9 +52,31 @@ function CreateNewTraining() {
                     />
                     <br />
                   </div>
+                  <div>
+                    <label htmlFor="location">Location</label>
+                    <br />
+                    <input
+                      type="text"
+                      id="location"
+                      name="location"
+                      placeholder="Type location"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="frequency">Frequency (e.g. 5x8h)</label>
+                    <br />
+                    <input
+                      type="text"
+                      id="frequency"
+                      name="frequency"
+                      placeholder="Type frequency"
+                    />
+                  </div>
+                </div>
+                <div className="right-content">
                   <div className="language">
                     <p>Language</p>
-                    <fieldset className="language-options">
+                    <div className="language-options">
                       <input
                         type="radio"
                         id="language-pl"
@@ -69,17 +91,7 @@ function CreateNewTraining() {
                         value="English"
                       />
                       <label htmlFor="language-en">English</label>
-                    </fieldset>
-                  </div>
-                  <div>
-                    <label htmlFor="location">Location</label>
-                    <br />
-                    <input
-                      type="text"
-                      id="location"
-                      name="location"
-                      placeholder="Type location"
-                    />
+                    </div>
                   </div>
                   <div className="dropdown">
                     <label htmlFor="level">Level</label>
@@ -103,25 +115,14 @@ function CreateNewTraining() {
                       placeholder="Type trainer's name"
                     />
                   </div>
-                  <div>
-                    <label htmlFor="frequency">Frequency (e.g. 5x8h)</label>
-                    <br />
-                    <input
-                      type="text"
-                      id="frequency"
-                      name="frequency"
-                      placeholder="Type frequency"
-                    />
-                  </div>
-                </div>
-                <div className="right-content">
-                  <div>
+
+                  {/* <div>
                     <label className="ghost-button upload-button">
                       <input type="file" />
                       Upload an image
                     </label>
                     <span>No file chosen</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="form-datetime">
