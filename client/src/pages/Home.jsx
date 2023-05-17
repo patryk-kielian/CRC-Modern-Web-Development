@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
+import Popup from "../components/Popup";
 
 function Home() {
   const [courses, setCourses] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
   const { loggedUser } = useContext(LoggedUserContext);
 
   const navigate = useNavigate();
@@ -31,8 +33,13 @@ function Home() {
         })
         .catch((error) => {
           console.log(error);
+          setShowPopup(true);
         });
     }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   return (
@@ -54,6 +61,12 @@ function Home() {
             ></CourseCard>
           ))}
         </div>
+        {showPopup && (
+          <Popup
+            message="You are already registered to this course!"
+            onClose={closePopup}
+          />
+        )}
       </main>
     </>
   );
