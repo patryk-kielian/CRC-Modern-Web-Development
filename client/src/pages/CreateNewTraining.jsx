@@ -36,6 +36,7 @@ function CreateNewTraining() {
       // Course image is a random icon from 4 presets
       const randomInt = Math.floor(Math.random() * 4) + 1;
       dataToSend.image = `icon${randomInt}.png`;
+      dataToSend.user_id = loggedUser.id;
 
       const response = await Axios.post(
         "http://localhost:3001/new-course",

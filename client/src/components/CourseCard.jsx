@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function CourseCard(props) {
-  const { course, loggedUser, handleRegister } = props;
+  const { course, loggedUser, handleMode, handleFunction } = props;
 
   return (
     <div className="card" key={course.id}>
@@ -50,11 +50,11 @@ function CourseCard(props) {
           </div>
         </div>
       </div>
-      {handleRegister &&
+      {handleMode === "register" &&
         (loggedUser ? (
           <button
             className="violet-button register-button"
-            onClick={() => handleRegister(course.id)}
+            onClick={() => handleFunction(course.id)}
           >
             Register
           </button>
@@ -63,6 +63,22 @@ function CourseCard(props) {
             <Link to="/login">Log in first to enroll</Link>
           </button>
         ))}
+      {handleMode === "deregister" && (
+        <button
+          className="violet-button register-button"
+          onClick={() => handleFunction(course.id)}
+        >
+          Leave the course
+        </button>
+      )}
+      {handleMode === "delete" && (
+        <button
+          className="violet-button register-button"
+          onClick={() => handleFunction(course.id)}
+        >
+          Delete the course
+        </button>
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
@@ -8,6 +9,8 @@ import CourseCard from "../components/CourseCard";
 function Home() {
   const [courses, setCourses] = useState([]);
   const { loggedUser } = useContext(LoggedUserContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch courses from the server
@@ -22,7 +25,13 @@ function Home() {
       Axios.post("http://localhost:3001/course-attendance", {
         course_id: courseId,
         user_id: loggedUser.id,
-      });
+      })
+        .then((response) => {
+          navigate("/user");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -40,7 +49,8 @@ function Home() {
               key={course.id}
               course={course}
               loggedUser={loggedUser}
-              handleRegister={handleRegister}
+              handleMode={"register"}
+              handleFunction={handleRegister}
             ></CourseCard>
           ))}
         </div>
