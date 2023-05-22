@@ -27,22 +27,19 @@ function CourseCard(props) {
             </span>
           </div>
           <div className="training-item">
-            <img src="/src/assets/icons/language_icon.svg" alt="UK Flag Icon" />
+            <img src="icons/language_icon.svg" alt="UK Flag Icon" />
             <span>{course.language}</span>
           </div>
           <div className="training-item">
-            <img src="/src/assets/icons/level_icon.svg" alt="Level Icon" />
+            <img src="icons/level_icon.svg" alt="Level Icon" />
             <span>{course.level}</span>
           </div>
           <div className="training-item">
-            <img
-              src="/src/assets/icons/location_icon.svg"
-              alt="Location Icon"
-            />
+            <img src="icons/location_icon.svg" alt="Location Icon" />
             <span>{course.location}</span>
           </div>
           <div className="training-item">
-            <img src="/src/assets/icons/trainer_logo.svg" alt="Trainer Icon" />
+            <img src="icons/trainer_logo.svg" alt="Trainer Icon" />
             <span>Trainer: {course.trainer}</span>
           </div>
         </div>
