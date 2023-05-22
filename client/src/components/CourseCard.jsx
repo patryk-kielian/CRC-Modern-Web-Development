@@ -21,7 +21,7 @@ function CourseCard(props) {
             </span>
           </div>
           <div className="training-item">
-            <img src="/src/assets/icons/clock_icon.svg" alt="Clock Icon" />
+            <img src="icons/clock_icon.svg" alt="Clock Icon" />
             <span>
               {course.timeStart} - {course.timeEnd} ({course.frequency})
             </span>
