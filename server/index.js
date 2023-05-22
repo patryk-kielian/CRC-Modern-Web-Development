@@ -5,16 +5,22 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+const PORT = 3001;
 const app = express();
 
+app.listen(process.env.PORT || PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://127.0.0.1:5173"],
-    methods: ["GET", "POST", "DELETE"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["http://127.0.0.1:5173"],
+//     methods: ["GET", "POST", "DELETE"],
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 
 const db = mysql.createConnection({
   user: "root",
@@ -299,5 +305,3 @@ app.delete("/course-attendance", (req, res) => {
 //     res.send("Table created!");
 //   });
 // });
-
-app.listen(3001, () => console.log("running server"));
