@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 
@@ -13,7 +14,7 @@ function User() {
 
   useEffect(() => {
     if (loggedUser) {
-      Axios.get(`http://localhost:3001/courses/${loggedUser.id}`)
+      Axios.get(`${API_URL}/courses/${loggedUser.id}`)
         .then((response) => {
           setUserCourses(response.data.courses);
         })
@@ -22,7 +23,7 @@ function User() {
         });
 
       if (loggedUser.isAdmin) {
-        Axios.get(`http://localhost:3001/courses-admin/${loggedUser.id}`)
+        Axios.get(`${API_URL}/courses-admin/${loggedUser.id}`)
           .then((response) => {
             setAdminCourses(response.data.courses);
           })
@@ -36,7 +37,7 @@ function User() {
 
   const handleDeregister = (courseId) => {
     if (loggedUser) {
-      Axios.delete("http://localhost:3001/course-attendance", {
+      Axios.delete(`${API_URL}/course-attendance`, {
         data: {
           course_id: courseId,
           user_id: loggedUser.id,
@@ -53,7 +54,7 @@ function User() {
 
   const handleDelete = (courseId) => {
     if (loggedUser.isAdmin) {
-      Axios.delete(`http://localhost:3001/delete-course/${courseId}`)
+      Axios.delete(`${API_URL}/delete-course/${courseId}`)
         .then(() => {
           setRefreshRequired(true);
         })

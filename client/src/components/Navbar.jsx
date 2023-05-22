@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import Axios from "axios";
@@ -10,11 +11,9 @@ function Navbar() {
 
   useEffect(() => {
     if (loggedUser) {
-      Axios.get(`http://localhost:3001/courses/${loggedUser.id}`).then(
-        (response) => {
-          setCourseCount(response.data.courses.length);
-        }
-      );
+      Axios.get(`${API_URL}/courses/${loggedUser.id}`).then((response) => {
+        setCourseCount(response.data.courses.length);
+      });
     }
   }, [loggedUser]);
 

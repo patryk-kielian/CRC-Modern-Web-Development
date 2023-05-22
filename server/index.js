@@ -5,21 +5,30 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+const PORT = 3001;
 const app = express();
 
+//b5cded25ef62c1:fe5df7e6@eu-cdbr-west-03.cleardb.net/heroku_659c9dae0aebfa8?reconnect=true
+
+mysql: app.listen(process.env.PORT || PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://127.0.0.1:5173"],
-    methods: ["GET", "POST", "DELETE"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["http://127.0.0.1:5173"],
+//     methods: ["GET", "POST", "DELETE"],
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 
 const db = mysql.createConnection({
-  user: "root",
-  password: "WelcomOnCRC23",
-  database: "crc_db",
+  host: "eu-cdbr-west-03.cleardb.net",
+  user: "b5cded25ef62c1",
+  password: "fe5df7e6",
+  database: "heroku_659c9dae0aebfa8",
 });
 
 app.get("/", (req, res) => {
@@ -299,5 +308,3 @@ app.delete("/course-attendance", (req, res) => {
 //     res.send("Table created!");
 //   });
 // });
-
-app.listen(3001, () => console.log("running server"));
