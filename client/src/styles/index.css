@@ -211,7 +211,7 @@ footer {
 .form-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 60px;
+  gap: 0 90px;
 }
 
 label,
@@ -318,7 +318,7 @@ input[type="time"]::-webkit-datetime-edit {
 .right-content {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   gap: 40px;
 }
 
