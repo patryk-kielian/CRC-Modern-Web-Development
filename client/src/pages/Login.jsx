@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
@@ -17,7 +18,7 @@ function Login() {
 
   const loginUser = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:3001/login", {
+    Axios.post(`${API_URL}/login`, {
       username: username,
       password: password,
     }).then((response) => {
@@ -33,7 +34,7 @@ function Login() {
 
   const registerUser = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:3001/register", {
+    Axios.post(`${API_URL}/register`, {
       username: username,
       password: password,
     }).then((response) => {

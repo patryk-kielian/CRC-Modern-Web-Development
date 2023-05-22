@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ function Home() {
 
   useEffect(() => {
     // Fetch courses from the server
-    Axios.get("http://localhost:3001/courses").then((response) => {
+    Axios.get(`${API_URL}/courses`).then((response) => {
       setCourses(response.data.courses);
     });
   }, []);
@@ -24,7 +25,7 @@ function Home() {
   const handleRegister = (courseId) => {
     if (loggedUser) {
       // Enroll the user to the course
-      Axios.post("http://localhost:3001/course-attendance", {
+      Axios.post(`${API_URL}/course-attendance`, {
         course_id: courseId,
         user_id: loggedUser.id,
       })

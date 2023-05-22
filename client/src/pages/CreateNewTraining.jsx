@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 import { useContext, useRef, useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -38,10 +39,7 @@ function CreateNewTraining() {
       dataToSend.image = `icon${randomInt}.png`;
       dataToSend.user_id = loggedUser.id;
 
-      const response = await Axios.post(
-        "http://localhost:3001/new-course",
-        dataToSend
-      );
+      const response = await Axios.post(`${API_URL}/new-course`, dataToSend);
       console.log(response);
       navigate("/user");
     }
