@@ -29,6 +29,8 @@ body {
 
 header {
   display: flex;
+  position: fixed;
+  width: calc(100vw - 640px);
   align-items: center;
   justify-content: space-between;
   background-color: var(--black);
@@ -120,7 +122,7 @@ header {
 }
 
 #container {
-  padding: 60px 110px 100px;
+  padding: 160px 110px 100px;
   margin: 0 320px;
   background-color: var(--grey);
 }
