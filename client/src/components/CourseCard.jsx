@@ -8,44 +8,38 @@ function CourseCard(props) {
     <div className="card" key={course.id}>
       <div
         className="training-logo"
-        style={{ backgroundImage: `url(src/assets/img/${course.image})` }}
+        style={{ backgroundImage: `url(img/${course.image})` }}
         alt="Python Logo"
       />
       <div className="training-content">
         <h2>{course.name}</h2>
         <div className="training-items">
           <div className="training-item">
-            <img
-              src="/src/assets/icons/calendar_icon.svg"
-              alt="Calendar Icon"
-            />
+            <img src="icons/calendar_icon.svg" alt="Calendar Icon" />
             <span>
               {course.dateStart} - {course.dateEnd}
             </span>
           </div>
           <div className="training-item">
-            <img src="/src/assets/icons/clock_icon.svg" alt="Clock Icon" />
+            <img src="icons/clock_icon.svg" alt="Clock Icon" />
             <span>
               {course.timeStart} - {course.timeEnd} ({course.frequency})
             </span>
           </div>
           <div className="training-item">
-            <img src="/src/assets/icons/language_icon.svg" alt="UK Flag Icon" />
+            <img src="icons/language_icon.svg" alt="UK Flag Icon" />
             <span>{course.language}</span>
           </div>
           <div className="training-item">
-            <img src="/src/assets/icons/level_icon.svg" alt="Level Icon" />
+            <img src="icons/level_icon.svg" alt="Level Icon" />
             <span>{course.level}</span>
           </div>
           <div className="training-item">
-            <img
-              src="/src/assets/icons/location_icon.svg"
-              alt="Location Icon"
-            />
+            <img src="icons/location_icon.svg" alt="Location Icon" />
             <span>{course.location}</span>
           </div>
           <div className="training-item">
-            <img src="/src/assets/icons/trainer_logo.svg" alt="Trainer Icon" />
+            <img src="icons/trainer_logo.svg" alt="Trainer Icon" />
             <span>Trainer: {course.trainer}</span>
           </div>
         </div>

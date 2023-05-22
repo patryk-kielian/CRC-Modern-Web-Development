@@ -26,10 +26,7 @@ function Navbar() {
     <header>
       <div id="header-left">
         <Link to="/">
-          <img
-            src="\src\assets\icons\company_icon.svg"
-            alt="Trainings App Logo"
-          />
+          <img src="icons\company_icon.svg" alt="Trainings App Logo" />
           <h1>Trainings</h1>
         </Link>
       </div>
