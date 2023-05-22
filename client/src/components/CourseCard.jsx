@@ -8,17 +8,14 @@ function CourseCard(props) {
     <div className="card" key={course.id}>
       <div
         className="training-logo"
-        style={{ backgroundImage: `url(src/assets/img/${course.image})` }}
+        style={{ backgroundImage: `url(img/${course.image})` }}
         alt="Python Logo"
       />
       <div className="training-content">
         <h2>{course.name}</h2>
         <div className="training-items">
           <div className="training-item">
-            <img
-              src="/src/assets/icons/calendar_icon.svg"
-              alt="Calendar Icon"
-            />
+            <img src="icons/calendar_icon.svg" alt="Calendar Icon" />
             <span>
               {course.dateStart} - {course.dateEnd}
             </span>
