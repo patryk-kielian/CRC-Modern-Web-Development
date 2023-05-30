@@ -8,12 +8,15 @@ const saltRounds = 10;
 const PORT = 5000;
 const app = express();
 
+require("dotenv").config();
+
 //b5cded25ef62c1:fe5df7e6@eu-cdbr-west-03.cleardb.net/heroku_659c9dae0aebfa8?reconnect=true
 
 app.listen(process.env.PORT || PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // app.use(
 //   cors({
