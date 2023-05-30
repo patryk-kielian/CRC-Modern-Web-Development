@@ -5,12 +5,12 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const PORT = 3001;
+const PORT = 5000;
 const app = express();
 
 //b5cded25ef62c1:fe5df7e6@eu-cdbr-west-03.cleardb.net/heroku_659c9dae0aebfa8?reconnect=true
 
-mysql: app.listen(process.env.PORT || PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
@@ -29,9 +29,9 @@ const db = mysql.createConnection({
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DBNAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+  // waitForConnections: true,
+  // connectionLimit: 10,
+  // queueLimit: 0,
 });
 
 app.get("/", (req, res) => {
