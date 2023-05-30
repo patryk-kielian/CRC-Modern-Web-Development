@@ -25,10 +25,13 @@ app.use(express.json());
 app.use(cors());
 
 const db = mysql.createConnection({
-  host: "eu-cdbr-west-03.cleardb.net",
-  user: "b5cded25ef62c1",
-  password: "fe5df7e6",
-  database: "heroku_659c9dae0aebfa8",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DBNAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
 
 app.get("/", (req, res) => {
