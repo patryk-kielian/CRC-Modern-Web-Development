@@ -10,7 +10,6 @@ const app = express();
 
 require("dotenv").config();
 
-//
 //b5cded25ef62c1:fe5df7e6@eu-cdbr-west-03.cleardb.net/heroku_659c9dae0aebfa8?reconnect=true
 
 app.listen(process.env.PORT || PORT, () => {
