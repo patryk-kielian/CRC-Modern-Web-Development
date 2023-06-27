@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
+import Carousel from "../components/Carousel";
 import CourseCard from "../components/CourseCard";
 
 function Home() {
@@ -82,6 +83,7 @@ function Home() {
         </div>
         <div className="homepage-section">
           <h2>What our users say</h2>
+          <Carousel />
         </div>
       </main>
     </>
