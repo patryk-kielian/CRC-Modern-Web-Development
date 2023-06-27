@@ -2,6 +2,7 @@ import { API_URL } from "../config";
 import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../styles/Home.css";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
@@ -21,31 +22,34 @@ function Home() {
       <Navbar />
       <main id="container">
         <div className="hero">
-          <h1>
-            Tutorials - for anyone
-            <br />
-            anytime
-            <br />
-            anywhere
-          </h1>
-          <h4>
-            Tutorials offers a wide selection of online courses for amateurs and
-            professionals in various disciplines
-          </h4>
-          <div>
-            <button>Start Learning Now</button>
-            <button>Browse Courses</button>
+          <div className="hero-content">
+            <h1>
+              Tutorials - for anyone
+              <br />
+              anytime
+              <br />
+              anywhere
+            </h1>
+            <h4>
+              Tutorials offers a wide selection of online courses for amateurs
+              and professionals in various disciplines
+            </h4>
+            <div className="hero-buttons">
+              <button>Start Learning Now</button>
+              <button className="ghost">Browse Courses</button>
+            </div>
           </div>
         </div>
-        <div className="homepage-section">
+        <div className="section courses">
           <h2>Explore our Tutorials</h2>
+          <Carousel />
           <button>Browse all courses</button>
         </div>
-        <div className="homepage-section">
+        <div className="section">
           <h2>Popular categories</h2>
           <div></div>
         </div>
-        <div className="homepage-section">
+        <div className="section">
           <h2>Why Tutorials?</h2>
           <div className="advantages-container">
             <div className="advantages-row">
@@ -81,7 +85,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="homepage-section">
+        <div className="section">
           <h2>What our users say</h2>
           <Carousel />
         </div>
