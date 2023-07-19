@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "../styles/Carousel.css";
 
 import CourseCardMin from "./CourseCardMin";
+import OpinionCard from "./OpinionCard";
 
-function Carousel({ courses }) {
+function Carousel({ content, contentType }) {
   const [selectedFooter, setSelectedFooter] = useState(1);
 
   const settings = {
@@ -33,9 +34,15 @@ function Carousel({ courses }) {
   return (
     <div className="container">
       <Slider {...settings}>
-        {courses.map((course) => (
-          <CourseCardMin key={course.id} course={course} />
-        ))}
+        {contentType === "courses" &&
+          content.map((course) => (
+            <CourseCardMin key={course.id} course={course} />
+          ))}
+
+        {contentType === "opinions" &&
+          content.map((opinion) => (
+            <OpinionCard key={opinion.id} opinion={opinion} />
+          ))}
         {/* <div>
           <div className="card">
             <h4>Card 1 Title</h4>

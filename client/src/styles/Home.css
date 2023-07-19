@@ -99,3 +99,45 @@ section {
   display: block;
   margin: 0 auto;
 }
+
+.advantages {
+  margin: 120px -180px 0;
+  padding: 80px 180px;
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.3) 100%
+    ),
+    url("../../public/img/home_advantages.jpeg"), lightgray;
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.advantages-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px 150px;
+  margin: 100px 0;
+}
+
+.advantages-row {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+  align-items: center;
+}
+
+.advantages-icon {
+  font-size: 3.5rem;
+  color: var(--white);
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.advantages-text {
+  font-size: 1.75rem;
+  line-height: 120%;
+  font-weight: 600;
+}
