@@ -31,30 +31,6 @@ body {
   background-image: url("../../public/img/background.png");
 }
 
-header {
-  display: flex;
-  position: fixed;
-  width: calc(100vw - 640px);
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--black);
-  padding: 0 320px;
-  height: 100px;
-}
-
-#header-left,
-#header-right {
-  display: flex;
-  align-items: center;
-}
-
-#header-left h1 {
-  display: inline-block;
-  font-size: 32px;
-  margin-left: 5px;
-  color: var(--white);
-}
-
 .violet-button {
   background: var(--accent1);
   border-radius: 30px;
@@ -87,26 +63,6 @@ header {
   background: var(--accent1dark);
   color: var(--white);
   border: 1px solid transparent;
-}
-
-.my-trainings,
-.all-trainings {
-  height: 50px;
-  width: 190px;
-  border-radius: 4px;
-  font-size: 20px;
-  background: var(--accent1dark);
-  margin-left: 8px;
-}
-
-.all-trainings {
-  margin-right: 40px;
-}
-
-.my-trainings:hover,
-.all-trainings:hover {
-  background: var(--accent2);
-  color: var(--black);
 }
 
 .counter {

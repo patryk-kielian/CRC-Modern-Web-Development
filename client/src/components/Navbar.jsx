@@ -2,6 +2,7 @@ import { API_URL } from "../config";
 import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import Axios from "axios";
+import "./Navbar.css";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
@@ -23,14 +24,17 @@ function Navbar() {
   };
 
   return (
-    <header>
-      <div id="header-left">
+    <nav>
+      <div id="navbar-left">
         <Link to="/">
-          <img src="icons\company_icon.svg" alt="Trainings App Logo" />
-          <h1>Trainings</h1>
+          <img
+            className="navbar-logo"
+            src="icons\company_icon.svg"
+            alt="Trainings App Logo"
+          />
         </Link>
       </div>
-      <div id="header-right">
+      <div id="navbar-right">
         {loggedUser ? (
           <>
             <div className="counter">
@@ -49,12 +53,17 @@ function Navbar() {
             </button>
           </>
         ) : (
-          <button className="violet-button my-trainings">
-            <Link to="/login">Log in</Link>
-          </button>
+          <>
+            <button className="violet-button my-trainings">
+              <Link to="/login">Register</Link>
+            </button>
+            <button className="violet-button my-trainings">
+              <Link to="/login">Log in</Link>
+            </button>
+          </>
         )}
       </div>
-    </header>
+    </nav>
   );
 }
 
