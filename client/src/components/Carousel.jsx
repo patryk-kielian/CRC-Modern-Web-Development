@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Slider from "react-slick";
 import "../styles/Carousel.css";
 
-function Carousel() {
+import CourseCardMin from "./CourseCardMin";
+
+function Carousel({ courses }) {
   const [selectedFooter, setSelectedFooter] = useState(1);
+  console.log(courses);
 
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    speed: 1000,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     arrows: false,
     responsive: [
       {
@@ -31,7 +34,10 @@ function Carousel() {
   return (
     <div className="container">
       <Slider {...settings}>
-        <div>
+        {courses.map((course) => (
+          <CourseCardMin key={course.id} course={course} />
+        ))}
+        {/* <div>
           <div className="card">
             <h4>Card 1 Title</h4>
             <p>
@@ -99,7 +105,7 @@ function Carousel() {
               Lorem ipsum dolor eget etat blah lorem ipsum dolor eget etat blah.
             </p>
           </div>
-        </div>
+        </div> */}
       </Slider>
     </div>
   );

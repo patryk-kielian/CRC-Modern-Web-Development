@@ -249,7 +249,7 @@
 /* ********************** CUSTOM ************************* */
 
 .slick-slider {
-  margin: 30px auto 50px;
+  margin: 30px -15px 50px;
   width: auto;
 }
 
@@ -262,28 +262,6 @@ h3 {
   margin: 10px;
   padding: 2%;
   position: relative;
-}
-
-.card {
-  /* padding: 8px; */
-  position: relative;
-  margin: 10px;
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
-  /* border-top: 6px solid #d8d8d8; */
-  transition: all 0.3s ease-in-out;
-  z-index: 1;
-}
-.card:hover {
-  /* border-top: 6px solid #0080ad; */
-  cursor: pointer;
-  transform: translateY(-6px);
-}
-.card h4 {
-  text-transform: uppercase;
-  color: #3e4042;
-}
-.card p {
-  line-height: 1.5;
 }
 
 .slick-prev {
@@ -325,7 +303,7 @@ h3 {
 
 .slick-dots li.slick-active button:before {
   content: " ";
-  background: #0080ad;
+  background: var(--accent1dark);
   opacity: 1;
   height: 5px;
   width: 50px;

@@ -4,13 +4,16 @@ h4 {
   color: var(--white);
 }
 
+#container {
+  margin: 0 180px;
+  padding: 0;
+}
+
 .hero {
-  position: absolute;
-  top: 70px;
-  left: 0;
-  width: 100svw;
-  height: min(calc(100vh - 70px), fit-content);
+  min-height: calc(100vh - 70px);
+  height: fit-content;
   max-width: 100%;
+  margin-top: 70px;
   /* background-image: url("../../public/img/home_hero.jpeg"); */
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url("../../public/img/home_hero.jpeg") lightgray 50% / cover no-repeat;
@@ -45,9 +48,9 @@ h4 {
 }
 
 button {
-  height: 60px;
+  height: 50px;
   max-width: 280px;
-  padding: 12px 24px;
+  padding: 0 24px;
   border-radius: 4px;
   border: 3px solid transparent;
   font-family: Poppins;
@@ -80,10 +83,19 @@ button.ghost:hover {
 }
 
 h2 {
-  font-size: 5rem;
+  font-size: 3rem;
   font-weight: 700;
 }
 
 .courses {
-  margin-top: 100svh;
+  margin-top: 80px;
+}
+
+.courses-container {
+  height: 440px;
+}
+
+.centered {
+  display: block;
+  margin: 0 auto;
 }

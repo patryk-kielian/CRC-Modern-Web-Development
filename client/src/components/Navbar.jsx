@@ -2,7 +2,7 @@ import { API_URL } from "../config";
 import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import Axios from "axios";
-import "./Navbar.css";
+import "../styles/Navbar.css";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 

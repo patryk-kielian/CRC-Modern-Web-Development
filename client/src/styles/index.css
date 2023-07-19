@@ -28,7 +28,6 @@ html {
 body {
   font-family: "Poppins", Montserrat, Roboto, sans-serif;
   margin: 0;
-  background-image: url("../../public/img/background.png");
 }
 
 .violet-button {
