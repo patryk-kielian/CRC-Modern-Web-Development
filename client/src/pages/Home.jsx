@@ -8,6 +8,7 @@ import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
 import Carousel from "../components/Carousel";
 import CourseCard from "../components/CourseCard";
+import PopularCategories from "../components/PopularCategories";
 
 function Home() {
   const [courses, setCourses] = useState([]);
@@ -17,7 +18,6 @@ function Home() {
       setCourses(response.data.courses);
     });
   }, []);
-  console.log(courses);
   return (
     <>
       <Navbar />
@@ -51,9 +51,9 @@ function Home() {
               <button className="ghost centered">Browse all courses</button>
             </Link>
           </section>
-          <section>
+          <section className="categories">
             <h2>Popular categories</h2>
-            <div></div>
+            <PopularCategories />
           </section>
           <section>
             <h2>Why Tutorials?</h2>

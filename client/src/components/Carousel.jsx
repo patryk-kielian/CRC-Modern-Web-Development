@@ -6,7 +6,6 @@ import CourseCardMin from "./CourseCardMin";
 
 function Carousel({ courses }) {
   const [selectedFooter, setSelectedFooter] = useState(1);
-  console.log(courses);
 
   const settings = {
     dots: true,
