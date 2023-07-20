@@ -253,7 +253,7 @@
   width: auto;
 }
 
-h3 {
+/* h3 {
   background: #00558b;
   color: #fff;
   line-height: 100px;
@@ -262,7 +262,7 @@ h3 {
   margin: 10px;
   padding: 2%;
   position: relative;
-}
+} */
 
 .slick-prev {
   background: black;

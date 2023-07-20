@@ -14,7 +14,6 @@ export default function CourseCardMin(props) {
             backgroundPosition: "center",
             backgroundSize: "cover",
           }}
-          alt="Python Logo"
         />
         <div className="card-min-content">
           <h4>{course.name}</h4>

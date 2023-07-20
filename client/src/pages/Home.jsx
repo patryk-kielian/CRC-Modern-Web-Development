@@ -10,7 +10,6 @@ import Carousel from "../components/Carousel";
 import CourseCard from "../components/CourseCard";
 import PopularCategories from "../components/PopularCategories";
 
-// placeholder - to be replaced with database driven solution
 const opinions = [
   {
     id: 0,
@@ -134,6 +133,27 @@ function Home() {
             {opinions.length > 0 && (
               <Carousel contentType={"opinions"} content={opinions} />
             )}
+          </section>
+          <section className="cta">
+            <div
+              className="cta-img"
+              style={{
+                backgroundImage: `url(img/home_cta.jpeg), linear-gradient(lightgray, lightgray)`,
+              }}
+            ></div>
+            <div className="cta-container">
+              <h2>First time at tutorials?</h2>
+              <h3>
+                You are lucky!
+                <br /> Create an account for free and start learning now!
+              </h3>
+              <div className="cta-buttons">
+                <button className="violet">Create an account</button>
+                <button className="ghost">
+                  Already have an account? Sign in{" "}
+                </button>
+              </div>
+            </div>
           </section>
         </div>
       </main>
