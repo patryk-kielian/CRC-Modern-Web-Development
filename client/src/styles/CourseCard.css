@@ -1,0 +1,86 @@
+.card {
+  height: 290px;
+  max-width: 500px;
+  border-radius: 40px;
+  padding: 15px;
+  background: var(--white);
+}
+
+.card-top {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.card-bottom {
+  margin-top: 15px;
+}
+
+.card-logo {
+  width: 300px;
+  height: 225px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 30px;
+}
+
+.card-content {
+  height: 225px;
+  margin-left: 15px;
+  width: fit-content;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content h4 {
+  max-width: 220px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 120%;
+  flex-grow: 1;
+  word-break: break-word;
+  text-align: left;
+  overflow: hidden;
+  color: var(--black);
+}
+
+.card-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* .card-item img {
+  margin-right: 12px;
+} */
+
+.card-item-icon {
+  font-size: 1.25rem;
+  margin-right: 12px;
+}
+
+.card-item-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.card-content p {
+  height: 24px;
+}
+
+.card-star {
+  font-size: 1.5rem;
+}
+
+.card-bottom p {
+  padding: 0 20px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.card-star.filled {
+  font-variation-settings: "FILL" 1;
+}

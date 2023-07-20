@@ -1,0 +1,32 @@
+#container {
+  margin: 170px 180px;
+  background-color: var(--grey);
+}
+
+.category-container {
+  margin-bottom: 30px;
+}
+
+.category-container h2 {
+  font-size: 2.25rem;
+  margin-bottom: -20px;
+}
+
+.slick-slider {
+  margin: 30px -120px 50px 0;
+  width: auto;
+}
+
+.category-button-container {
+  width: fit-content;
+  margin: 60px auto 0;
+  transform: translateX(60px);
+}
+
+button.category-button {
+  height: 40px;
+  width: 500px;
+  max-width: unset;
+  font-size: 1.25rem;
+  border: 2px solid var(--white);
+}

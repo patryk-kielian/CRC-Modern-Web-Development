@@ -3,11 +3,11 @@ nav {
   display: flex;
   position: fixed;
   top: 0;
-  width: calc(100vw - 640px);
+  width: calc(100vw - 360px);
   align-items: center;
   justify-content: space-between;
   background-color: var(--black);
-  padding: 0 320px;
+  padding: 0 180px;
   height: 70px;
 }
 

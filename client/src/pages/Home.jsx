@@ -71,7 +71,9 @@ function Home() {
             </h4>
             <div className="hero-buttons">
               <button>Start Learning Now</button>
-              <button className="ghost">Browse Courses</button>
+              <Link to="/courses">
+                <button className="ghost">Browse Courses</button>
+              </Link>
             </div>
           </div>
         </div>
