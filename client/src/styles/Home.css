@@ -95,8 +95,8 @@ section {
   height: 440px;
 }
 
-.centered {
-  display: block;
+.courses-button-container {
+  width: fit-content;
   margin: 0 auto;
 }
 
@@ -196,9 +196,10 @@ section {
 .cta-buttons button.ghost {
   color: var(--black);
   border-color: var(--black);
+  border: 2px solid var(--black);
 }
 .cta-buttons button.ghost:hover {
   background: var(--accent1dark);
   color: var(--white);
-  border: 3px solid transparent;
+  border: 2px solid transparent;
 }

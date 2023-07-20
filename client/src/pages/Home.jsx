@@ -83,9 +83,11 @@ function Home() {
                 <Carousel contentType={"courses"} content={courses} />
               )}
             </div>
-            <Link to="/courses">
-              <button className="ghost centered">Browse all courses</button>
-            </Link>
+            <div className="courses-button-container">
+              <Link to="/courses">
+                <button className="ghost">Browse all courses</button>
+              </Link>
+            </div>
           </section>
           <section className="categories">
             <h2>Popular categories</h2>
