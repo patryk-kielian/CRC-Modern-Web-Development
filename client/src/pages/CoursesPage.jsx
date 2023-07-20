@@ -7,6 +7,7 @@ import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
 import Popup from "../components/Popup";
+import Footer from "../components/Footer";
 
 function CoursesPage() {
   const [courses, setCourses] = useState([]);
@@ -69,6 +70,7 @@ function CoursesPage() {
           />
         )}
       </main>
+      <Footer />
     </>
   );
 }

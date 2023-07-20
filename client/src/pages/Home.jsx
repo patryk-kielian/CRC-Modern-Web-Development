@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 import Carousel from "../components/Carousel";
 import CourseCard from "../components/CourseCard";
 import PopularCategories from "../components/PopularCategories";
+import Footer from "../components/Footer";
 
 const opinions = [
   {
@@ -157,6 +158,7 @@ function Home() {
           </section>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

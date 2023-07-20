@@ -5,6 +5,7 @@ import Axios from "axios";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
+import Footer from "../components/Footer";
 
 function User() {
   const [userCourses, setUserCourses] = useState([]);
@@ -99,6 +100,7 @@ function User() {
           <h1>This page is only for logged in users</h1>
         )}
       </main>
+      <Footer />
     </>
   );
 }

@@ -5,6 +5,7 @@ import Axios from "axios";
 
 import Navbar from "../components/Navbar";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
+import Footer from "../components/Footer";
 
 function Login() {
   const [registerMode, setRegisterMode] = useState(false);
@@ -106,6 +107,7 @@ function Login() {
         </form>
         <h1 className="form-status">{loginStatus}</h1>
       </main>
+      <Footer />
     </>
   );
 }
