@@ -136,6 +136,23 @@ app.get("/courses", (req, res) => {
   });
 });
 
+app.get("/course/:courseId", (req, res) => {
+  const courseId = req.params.courseId;
+  console.log(courseId);
+  db.query(
+    "SELECT * FROM courses WHERE courses.id = ?",
+    courseId,
+    (err, result) => {
+      if (err) {
+        console.log("Error executing the MySQL query: " + err.message);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.send({ course: result });
+      }
+    }
+  );
+});
+
 app.get("/courses/:userId", (req, res) => {
   const userId = req.params.userId;
   db.query(

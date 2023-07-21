@@ -1,6 +1,6 @@
+import Axios from "axios";
 import { API_URL } from "../config";
 import { useState, useEffect, useContext } from "react";
-import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
