@@ -3,9 +3,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
-import Navbar from "../components/Navbar";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
-import Footer from "../components/Footer";
 
 function Login() {
   const [registerMode, setRegisterMode] = useState(false);
@@ -53,7 +51,6 @@ function Login() {
 
   return (
     <>
-      <Navbar />
       <main id="container">
         <h1>{registerMode ? "Create an account" : "Welcome back!"}</h1>
         <form className="form-login">
@@ -107,7 +104,6 @@ function Login() {
         </form>
         <h1 className="form-status">{loginStatus}</h1>
       </main>
-      <Footer />
     </>
   );
 }

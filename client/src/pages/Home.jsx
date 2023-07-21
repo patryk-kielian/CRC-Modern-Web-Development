@@ -1,15 +1,11 @@
 import { API_URL } from "../config";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/Home.css";
 
-import { LoggedUserContext } from "../contexts/LoggedUserContext";
-import Navbar from "../components/Navbar";
 import Carousel from "../components/Carousel";
-import CourseCard from "../components/CourseCard";
 import PopularCategories from "../components/PopularCategories";
-import Footer from "../components/Footer";
 
 const opinions = [
   {
@@ -54,7 +50,6 @@ function Home() {
   }, []);
   return (
     <>
-      <Navbar />
       <main>
         <div className="hero">
           <div className="hero-content">
@@ -162,7 +157,6 @@ function Home() {
           </section>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

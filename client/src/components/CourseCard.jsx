@@ -14,7 +14,7 @@ function CourseCard(props) {
   }
 
   return (
-    <Link to={`/${course.name}`}>
+    <Link to={`/courses/${course.id}`}>
       <div className="card" key={course.id}>
         <div className="card-top">
           <div

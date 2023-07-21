@@ -1,0 +1,40 @@
+.popup-background {
+  z-index: 200;
+  background-color: var(--white50);
+  width: 100vw;
+  height: 100dvh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  transition: all 300ms ease-in-out;
+}
+
+.popup-body {
+  max-width: 20vw;
+  min-height: 150px;
+  padding: 40px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  border: 5px solid var(--accent1dark);
+  border-radius: 40px;
+  background-color: var(--white);
+}
+
+.popup-message {
+  font-size: 1.75rem;
+  text-align: center;
+  /* color: var(--accent1dark); */
+}
+
+.popup-button {
+  height: 40px;
+  width: 300px;
+  color: var(--white);
+  background-color: var(--accent1);
+}

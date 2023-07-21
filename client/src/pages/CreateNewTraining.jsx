@@ -3,8 +3,6 @@ import { useContext, useRef, useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
 function CreateNewTraining() {
@@ -48,7 +46,6 @@ function CreateNewTraining() {
 
   return (
     <>
-      <Navbar />
       <main id="container">
         {loggedUser && loggedUser.isAdmin ? (
           <>
@@ -188,7 +185,6 @@ function CreateNewTraining() {
           <h1>You must have admin permissions to view this page</h1>
         )}
       </main>
-      <Footer />
     </>
   );
 }

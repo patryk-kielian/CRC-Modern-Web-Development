@@ -29,7 +29,7 @@ function Navbar() {
         <Link to="/">
           <img
             className="navbar-logo"
-            src="icons\company_icon.svg"
+            src="/icons/company_icon.svg"
             alt="Trainings App Logo"
           />
         </Link>

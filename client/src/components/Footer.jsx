@@ -8,7 +8,7 @@ export default function Footer() {
         <Link to="/">
           <img
             className="footer-logo"
-            src="icons\company_icon.svg"
+            src="/icons/company_icon.svg"
             alt="Trainings App Logo"
           />
         </Link>

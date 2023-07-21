@@ -58,7 +58,7 @@ app.post("/login", (req, res) => {
       res.send({ err: err });
     }
 
-    if (result.length > 0) {
+    if (result && result.length > 0) {
       bcrypt.compare(password, result[0].password, (error, response) => {
         // if (result[0].password === password) {
         //   console.log(result);
@@ -138,7 +138,6 @@ app.get("/courses", (req, res) => {
 
 app.get("/course/:courseId", (req, res) => {
   const courseId = req.params.courseId;
-  console.log(courseId);
   db.query(
     "SELECT * FROM courses WHERE courses.id = ?",
     courseId,
@@ -148,6 +147,42 @@ app.get("/course/:courseId", (req, res) => {
         res.status(500).send("Internal Server Error");
       } else {
         res.send({ course: result });
+      }
+    }
+  );
+});
+
+app.get("/creator/:courseId", (req, res) => {
+  const courseId = req.params.courseId;
+  db.query(
+    `SELECT creators.name, creators.description, creators.imageURL
+    FROM course_creation
+    JOIN creators ON course_creation.creator_id = creators.id
+    WHERE course_creation.course_id = ?;
+    `,
+    courseId,
+    (err, result) => {
+      if (err) {
+        console.log("Error executing the MySQL query: " + err.message);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.send({ creator: result });
+      }
+    }
+  );
+});
+
+app.get("/opinions/:courseId", (req, res) => {
+  const courseId = req.params.courseId;
+  db.query(
+    "SELECT * FROM course_opinions WHERE course_id = ?",
+    courseId,
+    (err, result) => {
+      if (err) {
+        console.log("Error executing the MySQL query: " + err.message);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.send({ opinions: result });
       }
     }
   );

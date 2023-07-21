@@ -1,17 +1,12 @@
 import Axios from "axios";
 import { API_URL } from "../config";
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import "../styles/CoursesPage.css";
 import "../styles/Carousel.css";
 
-import { LoggedUserContext } from "../contexts/LoggedUserContext";
-import Navbar from "../components/Navbar";
 import CourseCard from "../components/CourseCard";
-import Popup from "../components/Popup";
-import Footer from "../components/Footer";
 
 function CarouselCoursesPage({ content }) {
   const [selectedFooter, setSelectedFooter] = useState(1);
@@ -51,10 +46,6 @@ function CarouselCoursesPage({ content }) {
 
 function CoursesPage() {
   const [courses, setCourses] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
-  const { loggedUser } = useContext(LoggedUserContext);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch courses from the server
@@ -74,30 +65,8 @@ function CoursesPage() {
     return acc;
   }, {});
 
-  const handleRegister = (courseId) => {
-    if (loggedUser) {
-      // Enroll the user to the course
-      Axios.post(`${API_URL}/course-attendance`, {
-        course_id: courseId,
-        user_id: loggedUser.id,
-      })
-        .then((response) => {
-          navigate("/user");
-        })
-        .catch((error) => {
-          console.log(error);
-          setShowPopup(true);
-        });
-    }
-  };
-
-  const closePopup = () => {
-    setShowPopup(false);
-  };
-
   return (
     <>
-      <Navbar />
       <main id="container">
         {Object.keys(groupedCourses).length !== 0 && (
           <>
@@ -123,7 +92,6 @@ function CoursesPage() {
           />
         )} */}
       </main>
-      <Footer />
     </>
   );
 }

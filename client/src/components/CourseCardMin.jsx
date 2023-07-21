@@ -5,7 +5,7 @@ import "../styles/CourseCardMin.css";
 export default function CourseCardMin(props) {
   const { course } = props;
   return (
-    <Link to={`/${course.id}`}>
+    <Link to={`/courses/${course.id}`}>
       <div className="card-min" key={course.id}>
         <div
           className="card-min-logo"
