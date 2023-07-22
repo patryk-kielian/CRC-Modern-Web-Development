@@ -45,7 +45,7 @@ function Navbar() {
             </button>
             {loggedUser.isAdmin && (
               <button className="violet-button my-trainings">
-                <Link to="/create-new-training">Create a training</Link>
+                <Link to="/create-new-tutorial">Create a new tutorial</Link>
               </button>
             )}
             <button className="violet-button my-trainings" onClick={logout}>

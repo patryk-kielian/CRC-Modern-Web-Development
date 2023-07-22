@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
-function CreateNewTraining() {
+function CreateNewTutorial() {
   const { loggedUser } = useContext(LoggedUserContext);
   const [error, setError] = useState(null);
   const formRef = useRef(null);
@@ -188,4 +188,4 @@ function CreateNewTraining() {
     </>
   );
 }
-export default CreateNewTraining;
+export default CreateNewTutorial;

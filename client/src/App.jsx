@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Home from "./pages/Home";
 import CoursesPage from "./pages/CoursesPage";
-import CreateNewTraining from "./pages/CreateNewTraining";
+import CreateNewTutorial from "./pages/CreateNewTutorial";
 import Login from "./pages/Login";
 import User from "./pages/User";
 import Course from "./pages/Course";
@@ -32,8 +32,8 @@ function App() {
             <Route path="/courses/:courseId" element={<Course />} />
             <Route path="/user" element={<User />} />
             <Route
-              path="/create-new-training"
-              element={<CreateNewTraining />}
+              path="/create-new-tutorial"
+              element={<CreateNewTutorial />}
             />
             <Route path="/login" element={<Login />} />
           </Routes>
