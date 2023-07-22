@@ -38,6 +38,18 @@ function CreateNewTutorial() {
       dataToSend.image = `icon${randomInt}.png`;
       dataToSend.user_id = loggedUser.id;
 
+      // TODO: remove when no longer required in DB
+      dataToSend.location = "placeholder";
+      dataToSend.dateStart = "placeholder";
+      dataToSend.dateEnd = "placeholder";
+      dataToSend.timeStart = "placeholder";
+      dataToSend.timeEnd = "placeholder";
+      dataToSend.frequency = "placeholder";
+      //
+
+      // TODO: should be coming from the DB
+      dataToSend.trainer = "placeholder";
+      console.log(dataToSend);
       const response = await Axios.post(`${API_URL}/new-course`, dataToSend);
       console.log(response);
       navigate("/user");
@@ -68,28 +80,6 @@ function CreateNewTutorial() {
                     />
                     <br />
                   </div>
-                  <div>
-                    <label htmlFor="location">Location</label>
-                    <br />
-                    <input
-                      type="text"
-                      id="location"
-                      name="location"
-                      placeholder="Type location"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="frequency">Frequency (e.g. 5x8h)</label>
-                    <br />
-                    <input
-                      type="text"
-                      id="frequency"
-                      name="frequency"
-                      placeholder="Type frequency"
-                    />
-                  </div>
-                </div>
-                <div className="right-content">
                   <div className="language">
                     <p>Language</p>
                     <div className="language-options">
@@ -116,55 +106,89 @@ function CreateNewTutorial() {
                       <option value="" disabled defaultValue>
                         Select level
                       </option>
-                      <option value="Easy">Easy</option>
+                      <option value="Beginner">Beginner</option>
                       <option value="Intermediate">Intermediate</option>
                       <option value="Advanced">Advanced</option>
                     </select>
                   </div>
-                  <div>
-                    <label htmlFor="trainer">Trainer</label>
+                  <div className="dropdown">
+                    <label htmlFor="category">Category</label>
                     <br />
-                    <input
-                      type="text"
-                      id="trainer"
-                      name="trainer"
-                      placeholder="Type trainer's name"
-                    />
+                    <select
+                      id="category"
+                      name="category"
+                      placeholder="Select category"
+                    >
+                      <option value="" disabled defaultValue>
+                        Select category
+                      </option>
+                      <option value="Programming">Programming</option>
+                      <option value="IT & Software">IT & Software</option>
+                      <option value="Photography">Photography</option>
+                      <option value="School">School</option>
+                      <option value="Business">Business</option>
+                      <option value="Music">Music</option>
+                      <option value="Personal Development">
+                        Personal Development
+                      </option>
+                      <option value="Languages">Languages</option>
+                    </select>
                   </div>
-
-                  {/* <div>
+                  <div>
+                    <label htmlFor="descriptionShort">Description short</label>
+                    <br />
+                    <textarea
+                      id="descriptionShort"
+                      name="descriptionShort"
+                      placeholder="Type a short description of the course (max. 250 characters)"
+                    />
+                    <br />
+                    <p>0/250</p>
+                  </div>
+                  <div>
+                    <label htmlFor="descriptionPoints">Description short</label>
+                    <br />
+                    <textarea
+                      id="descriptionPoints"
+                      name="descriptionPoints"
+                      placeholder="Type what the user will learn, in points (max. 800 characters)"
+                    />
+                    <br />
+                    <p>0/800</p>
+                  </div>
+                </div>
+                <div className="right-content">
+                  <div>
                     <label className="ghost-button upload-button">
                       <input type="file" />
                       Upload an image
                     </label>
                     <span>No file chosen</span>
-                  </div> */}
+                  </div>
+                  <div>
+                    <label htmlFor="descriptionLong">Description short</label>
+                    <br />
+                    <textarea
+                      id="descriptionLong"
+                      name="descriptionLong"
+                      placeholder="Write a full description of the course, mention the content, who is it for, what will be done, how long will it take and what should be the outcome (max. 2000 characters)"
+                    />
+                    <br />
+                    <p>0/2000</p>
+                  </div>
                 </div>
               </div>
-              <div className="form-datetime">
-                <div className="two-inputs">
-                  <div>
-                    <label htmlFor="dateStart">Start Date</label>
-                    <br />
-                    <input type="date" id="dateStart" name="dateStart" />
-                  </div>
-                  <div>
-                    <label htmlFor="dateEnd">End Date</label>
-                    <br />
-                    <input type="date" id="dateEnd" name="dateEnd" />
-                  </div>
-                </div>
-                <div className="two-inputs">
-                  <div>
-                    <label htmlFor="timeStart">Start Time</label>
-                    <br />
-                    <input type="time" id="timeStart" name="timeStart" />
-                  </div>
-                  <div>
-                    <label htmlFor="timeEnd">End Time</label>
-                    <br />
-                    <input type="time" id="timeEnd" name="timeEnd" />
-                  </div>
+              <div className="form-full-width">
+                <div>
+                  <label htmlFor="demoURL">Demo URL</label>
+                  <br />
+                  <input
+                    type="text"
+                    id="demoURL"
+                    name="demoURL"
+                    placeholder="Paste the address (URL) of the YouTube video that should be the demo of the course"
+                  />
+                  <br />
                 </div>
               </div>
               <div className="form-buttons">

@@ -28,7 +28,7 @@ app.use(express.json());
 // );
 app.use(cors());
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
@@ -223,20 +223,28 @@ app.get("/courses-admin/:userId", (req, res) => {
 app.post("/new-course", (req, res) => {
   const name = req.body.name;
   const language = req.body.language;
-  const location = req.body.location;
   const level = req.body.level;
-  const trainer = req.body.trainer;
+  const image = req.body.image;
+  const category = req.body.category;
+  const descriptionShort = req.body.descriptionShort;
+  const descriptionPoints = req.body.descriptionPoints;
+  const descriptionLong = req.body.descriptionLong;
+  const demoURL = req.body.demoURL;
+
+  // TODO: to be removed after redeployment and DB changes
+  const location = req.body.location;
+  const frequency = req.body.frequency;
   const dateStart = req.body.dateStart;
   const dateEnd = req.body.dateEnd;
   const timeStart = req.body.timeStart;
   const timeEnd = req.body.timeEnd;
-  const frequency = req.body.frequency;
-  const image = req.body.image;
 
+  const trainer = req.body.trainer;
+  //
   const user_id = req.body.user_id;
 
-  const sql = `INSERT INTO courses (name, language, location, level, trainer, dateStart, dateEnd, timeStart, timeEnd, frequency, image) 
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO courses (name, language, location, level, trainer, dateStart, dateEnd, timeStart, timeEnd, frequency, image, category,descriptionShort, descriptionPoints, descriptionLong, demoURL ) 
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   db.query(
     sql,
@@ -252,6 +260,11 @@ app.post("/new-course", (req, res) => {
       timeEnd,
       frequency,
       image,
+      category,
+      descriptionShort,
+      descriptionPoints,
+      descriptionLong,
+      demoURL,
     ],
     (err, result) => {
       if (err) {
