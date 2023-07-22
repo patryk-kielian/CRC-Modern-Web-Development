@@ -5,9 +5,49 @@ import { useNavigate } from "react-router-dom";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
+function LessonForm({ lesson, updateLesson }) {
+  const { lessonNr, title, videoURL } = lesson;
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    updateLesson(lesson.lessonNr, { ...lesson, [name]: value });
+  };
+
+  // TODO: make delete button functional
+
+  return (
+    <div className="form-lesson">
+      <h6>Lesson {lessonNr}</h6>
+      <div className="form-lesson-inputs">
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Title of the lesson"
+          value={title}
+          onChange={handleInputChange}
+        />
+        <input
+          type="text"
+          id="videoURL"
+          name="videoURL"
+          placeholder="URL of the YouTube video"
+          value={videoURL}
+          onChange={handleInputChange}
+        />
+
+        <button>Delete</button>
+      </div>
+    </div>
+  );
+}
+
 function CreateNewTutorial() {
   const { loggedUser } = useContext(LoggedUserContext);
   const [error, setError] = useState(null);
+  const [lessons, setLessons] = useState([
+    { lessonNr: 1, title: "", videoURL: "" },
+  ]);
   const formRef = useRef(null);
   const submitRef = useRef(null);
   const navigate = useNavigate();
@@ -20,6 +60,7 @@ function CreateNewTutorial() {
     const formData = new FormData(form, submitter);
     const dataToSend = {};
     const missingFields = [];
+
     for (const [key, value] of formData) {
       if (!value) {
         missingFields.push(key);
@@ -54,6 +95,21 @@ function CreateNewTutorial() {
       console.log(response);
       navigate("/user");
     }
+  };
+
+  const addLesson = () => {
+    setLessons((prevLessons) => [
+      ...prevLessons,
+      { lessonNr: prevLessons.length + 1, title: "", videoURL: "" },
+    ]);
+  };
+
+  const updateLesson = (lessonNr, updatedLesson) => {
+    setLessons((prevLessons) =>
+      prevLessons.map((lesson) =>
+        lesson.lessonNr === lessonNr ? updatedLesson : lesson
+      )
+    );
   };
 
   return (
@@ -190,6 +246,16 @@ function CreateNewTutorial() {
                   />
                   <br />
                 </div>
+              </div>
+              <div>
+                {lessons.map((lesson) => (
+                  <LessonForm
+                    key={lesson.lessonNr}
+                    lesson={lesson}
+                    updateLesson={updateLesson}
+                  />
+                ))}
+                <button onClick={addLesson}>Add another lesson</button>
               </div>
               <div className="form-buttons">
                 <input
