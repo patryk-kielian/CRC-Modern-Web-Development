@@ -5,12 +5,16 @@ import { useNavigate } from "react-router-dom";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
-function LessonForm({ lesson, updateLesson }) {
+function LessonForm({ lesson, updateLesson, deleteLesson }) {
   const { lessonNr, title, videoURL } = lesson;
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     updateLesson(lesson.lessonNr, { ...lesson, [name]: value });
+  };
+
+  const handleDelete = () => {
+    deleteLesson(lessonNr);
   };
 
   // TODO: make delete button functional
@@ -36,7 +40,7 @@ function LessonForm({ lesson, updateLesson }) {
           onChange={handleInputChange}
         />
 
-        <button>Delete</button>
+        <button onClick={handleDelete}>Delete</button>
       </div>
     </div>
   );
@@ -48,6 +52,11 @@ function CreateNewTutorial() {
   const [lessons, setLessons] = useState([
     { lessonNr: 1, title: "", videoURL: "" },
   ]);
+
+  const [descShortChars, setDescShortChars] = useState(0);
+  const [descPointsChars, setDescPointsChars] = useState(0);
+  const [descLongChars, setDescLongChars] = useState(0);
+
   const formRef = useRef(null);
   const submitRef = useRef(null);
   const navigate = useNavigate();
@@ -110,6 +119,32 @@ function CreateNewTutorial() {
         lesson.lessonNr === lessonNr ? updatedLesson : lesson
       )
     );
+  };
+
+  const deleteLesson = (lessonNr) => {
+    console.log(lessonNr);
+    setLessons((prevLessons) =>
+      prevLessons.filter((lesson) => lesson.lessonNr !== lessonNr)
+    );
+
+    // Update the numbers so they stay in order
+    setLessons((prevLessons) =>
+      prevLessons.map((lesson, i) => ({ ...lesson, lessonNr: i + 1 }))
+    );
+  };
+
+  const updateChars = (count, fieldType) => {
+    switch (fieldType) {
+      case "descShort":
+        setDescShortChars(count);
+        break;
+      case "descPoints":
+        setDescPointsChars(count);
+        break;
+      case "descLong":
+        setDescLongChars(count);
+        break;
+    }
   };
 
   return (
@@ -197,20 +232,28 @@ function CreateNewTutorial() {
                       id="descriptionShort"
                       name="descriptionShort"
                       placeholder="Type a short description of the course (max. 250 characters)"
+                      onChange={(e) =>
+                        updateChars(e.target.value.length, "descShort")
+                      }
                     />
                     <br />
-                    <p>0/250</p>
+                    <p>{descShortChars}/250</p>
                   </div>
                   <div>
-                    <label htmlFor="descriptionPoints">Description short</label>
+                    <label htmlFor="descriptionPoints">
+                      Description points
+                    </label>
                     <br />
                     <textarea
                       id="descriptionPoints"
                       name="descriptionPoints"
                       placeholder="Type what the user will learn, in points (max. 800 characters)"
+                      onChange={(e) =>
+                        updateChars(e.target.value.length, "descPoints")
+                      }
                     />
                     <br />
-                    <p>0/800</p>
+                    <p>{descPointsChars}/800</p>
                   </div>
                 </div>
                 <div className="right-content">
@@ -228,9 +271,12 @@ function CreateNewTutorial() {
                       id="descriptionLong"
                       name="descriptionLong"
                       placeholder="Write a full description of the course, mention the content, who is it for, what will be done, how long will it take and what should be the outcome (max. 2000 characters)"
+                      onChange={(e) =>
+                        updateChars(e.target.value.length, "descLong")
+                      }
                     />
                     <br />
-                    <p>0/2000</p>
+                    <p>{descLongChars}/2000</p>
                   </div>
                 </div>
               </div>
@@ -253,6 +299,7 @@ function CreateNewTutorial() {
                     key={lesson.lessonNr}
                     lesson={lesson}
                     updateLesson={updateLesson}
+                    deleteLesson={deleteLesson}
                   />
                 ))}
                 <button onClick={addLesson}>Add another lesson</button>
