@@ -299,21 +299,39 @@ app.post("/new-course", (req, res) => {
           return res.status(500).send("Error saving lessons to database");
         }
 
-        const courseCreationSql = `INSERT INTO course_creation (user_id, course_id)
-                                    VALUES (?, ?)`;
-
-        db.query(
-          courseCreationSql,
-          [user_id, course_id], // Assuming you have the user ID available in req.userId
-          (err) => {
-            if (err) {
-              console.error(err);
-              return res.status(500).send("Error saving data to database");
-            }
-
-            return res.status(200).send("Course added successfully!");
+        const getCreatorIdSql = `SELECT id FROM creators WHERE user_id = ?`;
+        db.query(getCreatorIdSql, [user_id], (err, creatorResult) => {
+          if (err) {
+            console.error(err);
+            return res
+              .status(500)
+              .send("Error fetching creator data from database");
           }
-        );
+
+          if (creatorResult.length === 0) {
+            // Handle the case when the creator is not found for the given user_id
+            return res
+              .status(404)
+              .send("Creator not found for the given user_id");
+          }
+
+          const creator_id = creatorResult[0].id;
+
+          const courseCreationSql = `INSERT INTO course_creation (user_id, course_id, creator_id)
+                                    VALUES (?, ?, ?)`;
+          db.query(
+            courseCreationSql,
+            [user_id, course_id, creator_id],
+            (err) => {
+              if (err) {
+                console.error(err);
+                return res.status(500).send("Error saving data to database");
+              }
+
+              return res.status(200).send("Course added successfully!");
+            }
+          );
+        });
       });
     }
   );
