@@ -2,6 +2,7 @@ import { API_URL } from "../config";
 import { useContext, useRef, useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../styles/CreateNewTutorial.css";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
@@ -40,7 +41,9 @@ function LessonForm({ lesson, updateLesson, deleteLesson }) {
           onChange={handleInputChange}
         />
 
-        <button onClick={handleDelete}>Delete</button>
+        <button className="ghost-black" onClick={handleDelete}>
+          Delete
+        </button>
       </div>
     </div>
   );
@@ -52,6 +55,7 @@ function CreateNewTutorial() {
   const [lessons, setLessons] = useState([
     { lessonNr: 1, title: "", videoURL: "" },
   ]);
+  console.log(lessons);
 
   const [descShortChars, setDescShortChars] = useState(0);
   const [descPointsChars, setDescPointsChars] = useState(0);
@@ -74,8 +78,14 @@ function CreateNewTutorial() {
       if (!value) {
         missingFields.push(key);
       }
+
+      if (key === "title" || key === "videoURL") {
+        continue;
+      }
       dataToSend[key] = value;
     }
+
+    console.log(dataToSend);
     if (missingFields.length) {
       setError(
         `Missing value(s) in field(s): 
@@ -87,6 +97,7 @@ function CreateNewTutorial() {
       const randomInt = Math.floor(Math.random() * 4) + 1;
       dataToSend.image = `icon${randomInt}.png`;
       dataToSend.user_id = loggedUser.id;
+      dataToSend.lessons = lessons;
 
       // TODO: remove when no longer required in DB
       dataToSend.location = "placeholder";
@@ -102,7 +113,7 @@ function CreateNewTutorial() {
       console.log(dataToSend);
       const response = await Axios.post(`${API_URL}/new-course`, dataToSend);
       console.log(response);
-      navigate("/user");
+      // navigate("/user");
     }
   };
 
@@ -149,18 +160,14 @@ function CreateNewTutorial() {
 
   return (
     <>
-      <main id="container">
+      <main id="create-container">
         {loggedUser && loggedUser.isAdmin ? (
           <>
             <h1>Create a new training:</h1>
-            <form
-              className="form-training"
-              onSubmit={handleSubmit}
-              ref={formRef}
-            >
-              <div className="form-columns">
-                <div className="left-content">
-                  <div>
+            <form className="create-form" onSubmit={handleSubmit} ref={formRef}>
+              <div className="create-form-columns">
+                <div className="create-form-col-left">
+                  <div className="create-form-input-block">
                     <label htmlFor="name">Name</label>
                     <br />
                     <input
@@ -171,7 +178,7 @@ function CreateNewTutorial() {
                     />
                     <br />
                   </div>
-                  <div className="language">
+                  <div className="create-form-input-block language">
                     <p>Language</p>
                     <div className="language-options">
                       <input
@@ -190,7 +197,7 @@ function CreateNewTutorial() {
                       <label htmlFor="language-en">English</label>
                     </div>
                   </div>
-                  <div className="dropdown">
+                  <div className="create-form-input-block dropdown">
                     <label htmlFor="level">Level</label>
                     <br />
                     <select id="level" name="level" placeholder="Select level">
@@ -202,7 +209,7 @@ function CreateNewTutorial() {
                       <option value="Advanced">Advanced</option>
                     </select>
                   </div>
-                  <div className="dropdown">
+                  <div className="create-form-input-block dropdown">
                     <label htmlFor="category">Category</label>
                     <br />
                     <select
@@ -225,7 +232,7 @@ function CreateNewTutorial() {
                       <option value="Languages">Languages</option>
                     </select>
                   </div>
-                  <div>
+                  <div className="create-form-input-block">
                     <label htmlFor="descriptionShort">Description short</label>
                     <br />
                     <textarea
@@ -237,9 +244,14 @@ function CreateNewTutorial() {
                       }
                     />
                     <br />
-                    <p>{descShortChars}/250</p>
+                    <p>
+                      {descShortChars}/250{" "}
+                      {descShortChars >= 250 && (
+                        <span>Exceeded the character limit!</span>
+                      )}
+                    </p>
                   </div>
-                  <div>
+                  <div className="create-form-input-block">
                     <label htmlFor="descriptionPoints">
                       Description points
                     </label>
@@ -253,18 +265,23 @@ function CreateNewTutorial() {
                       }
                     />
                     <br />
-                    <p>{descPointsChars}/800</p>
+                    <p>
+                      {descPointsChars}/800{" "}
+                      {descPointsChars >= 800 && (
+                        <span>Exceeded the character limit!</span>
+                      )}
+                    </p>
                   </div>
                 </div>
-                <div className="right-content">
-                  <div>
+                <div className="create-form-col-right">
+                  <div className="create-form-input-block">
                     <label className="ghost-button upload-button">
                       <input type="file" />
                       Upload an image
                     </label>
                     <span>No file chosen</span>
                   </div>
-                  <div>
+                  <div className="create-form-input-block">
                     <label htmlFor="descriptionLong">Description short</label>
                     <br />
                     <textarea
@@ -276,7 +293,12 @@ function CreateNewTutorial() {
                       }
                     />
                     <br />
-                    <p>{descLongChars}/2000</p>
+                    <p>
+                      {descLongChars}/2000{" "}
+                      {descLongChars >= 2000 && (
+                        <span>Exceeded the character limit!</span>
+                      )}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -302,7 +324,9 @@ function CreateNewTutorial() {
                     deleteLesson={deleteLesson}
                   />
                 ))}
-                <button onClick={addLesson}>Add another lesson</button>
+                <button className="ghost-black" onClick={addLesson}>
+                  Add another lesson
+                </button>
               </div>
               <div className="form-buttons">
                 <input
@@ -311,7 +335,7 @@ function CreateNewTutorial() {
                   value="Create training"
                   ref={submitRef}
                 />
-                <button className="ghost-button" onClick={() => navigate("/")}>
+                <button className="ghost-black" onClick={() => navigate("/")}>
                   Cancel
                 </button>
               </div>

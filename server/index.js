@@ -221,6 +221,7 @@ app.get("/courses-admin/:userId", (req, res) => {
 });
 
 app.post("/new-course", (req, res) => {
+  console.log(req.body);
   const name = req.body.name;
   const language = req.body.language;
   const level = req.body.level;
@@ -243,11 +244,19 @@ app.post("/new-course", (req, res) => {
   //
   const user_id = req.body.user_id;
 
-  const sql = `INSERT INTO courses (name, language, location, level, trainer, dateStart, dateEnd, timeStart, timeEnd, frequency, image, category,descriptionShort, descriptionPoints, descriptionLong, demoURL ) 
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const lessons = req.body.lessons || []; // Set lessons to an empty array if not provided
+
+  if (lessons.length === 0) {
+    return res
+      .status(400)
+      .send("At least one lesson is required to create a course");
+  }
+
+  const courseInsertSql = `INSERT INTO courses (name, language, location, level, trainer, dateStart, dateEnd, timeStart, timeEnd, frequency, image, category, descriptionShort, descriptionPoints, descriptionLong, demoURL)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   db.query(
-    sql,
+    courseInsertSql,
     [
       name,
       language,
@@ -269,25 +278,43 @@ app.post("/new-course", (req, res) => {
     (err, result) => {
       if (err) {
         console.error(err);
-        res.status(500).send("Error saving data to database");
-      } else {
-        const course_id = result.insertId; // Get the ID of the newly created course
+        return res.status(500).send("Error saving data to database");
+      }
 
-        const courseCreationSql = `INSERT INTO course_creation (user_id, course_id) VALUES (?, ?)`;
+      const course_id = result.insertId; // Get the ID of the newly created course
+
+      const lessonsData = lessons.map((lesson) => [
+        course_id,
+        lesson.title,
+        lesson.videoURL,
+        lesson.lessonNr,
+      ]);
+
+      const lessonsInsertSql = `INSERT INTO course_lessons (course_id, title, videoURL, lessonNr)
+                                  VALUES ?`;
+
+      db.query(lessonsInsertSql, [lessonsData], (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send("Error saving lessons to database");
+        }
+
+        const courseCreationSql = `INSERT INTO course_creation (user_id, course_id)
+                                    VALUES (?, ?)`;
 
         db.query(
           courseCreationSql,
           [user_id, course_id], // Assuming you have the user ID available in req.userId
-          (err, result) => {
+          (err) => {
             if (err) {
               console.error(err);
-              res.status(500).send("Error saving data to database");
-            } else {
-              res.status(200).send("Course added successfully!");
+              return res.status(500).send("Error saving data to database");
             }
+
+            return res.status(200).send("Course added successfully!");
           }
         );
-      }
+      });
     }
   );
 });

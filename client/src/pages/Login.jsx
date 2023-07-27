@@ -2,6 +2,7 @@ import { API_URL } from "../config";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import "../styles/Login.css";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
