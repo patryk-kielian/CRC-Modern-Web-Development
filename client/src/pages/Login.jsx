@@ -83,13 +83,13 @@ function Login() {
           <br />
           <br />
           <input
-            className="violet-button login-button"
+            className="violet login-button"
             type="submit"
             value={registerMode ? "Register" : "Login"}
             onClick={registerMode ? registerUser : loginUser}
           />
           <button
-            className="ghost-button register-account-button"
+            className="ghost-black register-account-button"
             onClick={(e) => {
               e.preventDefault();
               setRegisterMode(!registerMode);

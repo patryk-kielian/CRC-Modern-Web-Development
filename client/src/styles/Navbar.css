@@ -59,3 +59,20 @@ nav {
   background: var(--accent2);
   color: var(--black);
 }
+
+.counter {
+  background: var(--accent2);
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.number {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--black);
+}

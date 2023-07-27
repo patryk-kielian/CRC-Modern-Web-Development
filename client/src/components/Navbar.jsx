@@ -40,24 +40,24 @@ function Navbar() {
             <div className="counter">
               <span className="number">{courseCount}</span>
             </div>
-            <button className="violet-button my-trainings">
+            <button className="violet my-trainings">
               <Link to="/user">{loggedUser.login}</Link>
             </button>
             {loggedUser.isAdmin && (
-              <button className="violet-button my-trainings">
+              <button className="violet my-trainings">
                 <Link to="/create-new-tutorial">Create a new tutorial</Link>
               </button>
             )}
-            <button className="violet-button my-trainings" onClick={logout}>
+            <button className="violet my-trainings" onClick={logout}>
               Log out
             </button>
           </>
         ) : (
           <>
-            <button className="violet-button my-trainings">
+            <button className="violet my-trainings">
               <Link to="/login">Register</Link>
             </button>
-            <button className="violet-button my-trainings">
+            <button className="violet my-trainings">
               <Link to="/login">Log in</Link>
             </button>
           </>

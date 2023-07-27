@@ -31,7 +31,7 @@
 .create-form {
   & label,
   .language p {
-    font-size: 18px;
+    font-size: 1.125rem;
     margin-bottom: 5px;
     display: inline-block;
     text-align: center;
@@ -43,7 +43,7 @@
     box-sizing: border-box;
     height: 40px;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 1rem;
     padding-left: 10px;
     font-family: "Poppins";
     border: 1px solid var(--lightgrey);
@@ -51,7 +51,7 @@
 
   & input[type="text"]::placeholder {
     font-family: "Poppins";
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--lightgrey);
   }
 
@@ -62,6 +62,7 @@
     font-size: 0.875rem;
     font-family: "Poppins";
     padding: 5px 10px;
+    border: 1px solid var(--lightgrey);
   }
 
   & textarea::placeholder {
@@ -114,6 +115,53 @@
   padding-left: 5px;
 }
 
+.create-form-char-counter {
+  font-size: 0.75rem;
+}
+
+.create-form-demo-input {
+  width: 100% !important;
+  margin-bottom: 2px;
+}
+
+.form-lesson {
+  margin-top: 30px;
+  padding: 10px 15px 2px;
+  border: 1px solid var(--lightgrey);
+  border-radius: 10px;
+}
+
+.form-lesson h6 {
+  font-size: 1.125rem;
+  text-align: center;
+}
+
+.form-lesson-inputs {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-top: 10px;
+}
+
+.form-lesson-inputs input {
+  margin-bottom: 2px;
+}
+
+.form-lesson button {
+  font-size: 1rem;
+  height: 40px;
+  border: 1px solid var(--black);
+}
+
+button.form-lesson-add {
+  height: 40px;
+  margin-top: 30px;
+  width: 100%;
+  max-width: unset;
+  font-size: 1.125rem;
+  border: 1px solid var(--black);
+}
+
 .upload-button {
   width: 100%;
   font-size: 18px;
@@ -128,6 +176,11 @@
   gap: 40px;
   width: 100%;
   margin-top: 40px;
+}
+
+.form-buttons button,
+.form-buttons input[type="submit"] {
+  max-width: unset;
 }
 
 .create-form-missing-value {

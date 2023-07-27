@@ -30,7 +30,8 @@ body {
   margin: 0;
 }
 
-button {
+button,
+input[type="submit"] {
   height: 50px;
   max-width: 280px;
   padding: 0 24px;
@@ -45,56 +46,57 @@ button {
   transition: all 300ms ease-in-out;
 }
 
-button:hover {
+button:hover,
+input[type="submit"]:hover {
   cursor: pointer;
   background: var(--accent1dark);
   color: var(--white);
   border: 3px solid transparent;
 }
 
-button.ghost {
+button.ghost,
+input[type="submit"].ghost {
   background: transparent;
   border: 3px solid var(--white);
   color: var(--white);
 }
 
-button.ghost:hover {
+button.ghost:hover,
+input[type="submit"].ghost:hover {
   color: var(--black);
   cursor: pointer;
   background: var(--white);
   border: 3px solid transparent;
 }
 
-button.ghost-black {
+button.ghost-black,
+input[type="submit"].ghost-black {
   background: var(--white);
   border: 2px solid var(--black);
   color: var(--black);
 }
 
-button.ghost-black:hover {
+button.ghost-black:hover,
+input[type="submit"].ghost-black:hover {
   color: var(--white);
-  cursor: pointer;
   background: var(--accent1dark);
   border: 2px solid var(--accent1dark);
 }
 
-.violet-button {
+button.violet,
+input[type="submit"].violet {
   background: var(--accent1);
-  border-radius: 30px;
   color: var(--white);
-  font-size: 24px;
-  font-weight: 700;
-  padding: 8px 15px;
   border: 0;
-  transition: all 300ms ease-in-out;
 }
 
-.violet-button:hover {
-  cursor: pointer;
+button.violet:hover,
+input[type="submit"].violet:hover {
   background: var(--accent1dark);
+  color: var(--white);
 }
 
-.ghost-button {
+/* .ghost-button {
   background: var(--white);
   border-radius: 30px;
   color: var(--black);
@@ -110,23 +112,7 @@ button.ghost-black:hover {
   background: var(--accent1dark);
   color: var(--white);
   border: 1px solid transparent;
-}
-
-.counter {
-  background: var(--accent2);
-  width: 40px;
-  height: 40px;
-  border-radius: 50% 50% 0 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.number {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--black);
-}
+} */
 
 #container h1 {
   color: var(--white);

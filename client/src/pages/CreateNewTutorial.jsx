@@ -9,6 +9,8 @@ import Popup from "../components/Popup";
 
 function LessonForm({ lesson, updateLesson, deleteLesson, error }) {
   const { lessonNr, title, videoURL } = lesson;
+  const [titleChars, setTitleChars] = useState(0);
+  const [videoChars, setVideoChars] = useState(0);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -19,34 +21,51 @@ function LessonForm({ lesson, updateLesson, deleteLesson, error }) {
     deleteLesson(lessonNr);
   };
 
-  // TODO: make delete button functional
-
   return (
     <div className="form-lesson">
       <h6>Lesson {lessonNr}</h6>
       <div className="form-lesson-inputs">
-        <input
-          type="text"
-          id="title"
-          name="title"
-          placeholder="Title of the lesson"
-          value={title}
-          className={error && !title.length > 0 && "create-form-missing-value"}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          id="videoURL"
-          name="videoURL"
-          placeholder="URL of the YouTube video"
-          value={videoURL}
-          className={
-            error && !videoURL.length > 0 && "create-form-missing-value"
-          }
-          onChange={handleInputChange}
-        />
-
-        <button className="ghost-black" onClick={handleDelete}>
+        <div>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Title of the lesson"
+            value={title}
+            className={
+              error && !title.length > 0 && "create-form-missing-value"
+            }
+            onChange={(e) => {
+              handleInputChange(e);
+              setTitleChars(e.target.value.length);
+            }}
+          />
+          <p className="create-form-char-counter">
+            {titleChars}/45{" "}
+            {titleChars >= 45 && <span>Exceeded the character limit!</span>}
+          </p>
+        </div>
+        <div>
+          <input
+            type="text"
+            id="videoURL"
+            name="videoURL"
+            placeholder="URL of the YouTube video"
+            value={videoURL}
+            className={
+              error && !videoURL.length > 0 && "create-form-missing-value"
+            }
+            onChange={(e) => {
+              handleInputChange(e);
+              setVideoChars(e.target.value.length);
+            }}
+          />
+          <p className="create-form-char-counter">
+            {videoChars}/255{" "}
+            {videoChars >= 255 && <span>Exceeded the character limit!</span>}
+          </p>
+        </div>
+        <button type="button" className="ghost-black" onClick={handleDelete}>
           Delete
         </button>
       </div>
@@ -63,9 +82,11 @@ function CreateNewTutorial() {
     { lessonNr: 1, title: "", videoURL: "" },
   ]);
 
+  const [nameChars, setNameChars] = useState(0);
   const [descShortChars, setDescShortChars] = useState(0);
   const [descPointsChars, setDescPointsChars] = useState(0);
   const [descLongChars, setDescLongChars] = useState(0);
+  const [demoChars, setDemoChars] = useState(0);
 
   const formRef = useRef(null);
   const submitRef = useRef(null);
@@ -82,19 +103,22 @@ function CreateNewTutorial() {
     missingFields.current = [];
 
     for (const [key, value] of formData) {
+      if (key === "title" || key === "videoURL") {
+        continue;
+      }
       if (!value) {
         missingFields.current.push(key);
       }
 
-      if (key === "title" || key === "videoURL") {
-        continue;
-      }
       dataToSend[key] = value;
     }
 
     for (const lesson of lessons) {
-      if (!lesson.title || !lesson.videoURL) {
-        missingFields.current.push(`Lesson ${lesson.lessonNr}`);
+      if (!lesson.title) {
+        missingFields.current.push(`Lesson ${lesson.lessonNr}: Title`);
+      }
+      if (!lesson.videoURL) {
+        missingFields.current.push(`Lesson ${lesson.lessonNr}: Video URL`);
       }
     }
     if (missingFields.current.length) {
@@ -111,6 +135,9 @@ function CreateNewTutorial() {
       );
       setShowPopup(true);
       return;
+    } else if (checkExceededChars()) {
+      setError(checkExceededChars());
+      setShowPopup(true);
     } else {
       // Course image is a random icon from 4 presets
       const randomInt = Math.floor(Math.random() * 4) + 1;
@@ -152,12 +179,11 @@ function CreateNewTutorial() {
   };
 
   const deleteLesson = (lessonNr) => {
-    if (!lessons.length > 1) {
+    if (!(lessons.length > 1)) {
       setError("You cannot delete the last lesson!");
       setShowPopup(true);
       return;
     }
-    console.log(lessonNr);
     setLessons((prevLessons) =>
       prevLessons.filter((lesson) => lesson.lessonNr !== lessonNr)
     );
@@ -170,6 +196,9 @@ function CreateNewTutorial() {
 
   const updateChars = (count, fieldType) => {
     switch (fieldType) {
+      case "name":
+        setNameChars(count);
+        break;
       case "descShort":
         setDescShortChars(count);
         break;
@@ -179,7 +208,39 @@ function CreateNewTutorial() {
       case "descLong":
         setDescLongChars(count);
         break;
+      case "demo":
+        setDemoChars(count);
+        break;
     }
+  };
+
+  const checkExceededChars = () => {
+    if (nameChars >= 45) {
+      return `Exceeded maximum number of characters in field "Name" - max. 45`;
+    }
+    if (descShortChars >= 255) {
+      return `Exceeded maximum number of characters in field "Description short" - max. 255`;
+    }
+    if (descPointsChars >= 800) {
+      return `Exceeded maximum number of characters in field "Description points" - max. 800`;
+    }
+    if (descLongChars >= 2000) {
+      return `Exceeded maximum number of characters in field "Description long" - max. 2000`;
+    }
+    if (demoChars >= 255) {
+      return `Exceeded maximum number of characters in field "Demo URL" - max. 255`;
+    }
+
+    for (const lesson of lessons) {
+      if (lesson.title.length >= 45) {
+        return `Exceeded maximum number of characters in field "Lesson ${lesson.lessonNr}: Title" - max. 45`;
+      }
+
+      if (lesson.videoURL.length >= 255) {
+        return `Exceeded maximum number of characters in field "Lesson ${lesson.lessonNr}: Video URL" - max. 255`;
+      }
+    }
+    return false;
   };
 
   return (
@@ -193,7 +254,6 @@ function CreateNewTutorial() {
                 <div className="create-form-col-left">
                   <div className="create-form-input-block">
                     <label htmlFor="name">Name</label>
-                    <br />
                     <input
                       type="text"
                       id="name"
@@ -204,8 +264,16 @@ function CreateNewTutorial() {
                         missingFields.current.includes("name") &&
                         "create-form-missing-value"
                       }
+                      onChange={(e) =>
+                        updateChars(e.target.value.length, "name")
+                      }
                     />
-                    <br />
+                    <p className="create-form-char-counter">
+                      {nameChars}/45{" "}
+                      {nameChars >= 45 && (
+                        <span>Exceeded the character limit!</span>
+                      )}
+                    </p>
                   </div>
                   <div className="create-form-input-block language">
                     <p>Language</p>
@@ -256,7 +324,6 @@ function CreateNewTutorial() {
                   </div>
                   <div className="create-form-input-block dropdown">
                     <label htmlFor="category">Category</label>
-                    <br />
                     <select
                       id="category"
                       name="category"
@@ -298,10 +365,9 @@ function CreateNewTutorial() {
                         updateChars(e.target.value.length, "descShort")
                       }
                     />
-                    <br />
-                    <p>
-                      {descShortChars}/250{" "}
-                      {descShortChars >= 250 && (
+                    <p className="create-form-char-counter">
+                      {descShortChars}/255{" "}
+                      {descShortChars >= 255 && (
                         <span>Exceeded the character limit!</span>
                       )}
                     </p>
@@ -310,7 +376,6 @@ function CreateNewTutorial() {
                     <label htmlFor="descriptionPoints">
                       Description points
                     </label>
-                    <br />
                     <textarea
                       id="descriptionPoints"
                       name="descriptionPoints"
@@ -324,8 +389,7 @@ function CreateNewTutorial() {
                         updateChars(e.target.value.length, "descPoints")
                       }
                     />
-                    <br />
-                    <p>
+                    <p className="create-form-char-counter">
                       {descPointsChars}/800{" "}
                       {descPointsChars >= 800 && (
                         <span>Exceeded the character limit!</span>
@@ -342,8 +406,7 @@ function CreateNewTutorial() {
                     <span>No file chosen</span>
                   </div>
                   <div className="create-form-input-block">
-                    <label htmlFor="descriptionLong">Description short</label>
-                    <br />
+                    <label htmlFor="descriptionLong">Description long</label>
                     <textarea
                       id="descriptionLong"
                       name="descriptionLong"
@@ -357,8 +420,7 @@ function CreateNewTutorial() {
                         updateChars(e.target.value.length, "descLong")
                       }
                     />
-                    <br />
-                    <p>
+                    <p className="create-form-char-counter">
                       {descLongChars}/2000{" "}
                       {descLongChars >= 2000 && (
                         <span>Exceeded the character limit!</span>
@@ -370,19 +432,24 @@ function CreateNewTutorial() {
               <div className="form-full-width">
                 <div>
                   <label htmlFor="demoURL">Demo URL</label>
-                  <br />
                   <input
                     type="text"
                     id="demoURL"
                     name="demoURL"
                     placeholder="Paste the address (URL) of the YouTube video that should be the demo of the course"
-                    className={
+                    className={`create-form-demo-input ${
                       error &&
                       missingFields.current.includes("demoURL") > 0 &&
                       "create-form-missing-value"
-                    }
+                    }`}
+                    onChange={(e) => updateChars(e.target.value.length, "demo")}
                   />
-                  <br />
+                  <p className="create-form-char-counter">
+                    {demoChars}/255{" "}
+                    {demoChars >= 255 && (
+                      <span>Exceeded the character limit!</span>
+                    )}
+                  </p>
                 </div>
               </div>
               <div>
@@ -396,7 +463,7 @@ function CreateNewTutorial() {
                   />
                 ))}
                 <button
-                  className="ghost-black"
+                  className="ghost-black form-lesson-add"
                   type="button"
                   onClick={addLesson}
                 >
@@ -405,7 +472,7 @@ function CreateNewTutorial() {
               </div>
               <div className="form-buttons">
                 <input
-                  className="violet-button"
+                  className="violet"
                   type="submit"
                   value="Create training"
                   ref={submitRef}
