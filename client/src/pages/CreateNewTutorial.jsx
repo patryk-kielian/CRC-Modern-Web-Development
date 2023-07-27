@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import "../styles/CreateNewTutorial.css";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
+import Popup from "../components/Popup";
 
-function LessonForm({ lesson, updateLesson, deleteLesson }) {
+function LessonForm({ lesson, updateLesson, deleteLesson, error }) {
   const { lessonNr, title, videoURL } = lesson;
 
   const handleInputChange = (event) => {
@@ -30,6 +31,7 @@ function LessonForm({ lesson, updateLesson, deleteLesson }) {
           name="title"
           placeholder="Title of the lesson"
           value={title}
+          className={error && !title.length > 0 && "create-form-missing-value"}
           onChange={handleInputChange}
         />
         <input
@@ -38,6 +40,9 @@ function LessonForm({ lesson, updateLesson, deleteLesson }) {
           name="videoURL"
           placeholder="URL of the YouTube video"
           value={videoURL}
+          className={
+            error && !videoURL.length > 0 && "create-form-missing-value"
+          }
           onChange={handleInputChange}
         />
 
@@ -51,11 +56,12 @@ function LessonForm({ lesson, updateLesson, deleteLesson }) {
 
 function CreateNewTutorial() {
   const { loggedUser } = useContext(LoggedUserContext);
+
   const [error, setError] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
   const [lessons, setLessons] = useState([
     { lessonNr: 1, title: "", videoURL: "" },
   ]);
-  console.log(lessons);
 
   const [descShortChars, setDescShortChars] = useState(0);
   const [descPointsChars, setDescPointsChars] = useState(0);
@@ -63,6 +69,7 @@ function CreateNewTutorial() {
 
   const formRef = useRef(null);
   const submitRef = useRef(null);
+  const missingFields = useRef([]);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -72,11 +79,11 @@ function CreateNewTutorial() {
 
     const formData = new FormData(form, submitter);
     const dataToSend = {};
-    const missingFields = [];
+    missingFields.current = [];
 
     for (const [key, value] of formData) {
       if (!value) {
-        missingFields.push(key);
+        missingFields.current.push(key);
       }
 
       if (key === "title" || key === "videoURL") {
@@ -85,12 +92,24 @@ function CreateNewTutorial() {
       dataToSend[key] = value;
     }
 
-    console.log(dataToSend);
-    if (missingFields.length) {
+    for (const lesson of lessons) {
+      if (!lesson.title || !lesson.videoURL) {
+        missingFields.current.push(`Lesson ${lesson.lessonNr}`);
+      }
+    }
+    if (missingFields.current.length) {
       setError(
-        `Missing value(s) in field(s): 
-        ${missingFields.join(", ")}`
+        <>
+          The whole form should be filled out.
+          <br />
+          Missing{" "}
+          {missingFields.current.length > 1
+            ? "values in fields:"
+            : "a value in field"}{" "}
+          {missingFields.current.join(", ")}
+        </>
       );
+      setShowPopup(true);
       return;
     } else {
       // Course image is a random icon from 4 presets
@@ -133,6 +152,11 @@ function CreateNewTutorial() {
   };
 
   const deleteLesson = (lessonNr) => {
+    if (!lessons.length > 1) {
+      setError("You cannot delete the last lesson!");
+      setShowPopup(true);
+      return;
+    }
     console.log(lessonNr);
     setLessons((prevLessons) =>
       prevLessons.filter((lesson) => lesson.lessonNr !== lessonNr)
@@ -175,12 +199,23 @@ function CreateNewTutorial() {
                       id="name"
                       name="name"
                       placeholder="Type name"
+                      className={
+                        error &&
+                        missingFields.current.includes("name") &&
+                        "create-form-missing-value"
+                      }
                     />
                     <br />
                   </div>
                   <div className="create-form-input-block language">
                     <p>Language</p>
-                    <div className="language-options">
+                    <div
+                      className={`language-options ${
+                        error &&
+                        missingFields.current.includes("language") &&
+                        "create-form-missing-value"
+                      }`}
+                    >
                       <input
                         type="radio"
                         id="language-pl"
@@ -193,6 +228,7 @@ function CreateNewTutorial() {
                         id="language-en"
                         name="language"
                         value="English"
+                        defaultChecked="checked"
                       />
                       <label htmlFor="language-en">English</label>
                     </div>
@@ -200,7 +236,16 @@ function CreateNewTutorial() {
                   <div className="create-form-input-block dropdown">
                     <label htmlFor="level">Level</label>
                     <br />
-                    <select id="level" name="level" placeholder="Select level">
+                    <select
+                      id="level"
+                      name="level"
+                      placeholder="Select level"
+                      className={
+                        error &&
+                        missingFields.current.includes("level") &&
+                        "create-form-missing-value"
+                      }
+                    >
                       <option value="" disabled defaultValue>
                         Select level
                       </option>
@@ -216,6 +261,11 @@ function CreateNewTutorial() {
                       id="category"
                       name="category"
                       placeholder="Select category"
+                      className={
+                        error &&
+                        missingFields.current.includes("category") &&
+                        "create-form-missing-value"
+                      }
                     >
                       <option value="" disabled defaultValue>
                         Select category
@@ -239,6 +289,11 @@ function CreateNewTutorial() {
                       id="descriptionShort"
                       name="descriptionShort"
                       placeholder="Type a short description of the course (max. 250 characters)"
+                      className={
+                        error &&
+                        !descShortChars > 0 &&
+                        "create-form-missing-value"
+                      }
                       onChange={(e) =>
                         updateChars(e.target.value.length, "descShort")
                       }
@@ -260,6 +315,11 @@ function CreateNewTutorial() {
                       id="descriptionPoints"
                       name="descriptionPoints"
                       placeholder="Type what the user will learn, in points (max. 800 characters)"
+                      className={
+                        error &&
+                        !descPointsChars > 0 &&
+                        "create-form-missing-value"
+                      }
                       onChange={(e) =>
                         updateChars(e.target.value.length, "descPoints")
                       }
@@ -288,6 +348,11 @@ function CreateNewTutorial() {
                       id="descriptionLong"
                       name="descriptionLong"
                       placeholder="Write a full description of the course, mention the content, who is it for, what will be done, how long will it take and what should be the outcome (max. 2000 characters)"
+                      className={
+                        error &&
+                        !descLongChars > 0 &&
+                        "create-form-missing-value"
+                      }
                       onChange={(e) =>
                         updateChars(e.target.value.length, "descLong")
                       }
@@ -311,6 +376,11 @@ function CreateNewTutorial() {
                     id="demoURL"
                     name="demoURL"
                     placeholder="Paste the address (URL) of the YouTube video that should be the demo of the course"
+                    className={
+                      error &&
+                      missingFields.current.includes("demoURL") > 0 &&
+                      "create-form-missing-value"
+                    }
                   />
                   <br />
                 </div>
@@ -322,9 +392,14 @@ function CreateNewTutorial() {
                     lesson={lesson}
                     updateLesson={updateLesson}
                     deleteLesson={deleteLesson}
+                    error={error}
                   />
                 ))}
-                <button className="ghost-black" onClick={addLesson}>
+                <button
+                  className="ghost-black"
+                  type="button"
+                  onClick={addLesson}
+                >
                   Add another lesson
                 </button>
               </div>
@@ -340,12 +415,16 @@ function CreateNewTutorial() {
                 </button>
               </div>
             </form>
-            <h1 className="form-error">{error}</h1>
           </>
         ) : (
           <h1>You must have admin permissions to view this page</h1>
         )}
       </main>
+      <Popup
+        message={error}
+        showPopup={showPopup}
+        setShowPopup={setShowPopup}
+      />
     </>
   );
 }

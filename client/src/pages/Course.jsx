@@ -48,9 +48,6 @@ export default function Course() {
         });
     }
   };
-  const closePopup = () => {
-    setShowPopup(false);
-  };
 
   return (
     <>
@@ -155,12 +152,11 @@ export default function Course() {
               )}
             </section>
           </main>
-          {showPopup && (
-            <Popup
-              message="You are already registered to this course!"
-              onClose={closePopup}
-            />
-          )}
+          <Popup
+            message="You are already registered to this course!"
+            showPopup={showPopup}
+            setShowPopup={setShowPopup}
+          />
         </>
       )}
     </>
