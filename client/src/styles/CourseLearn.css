@@ -52,6 +52,23 @@ aside.navbar-insert h6 {
   background-color: var(--darkgrey);
 }
 
+.course-learn-video-arrow {
+  position: absolute;
+  height: 100px;
+  top: calc(50dvh - 35px);
+}
+
+.course-learn-video-arrow:hover {
+  cursor: pointer;
+}
+
+.left-arrow {
+  left: 10%;
+}
+.right-arrow {
+  right: 10%;
+}
+
 .course-learn-video-player {
   height: 100%;
   /* width: 66%; */

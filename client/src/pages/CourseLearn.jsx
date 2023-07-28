@@ -86,15 +86,37 @@ export default function CourseLearn() {
             <section className="course-learn-video">
               <div className="course-learn-video-player">
                 {currentLesson && (
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={currentLesson.videoURL}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  ></iframe>
+                  <>
+                    {currentLesson.lessonNr > 1 && (
+                      <img
+                        src="/assets/arrow_left.svg"
+                        alt=""
+                        className="course-learn-video-arrow left-arrow"
+                        onClick={() =>
+                          setCurrentLesson(lessons[currentLesson.lessonNr - 2])
+                        }
+                      />
+                    )}
+                    {currentLesson.lessonNr < lessons.length && (
+                      <img
+                        src="/assets/arrow_right.svg"
+                        alt=""
+                        className="course-learn-video-arrow right-arrow"
+                        onClick={() =>
+                          setCurrentLesson(lessons[currentLesson.lessonNr])
+                        }
+                      />
+                    )}
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={currentLesson.videoURL}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </>
                 )}
               </div>
             </section>
