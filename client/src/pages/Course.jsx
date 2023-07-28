@@ -13,6 +13,7 @@ export default function Course() {
   const [course, setCourse] = useState(null);
   const [creator, setCreator] = useState(null);
   const [opinions, setOpinions] = useState(null);
+  const [userEnrolled, setUserEnrolled] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
   const { loggedUser } = useContext(LoggedUserContext);
@@ -30,6 +31,16 @@ export default function Course() {
     Axios.get(`${API_URL}/opinions/${courseId}`).then((response) => {
       setOpinions(response.data.opinions);
     });
+
+    if (loggedUser) {
+      Axios.get(`${API_URL}/courses/${loggedUser.id}`).then((response) => {
+        const userCourses = response.data.courses;
+        const userCoursesIDs = userCourses.map((course) => course.course_id);
+        if (userCoursesIDs.includes(Number(courseId))) {
+          setUserEnrolled(true);
+        }
+      });
+    }
   }, []);
 
   const handleRegister = () => {
@@ -49,6 +60,28 @@ export default function Course() {
     }
   };
 
+  let buttonComponent;
+
+  if (loggedUser && userEnrolled) {
+    buttonComponent = (
+      <Link to={`/courses/learn/${courseId}`}>
+        <button className="course-bar-button">Go to lessons</button>
+      </Link>
+    );
+  } else if (loggedUser) {
+    buttonComponent = (
+      <button className="course-bar-button" onClick={handleRegister}>
+        Register
+      </button>
+    );
+  } else {
+    buttonComponent = (
+      <Link to="/login">
+        <button className="course-bar-button">Log in to enroll</button>
+      </Link>
+    );
+  }
+
   return (
     <>
       {course && (
@@ -56,17 +89,7 @@ export default function Course() {
           <div className="course-bar-fixed">
             <div className="course-bar-left">
               <h4>{course.name}</h4>
-              {loggedUser ? (
-                <button className="course-bar-button" onClick={handleRegister}>
-                  Register
-                </button>
-              ) : (
-                <Link to="/login">
-                  <button className="course-bar-button">
-                    Log in to enroll
-                  </button>
-                </Link>
-              )}
+              {buttonComponent}
             </div>
             <div className="course-bar-right">
               <div className="course-bar-item">

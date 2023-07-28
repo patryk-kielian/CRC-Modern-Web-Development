@@ -7,20 +7,13 @@ import CreateNewTutorial from "./pages/CreateNewTutorial";
 import Login from "./pages/Login";
 import User from "./pages/User";
 import Course from "./pages/Course";
+import CourseLearn from "./pages/CourseLearn";
 import Layout from "./components/Layout";
 
 import { LoggedUserContext } from "./contexts/LoggedUserContext";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(null);
-
-  // const setLoggedUserWithAdmin = (user) => {
-  //   console.log(user);
-  //   if (user && user.isAdmin) {
-  //     user.isAdmin = true;
-  //   }
-  //   setLoggedUser({ loggedUser: user });
-  // };
 
   return (
     <>
@@ -30,6 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/courses/:courseId" element={<Course />} />
+            <Route path="/courses/learn/:courseId" element={<CourseLearn />} />
             <Route path="/user" element={<User />} />
             <Route
               path="/create-new-tutorial"

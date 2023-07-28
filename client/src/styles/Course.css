@@ -105,6 +105,14 @@
   background-size: cover;
 }
 
+.course-opinions {
+  margin-top: 120px;
+}
+
+.course-opinions h2 {
+  font-size: 2rem;
+}
+
 .course-opinions .slick-slider {
   margin: 30px -150px 50px;
   width: auto;

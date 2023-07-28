@@ -33,8 +33,8 @@ const db = mysql.createPool({
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DBNAME,
-  // waitForConnections: true,
-  // connectionLimit: 10,
+  waitForConnections: true,
+  connectionLimit: 3,
   // queueLimit: 0,
 });
 
@@ -152,6 +152,38 @@ app.get("/course/:courseId", (req, res) => {
   );
 });
 
+app.get("/course/learn/:courseId", (req, res) => {
+  const courseId = req.params.courseId;
+
+  const courseQuery = "SELECT * FROM courses WHERE id = ?";
+  const lessonsQuery = "SELECT * FROM course_lessons WHERE course_id = ?";
+
+  db.query(courseQuery, courseId, (err, courseResult) => {
+    if (err) {
+      console.log("Error executing the MySQL query for course: " + err.message);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    db.query(lessonsQuery, courseId, (err, lessonsResult) => {
+      if (err) {
+        console.log(
+          "Error executing the MySQL query for lessons: " + err.message
+        );
+        return res.status(500).send("Internal Server Error");
+      }
+
+      const course = courseResult[0];
+      const lessons = lessonsResult;
+
+      const responseData = {
+        course: course,
+        lessons: lessons,
+      };
+      res.send(responseData);
+    });
+  });
+});
+
 app.get("/creator/:courseId", (req, res) => {
   const courseId = req.params.courseId;
   db.query(
@@ -221,7 +253,6 @@ app.get("/courses-admin/:userId", (req, res) => {
 });
 
 app.post("/new-course", (req, res) => {
-  console.log(req.body);
   const name = req.body.name;
   const language = req.body.language;
   const level = req.body.level;
