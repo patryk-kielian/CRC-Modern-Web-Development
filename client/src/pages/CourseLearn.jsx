@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Carousel from "../components/Carousel";
 import Popup from "../components/Popup";
+import Error from "./Error";
 
 export default function CourseLearn() {
   const [course, setCourse] = useState(null);
@@ -55,25 +56,19 @@ export default function CourseLearn() {
   console.log(currentLesson);
   if (!loggedUser) {
     return (
-      <main className="course-learn-background">
-        <div className="course-learn-error">
-          <h3>To access this page you must be logged in!</h3>
-          <Link to="/login">
-            <button className="violet">Log in</button>
-          </Link>
-        </div>
-      </main>
+      <Error
+        textMessage={"To access this page you must be logged in!"}
+        textButton={"Log in"}
+        route={"/login"}
+      />
     );
   } else if (!userEnrolled) {
     return (
-      <main className="course-learn-background">
-        <div className="course-learn-error">
-          <h3>You are not enrolled to this course</h3>
-          <Link to="/user">
-            <button className="violet">My Courses</button>
-          </Link>
-        </div>
-      </main>
+      <Error
+        textMessage={"You are not enrolled to this tutorial"}
+        textButton={"My tutorials"}
+        route={"/user"}
+      />
     );
   } else {
     return (

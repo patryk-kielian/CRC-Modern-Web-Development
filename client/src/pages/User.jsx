@@ -8,6 +8,7 @@ import "../styles/User.css";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import CourseCard from "../components/CourseCard";
 import CourseCardMin from "../components/CourseCardMin";
+import Error from "./Error";
 
 function CarouselUser({ content, handleFunction }) {
   const [selectedFooter, setSelectedFooter] = useState(1);
@@ -170,50 +171,52 @@ function User() {
 
   return (
     <>
-      <main id="container">
-        {loggedUser ? (
-          <>
-            <h2>Hello {loggedUser.login}!</h2>
-            <div className="cards-container">
-              {userCourses.length > 0 ? (
-                <>
-                  <h3 className="user-subtitle">
-                    Get back to learning in one of your exciting tutorials:
-                  </h3>
-                  <CarouselUser
-                    content={userCourses}
-                    handleFunction={handleDeregister}
-                  />
-                </>
-              ) : (
-                <div className="user-prompt">
-                  <h3 className="user-subtitle">
-                    You haven't signed up for any tutorials. Search now to find
-                    your dream course
-                  </h3>
-                  <Link to="/courses">
-                    <button className="ghost-black">Browse tutorials</button>
-                  </Link>
-                </div>
-              )}
-              {loggedUser.isAdmin ? (
-                <>
-                  <h3 className="user-subtitle">
-                    Manage the tutorials you created
-                  </h3>
-                  <CarouselAdmin
-                    content={adminCourses}
-                    handleFunction={handleDelete}
-                    isAdmin={true}
-                  />
-                </>
-              ) : null}
-            </div>
-          </>
-        ) : (
-          <h1>This page is only for logged in users</h1>
-        )}
-      </main>
+      {loggedUser ? (
+        <main id="container">
+          <h2>Hello {loggedUser.login}!</h2>
+          <div className="cards-container">
+            {userCourses.length > 0 ? (
+              <>
+                <h3 className="user-subtitle">
+                  Get back to learning in one of your exciting tutorials:
+                </h3>
+                <CarouselUser
+                  content={userCourses}
+                  handleFunction={handleDeregister}
+                />
+              </>
+            ) : (
+              <div className="user-prompt">
+                <h3 className="user-subtitle">
+                  You haven't signed up for any tutorials. Search now to find
+                  your dream course
+                </h3>
+                <Link to="/courses">
+                  <button className="ghost-black">Browse tutorials</button>
+                </Link>
+              </div>
+            )}
+            {loggedUser.isAdmin ? (
+              <>
+                <h3 className="user-subtitle">
+                  Manage the tutorials you created
+                </h3>
+                <CarouselAdmin
+                  content={adminCourses}
+                  handleFunction={handleDelete}
+                  isAdmin={true}
+                />
+              </>
+            ) : null}
+          </div>
+        </main>
+      ) : (
+        <Error
+          textMessage={"To access this page you must be logged in!"}
+          textButton={"Log in"}
+          route={"/login"}
+        />
+      )}
     </>
   );
 }

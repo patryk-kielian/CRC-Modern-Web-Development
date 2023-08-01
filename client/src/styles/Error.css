@@ -1,0 +1,33 @@
+.error-background {
+  background-image: url(/img/background.png);
+  background-size: 50%;
+  width: 100%;
+  min-height: calc(100dvh - 600px);
+  margin: 70px 0 -200px;
+  padding: 120px 0 200px;
+}
+
+.error-content {
+  width: 40%;
+  /* min-height: 50%; */
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+  margin: 0 auto;
+  padding: 60px 100px;
+  border-radius: 50px;
+  background-color: var(--white);
+  box-shadow: 35px 50px 50px 0px rgba(0, 0, 0, 0.5);
+}
+
+.error-content h3 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.error-content button {
+  width: 200px;
+}
