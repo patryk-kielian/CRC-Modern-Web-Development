@@ -4,7 +4,7 @@ h4 {
   color: var(--white);
 }
 
-#container {
+.home-content {
   margin: 0 180px;
   padding: 0;
 }

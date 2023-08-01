@@ -72,7 +72,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div id="container">
+        <div className="home-content">
           <section className="courses">
             <h2>Explore our Tutorials</h2>
             <div className="courses-container">

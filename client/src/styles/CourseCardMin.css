@@ -17,9 +17,17 @@
   transform: translateY(-6px);
 }
 
+.card-min-user {
+  height: 350px;
+}
+
 .card-min-logo {
   height: 200px;
   border-radius: 30px;
+}
+
+.card-min-content {
+  height: 85px;
 }
 
 .card-min h4 {
@@ -35,4 +43,39 @@
   padding: 0 20px;
   font-size: 1rem;
   color: var(--black);
+}
+
+.card-min-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.card-min-buttons button {
+  height: 40px;
+  margin-top: 10px;
+  font-size: 1.25rem;
+}
+
+.card-min.dummy {
+  width: unset !important; /* without !important gets changed to 100% which is wider than normal */
+  display: flex !important; /* without !important gets changed to inline-block by the slider */
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card-min.dummy:hover {
+  cursor: default;
+}
+
+.card-min.dummy h4 {
+  text-align: center;
+  line-height: 140%;
+}
+
+.card-min.dummy button {
+  height: 40px;
+  font-size: 1.25rem;
 }

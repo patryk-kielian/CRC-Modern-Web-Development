@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/CourseCard.css";
 
-function CourseCard(props) {
-  const { course } = props;
+function CourseCard({ course, isUserCourse = false, ...props }) {
   const rating = course.averageRating;
 
   let nStars = Math.floor(rating);
@@ -14,8 +13,14 @@ function CourseCard(props) {
   }
 
   return (
-    <Link to={`/courses/${course.id}`}>
-      <div className="card" key={course.id}>
+    <Link
+      to={
+        isUserCourse
+          ? `/courses/learn/${course.course_id}`
+          : `/courses/${course.id}`
+      }
+    >
+      <div className={`card ${isUserCourse && "card-user"}`} key={course.id}>
         <div className="card-top">
           <div
             className="card-logo"
@@ -66,6 +71,17 @@ function CourseCard(props) {
         </div>
         <div className="card-bottom">
           <p>{course.descriptionShort}</p>
+          {isUserCourse && (
+            <button
+              className="ghost-black"
+              onClick={(e) => {
+                e.preventDefault();
+                props.handleFunction(course.course_id);
+              }}
+            >
+              Leave this tutorial
+            </button>
+          )}
         </div>
       </div>
     </Link>
