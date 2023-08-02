@@ -1,4 +1,16 @@
+section.user-cards {
+  margin: -20px -80px 50px -20px;
+  padding: 10px;
+  border-radius: 40px;
+  background-color: var(--grey);
+}
+
+.user-cards h2 {
+  margin-left: 20px;
+}
+
 .user-subtitle {
+  margin-left: 20px;
   font-size: 2.5rem;
   color: var(--white);
 }
@@ -15,14 +27,12 @@
   flex-direction: column;
   align-items: center;
   border-radius: 50px;
-  background-color: var(--white);
 }
 
 .user-prompt .user-subtitle {
   padding: 0 100px;
   margin-bottom: 20px;
   font-size: 2rem;
-  color: var(--black);
 }
 
 .user-prompt button {

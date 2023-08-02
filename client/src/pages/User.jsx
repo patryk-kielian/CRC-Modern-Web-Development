@@ -191,32 +191,36 @@ function User() {
   return (
     <>
       {loggedUser ? (
-        <main id="container">
-          <h2>Hello {loggedUser.login}!</h2>
-          <div className="cards-container">
-            {userCourses.length > 0 ? (
-              <>
-                <h3 className="user-subtitle">
-                  Get back to learning in one of your exciting tutorials:
-                </h3>
-                <CarouselUser
-                  content={userCourses}
-                  handleFunction={handleDeregister}
-                />
-              </>
-            ) : (
-              <div className="user-prompt">
-                <h3 className="user-subtitle">
-                  You haven't signed up for any tutorials. Search now to find
-                  your dream course
-                </h3>
-                <Link to="/courses">
-                  <button className="ghost-black">Browse tutorials</button>
-                </Link>
+        <main className="background-subtle">
+          <div id="container">
+            <section className="user-cards">
+              <h2>Hello {loggedUser.login}!</h2>
+              <div className="cards-container">
+                {userCourses.length > 0 ? (
+                  <>
+                    <h3 className="user-subtitle">
+                      Get back to learning in one of your exciting tutorials:
+                    </h3>
+                    <CarouselUser
+                      content={userCourses}
+                      handleFunction={handleDeregister}
+                    />
+                  </>
+                ) : (
+                  <div className="user-prompt">
+                    <h3 className="user-subtitle">
+                      You haven't signed up for any tutorials. Search now to
+                      find your dream course
+                    </h3>
+                    <Link to="/courses">
+                      <button className="ghost">Browse tutorials</button>
+                    </Link>
+                  </div>
+                )}
               </div>
-            )}
+            </section>
             {loggedUser.isAdmin ? (
-              <>
+              <section className="user-cards">
                 <h3 className="user-subtitle">
                   Manage the tutorials you created
                 </h3>
@@ -225,7 +229,7 @@ function User() {
                   handleFunction={handleDelete}
                   isAdmin={true}
                 />
-              </>
+              </section>
             ) : null}
           </div>
         </main>
