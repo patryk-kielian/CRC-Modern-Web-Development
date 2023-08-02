@@ -43,11 +43,11 @@ function Navbar() {
             <button className="violet my-trainings">
               <Link to="/user">{loggedUser.login}</Link>
             </button>
-            {loggedUser.isAdmin && (
+            {loggedUser.isAdmin ? (
               <button className="violet my-trainings">
                 <Link to="/create-new-tutorial">Create a new tutorial</Link>
               </button>
-            )}
+            ) : null}
             <button className="violet my-trainings" onClick={logout}>
               Log out
             </button>
@@ -55,7 +55,7 @@ function Navbar() {
         ) : (
           <>
             <button className="violet my-trainings">
-              <Link to="/login">Register</Link>
+              <Link to="/login/reg">Register</Link>
             </button>
             <button className="violet my-trainings">
               <Link to="/login">Log in</Link>

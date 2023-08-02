@@ -29,7 +29,7 @@ function App() {
               path="/create-new-tutorial"
               element={<CreateNewTutorial />}
             />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login/:mode?" element={<Login />} />
           </Routes>
         </Layout>
       </LoggedUserContext.Provider>

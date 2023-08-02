@@ -65,7 +65,9 @@ function Home() {
               and professionals in various disciplines
             </h4>
             <div className="hero-buttons">
-              <button>Start Learning Now</button>
+              <Link to="/login">
+                <button>Start Learning Now</button>
+              </Link>
               <Link to="/courses">
                 <button className="ghost">Browse Courses</button>
               </Link>
