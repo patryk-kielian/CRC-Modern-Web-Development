@@ -36,8 +36,8 @@ main {
 }
 
 #container {
-  margin: 140px 180px;
-  background-color: var(--grey);
+  padding-top: 140px;
+  margin: 0 180px;
 }
 
 #container h1 {
@@ -63,6 +63,7 @@ main {
   bottom: 0px;
   left: 0px;
   opacity: 0.75;
+  filter: blur(2px);
   z-index: -1;
 }
 

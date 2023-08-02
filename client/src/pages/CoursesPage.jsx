@@ -39,6 +39,8 @@ function CarouselCoursesPage({ content }) {
         {content.map((course) => (
           <CourseCard key={course.id} course={course} />
         ))}
+        {content.length < 3 && <div className="card hidden"></div>}
+        {content.length === 1 && <div className="card hidden"></div>}
       </Slider>
     </div>
   );
@@ -67,24 +69,26 @@ function CoursesPage() {
 
   return (
     <>
-      <main id="container">
-        {Object.keys(groupedCourses).length !== 0 && (
-          <>
-            {Object.keys(groupedCourses).map((category) => (
-              <div key={category} className="category-container">
-                <h2>{category} Tutorials</h2>
-                <CarouselCoursesPage content={groupedCourses[category]} />
-                <div className="category-button-container">
-                  <Link to="/courses">
-                    <button className="category-button ghost">
-                      All {category} courses
-                    </button>
-                  </Link>
+      <main className="background-subtle">
+        <div id="container">
+          {Object.keys(groupedCourses).length !== 0 && (
+            <>
+              {Object.keys(groupedCourses).map((category) => (
+                <div key={category} className="category-container">
+                  <h2>{category} Tutorials</h2>
+                  <CarouselCoursesPage content={groupedCourses[category]} />
+                  <div className="category-button-container">
+                    <Link to="/courses">
+                      <button className="category-button ghost">
+                        All {category} courses
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </>
-        )}
+              ))}
+            </>
+          )}
+        </div>
         {/* {showPopup && (
           <Popup
             message="You are already registered to this course!"
