@@ -50,7 +50,7 @@ function Home() {
   }, []);
   return (
     <>
-      <main>
+      <main className="background-subtle">
         <div className="hero">
           <div className="hero-content">
             <h1>

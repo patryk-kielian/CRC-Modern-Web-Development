@@ -52,8 +52,12 @@ h2 {
   font-weight: 700;
 }
 
-section {
+.home-content section {
+  margin: -40px;
   margin-top: 80px;
+  padding: 20px 40px 40px;
+  border-radius: 50px;
+  background-color: var(--grey);
 }
 
 .courses-container {
@@ -69,7 +73,7 @@ section {
   margin: 0 auto;
 }
 
-.advantages {
+section.advantages {
   margin: 120px -180px 0;
   padding: 80px 180px;
   background: linear-gradient(
@@ -81,6 +85,7 @@ section {
   background-position: 50%;
   background-size: cover;
   background-repeat: no-repeat;
+  border-radius: 0;
 }
 
 .advantages-container {
@@ -111,11 +116,12 @@ section {
   font-weight: 600;
 }
 
-.cta {
+section.cta {
   display: grid;
   grid-template-columns: 1fr 2.5fr;
   height: 450px;
   margin-top: 160px;
+  padding: 0;
   overflow: hidden;
   border-radius: 30px;
   background-color: var(--white);

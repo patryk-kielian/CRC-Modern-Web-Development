@@ -31,8 +31,39 @@ body {
   margin: 0;
 }
 
+main {
+  padding-bottom: 200px;
+}
+
+#container {
+  margin: 140px 180px;
+  background-color: var(--grey);
+}
+
+#container h1 {
+  color: var(--white);
+  font-size: 80px;
+  line-height: 100%;
+}
+
 .hidden {
   visibility: hidden;
+}
+
+.background-subtle {
+  position: relative;
+}
+.background-subtle:before {
+  content: "";
+  background: url(/img/background.png);
+  background-size: 50%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 0.75;
+  z-index: -1;
 }
 
 button,
@@ -99,33 +130,4 @@ button.violet:hover,
 input[type="submit"].violet:hover {
   background: var(--accent1dark);
   color: var(--white);
-}
-
-/* .ghost-button {
-  background: var(--white);
-  border-radius: 30px;
-  color: var(--black);
-  font-size: 24px;
-  font-weight: 700;
-  padding: 8px 15px;
-  border: 1px solid var(--black);
-  transition: all 300ms ease-in-out;
-}
-
-.ghost-button:hover {
-  cursor: pointer;
-  background: var(--accent1dark);
-  color: var(--white);
-  border: 1px solid transparent;
-} */
-
-#container {
-  margin: 140px 180px;
-  background-color: var(--grey);
-}
-
-#container h1 {
-  color: var(--white);
-  font-size: 80px;
-  line-height: 100%;
 }
