@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import React from "react";
 import "../styles/Popup.css";
 
-function Popup({ message, showPopup, setShowPopup }) {
+function PopupDecision({ message, showPopup, setShowPopup, onConfirm }) {
   const popupRef = useRef(null);
 
   useEffect(() => {
@@ -15,6 +15,11 @@ function Popup({ message, showPopup, setShowPopup }) {
     setShowPopup(false);
   };
 
+  const handleConfirm = () => {
+    onConfirm();
+    closePopup();
+  };
+
   return (
     <>
       {showPopup && (
@@ -23,8 +28,11 @@ function Popup({ message, showPopup, setShowPopup }) {
           ref={popupRef}
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === "Escape" || e.key === "Enter") {
+            if (e.key === "Escape") {
               closePopup();
+            }
+            if (e.key === "Enter") {
+              handleConfirm();
             }
           }}
           onClick={(e) => {
@@ -35,9 +43,20 @@ function Popup({ message, showPopup, setShowPopup }) {
         >
           <div className="popup-body">
             <h3 className="popup-message">{message}</h3>
-            <button className="popup-button" onClick={closePopup}>
-              OK
-            </button>
+            <div className="popup-decision-buttons">
+              <button
+                className="ghost-black popup-decision-button"
+                onClick={handleConfirm}
+              >
+                Yes
+              </button>
+              <button
+                className="ghost-black popup-decision-button"
+                onClick={closePopup}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -45,4 +64,4 @@ function Popup({ message, showPopup, setShowPopup }) {
   );
 }
 
-export default Popup;
+export default PopupDecision;

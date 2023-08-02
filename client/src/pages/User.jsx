@@ -9,6 +9,7 @@ import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import CourseCard from "../components/CourseCard";
 import CourseCardMin from "../components/CourseCardMin";
 import Error from "./Error";
+import PopupDecision from "../components/PopupDecision";
 
 function CarouselUser({ content, handleFunction }) {
   const [selectedFooter, setSelectedFooter] = useState(1);
@@ -103,7 +104,10 @@ function CarouselAdmin({ content, handleFunction }) {
         {content.length < 3 && (
           <div className="card-min card-min-user hidden"></div>
         )}
-        {content.length === 1 && (
+        {content.length < 2 && (
+          <div className="card-min card-min-user hidden"></div>
+        )}
+        {content.length === 0 && (
           <div className="card-min card-min-user hidden"></div>
         )}
       </Slider>
@@ -114,6 +118,8 @@ function CarouselAdmin({ content, handleFunction }) {
 function User() {
   const [userCourses, setUserCourses] = useState([]);
   const [adminCourses, setAdminCourses] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [actionToConfirm, setActionToConfirm] = useState(null);
   const [refreshRequired, setRefreshRequired] = useState(false);
   const { loggedUser } = useContext(LoggedUserContext);
 
@@ -141,6 +147,13 @@ function User() {
   }, [loggedUser, refreshRequired]);
 
   const handleDeregister = (courseId) => {
+    setActionToConfirm(() => () => deregisterCourse(courseId));
+
+    // setActionToConfirm(() => deregisterCourse(courseId));
+    setShowPopup(true);
+  };
+
+  const deregisterCourse = (courseId) => {
     if (loggedUser) {
       Axios.delete(`${API_URL}/course-attendance`, {
         data: {
@@ -155,9 +168,14 @@ function User() {
           console.log(error);
         });
     }
+    setShowPopup(false);
   };
 
   const handleDelete = (courseId) => {
+    setActionToConfirm(() => () => deleteCourse(courseId));
+    setShowPopup(true);
+  };
+  const deleteCourse = (courseId) => {
     if (loggedUser.isAdmin) {
       Axios.delete(`${API_URL}/delete-course/${courseId}`)
         .then(() => {
@@ -167,6 +185,7 @@ function User() {
           console.log(error);
         });
     }
+    setShowPopup(false);
   };
 
   return (
@@ -217,6 +236,12 @@ function User() {
           route={"/login"}
         />
       )}
+      <PopupDecision
+        message={"Are you sure you want to proceed?"}
+        showPopup={showPopup}
+        setShowPopup={setShowPopup}
+        onConfirm={actionToConfirm}
+      />
     </>
   );
 }

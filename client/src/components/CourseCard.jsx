@@ -75,6 +75,7 @@ function CourseCard({ course, isUserCourse = false, ...props }) {
             <button
               className="ghost-black"
               onClick={(e) => {
+                console.log(props.handleFunction);
                 e.preventDefault();
                 props.handleFunction(course.course_id);
               }}
