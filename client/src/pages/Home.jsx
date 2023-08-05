@@ -1,7 +1,7 @@
 import { API_URL } from "../config";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/Home.css";
 
 import Carousel from "../components/Carousel";
@@ -42,12 +42,16 @@ const opinions = [
 
 function Home() {
   const [courses, setCourses] = useState([]);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Fetch courses from the server
     Axios.get(`${API_URL}/courses`).then((response) => {
       setCourses(response.data.courses);
     });
   }, []);
+
   return (
     <>
       <main className="background-subtle">
@@ -65,7 +69,7 @@ function Home() {
               and professionals in various disciplines
             </h4>
             <div className="hero-buttons">
-              <Link to="/login">
+              <Link to="/login/reg">
                 <button>Start Learning Now</button>
               </Link>
               <Link to="/courses">
@@ -150,8 +154,13 @@ function Home() {
                 <br /> Create an account for free and start learning now!
               </h3>
               <div className="cta-buttons">
-                <button className="violet">Create an account</button>
-                <button className="ghost">
+                <button
+                  className="violet"
+                  onClick={() => navigate("/login/reg")}
+                >
+                  Create an account
+                </button>
+                <button className="ghost" onClick={() => navigate("/login")}>
                   Already have an account? Sign in{" "}
                 </button>
               </div>
