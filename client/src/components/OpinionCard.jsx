@@ -14,7 +14,7 @@ export default function OpinionCard({ opinion }) {
   return (
     <div className="card-opinion-min" key={id}>
       <p className="card-opinion-text">{text}</p>
-      <p>
+      <p className="card-opinion-stars">
         {Array.from({ length: 5 }, (_, i) => (
           <span
             className={`material-symbols-outlined card-opinion-icon ${

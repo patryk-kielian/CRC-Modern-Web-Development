@@ -10,6 +10,7 @@
   border-radius: 30px;
   background-color: var(--white);
   transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 15px var(--black);
 }
 
 .categories-card:hover {
