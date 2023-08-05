@@ -1,0 +1,65 @@
+footer {
+  height: 210px;
+  /* margin-top: 200px; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.8fr;
+  gap: 100px;
+  padding: 30px 180px;
+  background-color: var(--black);
+}
+
+footer section {
+  margin: 0;
+}
+
+#logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  height: 1.75rem;
+}
+
+#logo p {
+  font-size: 1.25rem;
+  color: var(--white);
+}
+
+.footer-title {
+  margin-bottom: 25px;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--white);
+}
+
+#about p {
+  max-width: 500px;
+  font-size: 1rem;
+  line-height: 140%;
+  text-align: justify;
+  color: var(--white);
+}
+
+#contact ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#contact li {
+  list-style: none;
+  font-size: 1.25rem;
+  border-bottom: 1px solid transparent;
+  color: var(--white);
+}
+
+#contact li:hover {
+  border-bottom: 1px solid var(--white);
+}
+
+#contact li a {
+  display: inline-block;
+  width: 100%;
+}

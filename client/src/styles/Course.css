@@ -1,0 +1,136 @@
+.course-bar-fixed {
+  z-index: 100;
+  width: -webkit-fill-available;
+  position: fixed;
+  grid-template-columns: 2fr 1fr;
+  top: 80px;
+  margin: 0px 360px;
+  padding: 10px 90px;
+  display: grid;
+  gap: 20px;
+  border: 5px solid var(--accent1dark);
+  border-radius: 40px;
+  background-color: var(--white);
+}
+
+.course-bar-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.course-bar-fixed h4 {
+  font-size: 2rem;
+  line-height: 100%;
+  word-break: break-word;
+  color: var(--black);
+}
+
+.course-bar-button {
+  height: 30px;
+  width: 300px;
+  font-size: 1.25rem;
+  color: var(--white);
+  background-color: var(--accent1);
+}
+.course-bar-button:hover {
+  background-color: var(--accent1dark);
+}
+.course-bar-item {
+  display: flex;
+  align-items: center;
+}
+
+.course-bar-icon {
+  font-size: 1.25rem;
+}
+.course-bar-text {
+  margin-left: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.course-container {
+  margin: 0 360px;
+}
+
+.course-container section {
+  margin: 40px -20px 20px -20px;
+  padding: 20px;
+  border-radius: 40px;
+  box-shadow: 0 0 50px var(--black);
+  background-color: var(--grey);
+}
+
+section.course-desc-points {
+  padding-top: 200px;
+}
+
+.course-container h2 {
+  font-size: 1.5rem;
+  margin-left: 20px;
+}
+
+.course-desc-container {
+  height: -webkit-fill-available;
+  max-height: calc(100% - 100px);
+  margin-top: 20px;
+  padding: 20px 50px;
+  border-radius: 40px;
+  background-color: var(--white);
+}
+
+.course-demo-player {
+  margin-top: 20px;
+  height: 35vw;
+}
+
+.course-desc-long {
+  display: flex;
+  align-items: stretch;
+  gap: 30px;
+}
+
+.course-desc-long-left {
+  max-width: 65%;
+}
+
+.course-desc-long-right {
+  max-width: 35%;
+}
+
+.course-trainer-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.course-trainer-bottom {
+  margin-top: 30px;
+}
+
+.course-trainer-img {
+  height: 150px;
+  width: 150px;
+  border-radius: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+section.course-opinions {
+  margin-left: -150px;
+  margin-right: -150px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 120px;
+}
+
+.course-opinions h2 {
+  font-size: 2rem;
+}
+
+.course-opinions .slick-slider {
+  /* margin: 30px -150px 50px; */
+  width: auto;
+}

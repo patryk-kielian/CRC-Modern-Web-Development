@@ -1,20 +1,29 @@
 import { API_URL } from "../config";
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Axios from "axios";
+import "../styles/Login.css";
 
-import Navbar from "../components/Navbar";
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
+import Popup from "../components/Popup";
 
 function Login() {
-  const [registerMode, setRegisterMode] = useState(false);
+  const { mode } = useParams();
+
+  const [registerMode, setRegisterMode] = useState(mode === "reg"); // true - register mode, false - login mode
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
 
-  const [loginStatus, setLoginStatus] = useState("");
+  const [message, setMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   const { setLoggedUser } = useContext(LoggedUserContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setRegisterMode(mode === "reg");
+  }, [mode]);
 
   const loginUser = (e) => {
     e.preventDefault();
@@ -23,9 +32,11 @@ function Login() {
       password: password,
     }).then((response) => {
       if (response.data.message) {
-        setLoginStatus(response.data.message);
+        setMessage(response.data.message);
+        setShowPopup(true);
       } else {
-        setLoginStatus("Succesfully logged in!");
+        setMessage("Succesfully logged in!");
+        setShowPopup(true);
         setLoggedUser(response.data);
         navigate("/");
       }
@@ -34,15 +45,25 @@ function Login() {
 
   const registerUser = (e) => {
     e.preventDefault();
+    if (password !== passwordCheck) {
+      setMessage("Passwords do not match!");
+      setShowPopup(true);
+      return;
+    }
+    if (password.length < 4) {
+      setMessage("Password needs to be at least 4 characters long");
+      setShowPopup(true);
+      return;
+    }
     Axios.post(`${API_URL}/register`, {
       username: username,
       password: password,
     }).then((response) => {
       if (response.data.message) {
-        setLoginStatus(response.data.message);
-        console.log(response);
+        setMessage(response.data.message);
+        setShowPopup(true);
       } else {
-        setLoginStatus("Succesfully registered user!");
+        setMessage("Succesfully registered user!");
         setRegisterMode(false);
         setUsername("");
         setPassword("");
@@ -52,60 +73,100 @@ function Login() {
 
   return (
     <>
-      <Navbar />
-      <main id="container">
-        <h1>{registerMode ? "Create an account" : "Welcome back!"}</h1>
-        <form className="form-login">
-          <label htmlFor="login">{registerMode ? "Username:" : "Login:"}</label>
+      <main className="login-background">
+        <div className="login-content">
+          <h2>{registerMode ? "Create an account" : "Welcome back!"}</h2>
+          <form className="login-form">
+            <div className="login-form-inputs">
+              <div className="login-form-input-block">
+                <label htmlFor="login">
+                  {registerMode ? "Username:" : "Login:"}
+                </label>
 
-          <input
-            type="text"
-            id="login"
-            name="login"
-            placeholder="Type login"
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-          />
-          <br />
-          <label htmlFor="login">Password:</label>
-
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Type password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          <br />
-          <br />
-          <input
-            className="violet-button login-button"
-            type="submit"
-            value={registerMode ? "Register" : "Login"}
-            onClick={registerMode ? registerUser : loginUser}
-          />
-          <button
-            className="ghost-button register-account-button"
-            onClick={(e) => {
-              e.preventDefault();
-              setRegisterMode(!registerMode);
-              setUsername("");
-              setPassword("");
-            }}
-          >
-            <span className="fine-button">
-              {registerMode ? "Already have an account? " : "No account yet? "}
-            </span>{" "}
-            {registerMode ? "Login" : "Register"}
-          </button>
-        </form>
-        <h1 className="form-status">{loginStatus}</h1>
+                <input
+                  type="text"
+                  id="login"
+                  name="login"
+                  placeholder="Type login"
+                  value={username}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="login-form-input-block">
+                <label htmlFor="password">Password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Type password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="login-form-input-block">
+                {registerMode ? (
+                  <>
+                    <label htmlFor="password">Confirm Password:</label>
+                    <input
+                      type="password"
+                      id="passwordCheck"
+                      name="passwordCheck"
+                      placeholder="Repeat password"
+                      value={passwordCheck}
+                      onChange={(e) => {
+                        setPasswordCheck(e.target.value);
+                      }}
+                    />
+                  </>
+                ) : (
+                  <p className="login-tip">
+                    Tip: To have the ability to create and manage tutorials, use
+                    the following credentials:
+                    <br />
+                    username: admin
+                    <br />
+                    password: test
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="login-buttons">
+              <input
+                className="violet login-button"
+                type="submit"
+                value={registerMode ? "Register" : "Log in"}
+                onClick={registerMode ? registerUser : loginUser}
+              />
+              <button
+                className="ghost-black register-account-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setRegisterMode(!registerMode);
+                  setUsername("");
+                  setPassword("");
+                  setPasswordCheck("");
+                }}
+              >
+                <span className="fine-button">
+                  {registerMode
+                    ? "Already have an account? "
+                    : "No account yet? "}
+                </span>{" "}
+                {registerMode ? "Login" : "Register"}
+              </button>
+            </div>
+          </form>
+        </div>
       </main>
+      <Popup
+        message={message}
+        showPopup={showPopup}
+        setShowPopup={setShowPopup}
+      />
     </>
   );
 }

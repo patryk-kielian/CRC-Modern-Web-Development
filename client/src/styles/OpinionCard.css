@@ -1,0 +1,42 @@
+.card-opinion-min {
+  z-index: 1;
+  height: 260px;
+  max-width: 290px;
+  margin: 0;
+  padding: 30px;
+  position: relative;
+  border-radius: 30px;
+  background-color: var(--white);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 15px 10px -10px var(--black);
+}
+.card-opinion-min:hover {
+  transform: translateY(-6px);
+}
+
+.card-opinion-text {
+  height: 220px;
+  padding: 0;
+  font-size: 1rem;
+  text-align: justify;
+  font-weight: 500;
+  line-height: 140%;
+  overflow-y: auto;
+}
+
+.card-opinion-stars {
+  height: 2rem;
+}
+
+.card-opinion-icon {
+  font-size: 2rem;
+  color: var(--black);
+}
+
+.card-opinion-icon.filled {
+  font-variation-settings: "FILL" 1;
+}
+
+.card-opinion-author {
+  font-weight: 500;
+}

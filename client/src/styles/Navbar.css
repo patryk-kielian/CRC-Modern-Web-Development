@@ -1,0 +1,78 @@
+nav {
+  z-index: 200;
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: calc(100vw - 360px);
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--black);
+  padding: 0 180px;
+  height: 70px;
+}
+
+#navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* disabled on logo change
+#header-left h1 {
+  display: inline-block;
+  font-size: 32px;
+  margin-left: 5px;
+  color: var(--white);
+} */
+
+.navbar-logo {
+  height: 40px;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.my-trainings,
+.all-trainings {
+  height: 40px;
+  width: 150px;
+  min-width: fit-content;
+  max-width: 400px;
+  overflow: hidden;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 500;
+  background: var(--accent1dark);
+}
+
+.all-trainings {
+  margin-right: 40px;
+}
+
+.my-trainings:hover,
+.all-trainings:hover {
+  border: none;
+  background: var(--accent2);
+  color: var(--black);
+}
+
+.counter {
+  background: var(--accent2);
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.number {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--black);
+}

@@ -1,79 +1,91 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../styles/CourseCard.css";
 
-function CourseCard(props) {
-  const { course, loggedUser, handleMode, handleFunction } = props;
+function CourseCard({ course, isUserCourse = false, ...props }) {
+  const rating = course.averageRating;
+
+  let nStars = Math.floor(rating);
+  if (rating % 1 > 0.75) {
+    nStars += 1.0;
+  } else if (rating % 1 > 0.25) {
+    nStars += 0.5;
+  }
 
   return (
-    <div className="card" key={course.id}>
-      <div
-        className="training-logo"
-        style={{ backgroundImage: `url(img/${course.image})` }}
-        alt="Python Logo"
-      />
-      <div className="training-content">
-        <h2>{course.name}</h2>
-        <div className="training-items">
-          <div className="training-item">
-            <img src="icons/calendar_icon.svg" alt="Calendar Icon" />
-            <span>
-              {course.dateStart} - {course.dateEnd}
-            </span>
-          </div>
-          <div className="training-item">
-            <img src="icons/clock_icon.svg" alt="Clock Icon" />
-            <span>
-              {course.timeStart} - {course.timeEnd} ({course.frequency})
-            </span>
-          </div>
-          <div className="training-item">
-            <img src="icons/language_icon.svg" alt="UK Flag Icon" />
-            <span>{course.language}</span>
-          </div>
-          <div className="training-item">
-            <img src="icons/level_icon.svg" alt="Level Icon" />
-            <span>{course.level}</span>
-          </div>
-          <div className="training-item">
-            <img src="icons/location_icon.svg" alt="Location Icon" />
-            <span>{course.location}</span>
-          </div>
-          <div className="training-item">
-            <img src="icons/trainer_logo.svg" alt="Trainer Icon" />
-            <span>Trainer: {course.trainer}</span>
+    <Link
+      to={
+        isUserCourse
+          ? `/courses/learn/${course.course_id}`
+          : `/courses/${course.id}`
+      }
+    >
+      <div className={`card ${isUserCourse && "card-user"}`} key={course.id}>
+        <div className="card-top">
+          <div
+            className="card-logo"
+            style={{ backgroundImage: `url(img/${course.image})` }}
+            alt={`${course.name} Logo`}
+          />
+          <div className="card-content">
+            <h4>{course.name}</h4>
+            <div className="card-item">
+              <span className="material-symbols-outlined card-item-icon">
+                person_raised_hand
+              </span>
+              {/* <img src="icons/trainer_logo.svg" alt="Trainer Icon" /> */}
+              <span className="card-item-text">{course.trainer}</span>
+            </div>
+            <div className="card-item">
+              <span className="material-symbols-outlined card-item-icon">
+                translate
+              </span>
+              {/* <img src="icons/language_icon.svg" alt="UK Flag Icon" /> */}
+              <span className="card-item-text">{course.language}</span>
+            </div>
+            <div className="card-item">
+              <span className="material-symbols-outlined card-item-icon">
+                bar_chart_4_bars
+              </span>
+              {/* <img src="icons/level_icon.svg" alt="Level Icon" /> */}
+              <span className="card-item-text">{course.level}</span>
+            </div>
+
+            <p>
+              {Array.from({ length: 5 }, (_, i) => (
+                <span
+                  className={`material-symbols-outlined card-star ${
+                    i < nStars - 0.5 ? "filled" : ""
+                  }`}
+                  key={i}
+                >
+                  {i < nStars - 0.5
+                    ? "star"
+                    : i < nStars
+                    ? "star_half"
+                    : "star"}
+                </span>
+              ))}
+            </p>
           </div>
         </div>
+        <div className="card-bottom">
+          <p>{course.descriptionShort}</p>
+          {isUserCourse && (
+            <button
+              className="ghost-black"
+              onClick={(e) => {
+                console.log(props.handleFunction);
+                e.preventDefault();
+                props.handleFunction(course.course_id);
+              }}
+            >
+              Leave this tutorial
+            </button>
+          )}
+        </div>
       </div>
-      {handleMode === "register" &&
-        (loggedUser ? (
-          <button
-            className="violet-button register-button"
-            onClick={() => handleFunction(course.id)}
-          >
-            Register
-          </button>
-        ) : (
-          <button className="violet-button register-button">
-            <Link to="/login">Log in first to enroll</Link>
-          </button>
-        ))}
-      {handleMode === "deregister" && (
-        <button
-          className="violet-button register-button"
-          onClick={() => handleFunction(course.id)}
-        >
-          Leave the course
-        </button>
-      )}
-      {handleMode === "delete" && (
-        <button
-          className="violet-button register-button"
-          onClick={() => handleFunction(course.id)}
-        >
-          Delete the course
-        </button>
-      )}
-    </div>
+    </Link>
   );
 }
 
