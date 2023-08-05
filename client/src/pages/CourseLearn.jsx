@@ -77,7 +77,7 @@ export default function CourseLearn() {
           <aside className="navbar-insert">
             <h6>{course.name}</h6>
           </aside>
-          <main>
+          <main className="background-subtle">
             <section className="course-learn-video">
               <div className="course-learn-video-player">
                 {currentLesson && (

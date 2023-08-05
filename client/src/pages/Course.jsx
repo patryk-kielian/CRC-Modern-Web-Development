@@ -65,7 +65,7 @@ export default function Course() {
   if (loggedUser && userEnrolled) {
     buttonComponent = (
       <Link to={`/courses/learn/${courseId}`}>
-        <button className="course-bar-button">Go to lessons</button>
+        <button className="course-bar-button">Click to start learning</button>
       </Link>
     );
   } else if (loggedUser) {

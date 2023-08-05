@@ -76,7 +76,7 @@ function Home() {
         </div>
         <div className="home-content">
           <section className="courses">
-            <h2>Explore our Tutorials</h2>
+            <h2>Explore hot Tutorials</h2>
             <div className="courses-container">
               {courses.length > 0 && (
                 <Carousel contentType={"courses"} content={courses} />
@@ -144,7 +144,7 @@ function Home() {
               }}
             ></div>
             <div className="cta-container">
-              <h2>First time at tutorials?</h2>
+              <h2>First time at Tutorials?</h2>
               <h3>
                 You are lucky!
                 <br /> Create an account for free and start learning now!
