@@ -51,16 +51,29 @@
 }
 
 .course-container {
-  margin: 220px 360px 0;
+  margin: 0 360px;
+}
+
+.course-container section {
+  margin: 40px -20px 20px -20px;
+  padding: 20px;
+  border-radius: 40px;
+  box-shadow: 0 0 50px var(--black);
+  background-color: var(--grey);
+}
+
+section.course-desc-points {
+  padding-top: 200px;
 }
 
 .course-container h2 {
   font-size: 1.5rem;
+  margin-left: 20px;
 }
 
 .course-desc-container {
   height: -webkit-fill-available;
-  max-height: 100%;
+  max-height: calc(100% - 100px);
   margin-top: 20px;
   padding: 20px 50px;
   border-radius: 40px;
@@ -105,7 +118,11 @@
   background-size: cover;
 }
 
-.course-opinions {
+section.course-opinions {
+  margin-left: -150px;
+  margin-right: -150px;
+  padding-left: 10px;
+  padding-right: 10px;
   margin-top: 120px;
 }
 
@@ -114,6 +131,6 @@
 }
 
 .course-opinions .slick-slider {
-  margin: 30px -150px 50px;
+  /* margin: 30px -150px 50px; */
   width: auto;
 }

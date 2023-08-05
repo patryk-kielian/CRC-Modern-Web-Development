@@ -26,7 +26,7 @@ export default function OpinionCard({ opinion }) {
           </span>
         ))}
       </p>
-      <p className="card-opinion-text">{name}</p>
+      <p className="card-opinion-author">{name}</p>
     </div>
   );
 }

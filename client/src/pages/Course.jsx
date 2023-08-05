@@ -118,62 +118,64 @@ export default function Course() {
               </div>
             </div>
           </div>
-          <main className="course-container">
-            <section className="course-desc-points">
-              <h2>What you will learn</h2>
-              <div className="course-desc-container">
-                <p>{course.descriptionPoints}</p>
-              </div>
-            </section>
-            <section className="course-demo">
-              <h2>Tutorial Demo</h2>
-              <div className="course-demo-player">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src={course.demoURL}
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </section>
-            <section className="course-desc-long">
-              <div className="course-desc-long-left">
-                <h2>Tutorial Description</h2>
+          <main className="background-subtle">
+            <div className="course-container">
+              <section className="course-desc-points">
+                <h2>What you will learn</h2>
                 <div className="course-desc-container">
-                  <p>{course.descriptionLong}</p>
+                  <p>{course.descriptionPoints}</p>
                 </div>
-              </div>
-              <div className="course-desc-long-right">
-                <h2>About the trainer</h2>
-                <div className="course-desc-container">
-                  {creator && (
-                    <>
-                      <div className="course-trainer-top">
-                        <div
-                          className="course-trainer-img"
-                          style={{
-                            backgroundImage: `url("https://i.imgur.com/R5TC4jI.png")`,
-                          }}
-                        ></div>
-                        <h3>{creator.name}</h3>
-                      </div>
-                      <div className="course-trainer-bottom">
-                        <p>{creator.description}</p>
-                      </div>
-                    </>
-                  )}
+              </section>
+              <section className="course-demo">
+                <h2>Tutorial Demo</h2>
+                <div className="course-demo-player">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={course.demoURL}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  ></iframe>
                 </div>
-              </div>
-            </section>
-            <section className="course-opinions">
-              <h2>What students say about this tutorial</h2>
-              {opinions && (
-                <Carousel contentType={"opinions"} content={opinions} />
-              )}
-            </section>
+              </section>
+              <section className="course-desc-long">
+                <div className="course-desc-long-left">
+                  <h2>Tutorial Description</h2>
+                  <div className="course-desc-container">
+                    <p>{course.descriptionLong}</p>
+                  </div>
+                </div>
+                <div className="course-desc-long-right">
+                  <h2>About the trainer</h2>
+                  <div className="course-desc-container">
+                    {creator && (
+                      <>
+                        <div className="course-trainer-top">
+                          <div
+                            className="course-trainer-img"
+                            style={{
+                              backgroundImage: `url("https://i.imgur.com/R5TC4jI.png")`,
+                            }}
+                          ></div>
+                          <h3>{creator.name}</h3>
+                        </div>
+                        <div className="course-trainer-bottom">
+                          <p>{creator.description}</p>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </section>
+              <section className="course-opinions">
+                <h2>What students say about this tutorial</h2>
+                {opinions && (
+                  <Carousel contentType={"opinions"} content={opinions} />
+                )}
+              </section>
+            </div>
           </main>
           <Popup
             message="You are already registered to this course!"

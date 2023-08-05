@@ -10,8 +10,8 @@ h4 {
 }
 
 .hero {
-  min-height: calc(100vh - 70px);
-  height: fit-content;
+  height: calc(100vh - 70px);
+  min-height: 850px;
   max-width: 100%;
   margin-top: 70px;
   /* background-image: url("../../public/img/home_hero.jpeg"); */
@@ -20,7 +20,7 @@ h4 {
 }
 
 .hero-content {
-  padding: 180px 0px 140px;
+  padding: 140px 0;
   max-width: 900px;
   margin: 0 auto;
 }
@@ -57,6 +57,7 @@ h2 {
   margin-top: 80px;
   padding: 20px 40px 40px;
   border-radius: 50px;
+  box-shadow: 0 0 50px var(--black);
   background-color: var(--grey);
 }
 
