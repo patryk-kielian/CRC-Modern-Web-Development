@@ -9,6 +9,7 @@ import User from "./pages/User";
 import Course from "./pages/Course";
 import CourseLearn from "./pages/CourseLearn";
 import Layout from "./components/Layout";
+import NotFound404 from "./pages/NotFound404";
 
 import { LoggedUserContext } from "./contexts/LoggedUserContext";
 
@@ -20,6 +21,7 @@ function App() {
       <LoggedUserContext.Provider value={{ loggedUser, setLoggedUser }}>
         <Layout>
           <Routes>
+            <Route path="*" element={<NotFound404 />} />
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<CoursesPage />} />
             <Route path="/courses/:courseId" element={<Course />} />
