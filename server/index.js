@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -34,7 +35,7 @@ const db = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DBNAME,
   waitForConnections: true,
-  connectionLimit: 3,
+  connectionLimit: 1,
   // queueLimit: 0,
 });
 
@@ -75,7 +76,12 @@ app.post("/login", (req, res) => {
             login: result[0].login,
             isAdmin: result[0].isAdmin,
           };
-          res.send(user);
+          const privateKey = process.env.JWT_SECRET;
+          token = jwt.sign({ userID: user.id }, privateKey, {
+            expiresIn: "1h",
+          });
+          res.json({ token: token, user });
+          // res.send(user);
         } else {
           res.send({ message: "Wrong username/password combination!" });
         }
@@ -444,6 +450,52 @@ app.delete("/course-attendance", (req, res) => {
       }
     }
   );
+});
+
+app.use((req, res, next) => {
+  req.user = { userID: null, verified: false };
+  const privateKey = process.env.JWT_SECRET;
+  const bearerHeader = req.headers["authorization"];
+  if (typeof bearerHeader !== "undefined") {
+    const bearerToken = bearerHeader.split(" ")[1];
+    jwt.verify(bearerToken, privateKey, function (err, data) {
+      if (!(err && typeof data === "undefined")) {
+        req.user = { userID: data.userID, verified: true };
+        next();
+      } else {
+        return res.sendStatus(403); // Send a 403 response if token is invalid
+      }
+    });
+  } else {
+    return res.sendStatus(403); // Send a 403 response if no token is present
+  }
+});
+
+app.get("/login-by-id", (req, res) => {
+  const userID = req.query.userID;
+  db.query("SELECT * FROM users WHERE users.id = ?", userID, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.send({ err: err });
+    } else if (result && result.length > 0) {
+      const user = {
+        id: result[0].id,
+        login: result[0].login,
+        isAdmin: result[0].isAdmin,
+      };
+      res.json(user);
+    }
+    // TODO: zmienić obiekt i na frontendzie
+  });
+});
+
+app.get("/logout", (req, res) => {
+  const bearerHeader = req.headers["authorization"];
+  if (typeof bearerHeader !== "undefined") {
+    const bearerToken = bearerHeader.split(" ")[1];
+    // add bearerToken to blacklist
+  }
+  return res.sendStatus(200);
 });
 
 // app.get("/init", (req, res) => {
