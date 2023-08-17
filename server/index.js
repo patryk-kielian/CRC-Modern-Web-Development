@@ -485,7 +485,6 @@ app.get("/login-by-id", (req, res) => {
       };
       res.json(user);
     }
-    // TODO: zmienić obiekt i na frontendzie
   });
 });
 
