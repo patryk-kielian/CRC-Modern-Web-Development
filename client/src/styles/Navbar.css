@@ -81,11 +81,7 @@ nav {
 @media (max-width: 1200px) {
   nav {
     width: calc(100vw - 160px);
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--black);
     padding: 0 80px;
-    height: 70px;
   }
 
   .navbar-logo {
