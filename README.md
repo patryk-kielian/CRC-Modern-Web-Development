@@ -36,6 +36,7 @@ More regular accounts can be created on the website
 - Vitest
 - bcrypt
 - Axios
+- JWT
 - Figma [link to project](https://www.figma.com/community/file/1242498176864334128)
 
 Hosting: Vercel, clever-cloud
