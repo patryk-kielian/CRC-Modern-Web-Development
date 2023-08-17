@@ -3,27 +3,13 @@ nav {
   display: flex;
   position: fixed;
   top: 0;
-  width: calc(100vw - 360px);
+  width: calc(100vw - min(20vw, 360px));
   align-items: center;
   justify-content: space-between;
   background-color: var(--black);
-  padding: 0 180px;
+  padding: 0 min(10vw, 180px);
   height: 70px;
 }
-
-#navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-/* disabled on logo change
-#header-left h1 {
-  display: inline-block;
-  font-size: 32px;
-  margin-left: 5px;
-  color: var(--white);
-} */
 
 .navbar-logo {
   height: 40px;
@@ -35,29 +21,10 @@ nav {
   -ms-user-select: none;
 }
 
-.my-trainings,
-.all-trainings {
-  height: 40px;
-  width: 150px;
-  min-width: fit-content;
-  max-width: 400px;
-  overflow: hidden;
-  border: none;
-  border-radius: 4px;
-  font-size: 20px;
-  font-weight: 500;
-  background: var(--accent1dark);
-}
-
-.all-trainings {
-  margin-right: 40px;
-}
-
-.my-trainings:hover,
-.all-trainings:hover {
-  border: none;
-  background: var(--accent2);
-  color: var(--black);
+#navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .counter {
@@ -75,4 +42,107 @@ nav {
   font-size: 20px;
   font-weight: 700;
   color: var(--black);
+}
+
+.navbar-button {
+  height: 40px;
+  width: fit-content;
+  min-width: 100px;
+  max-width: 15dvw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 500;
+  background: var(--accent1dark);
+}
+
+.navbar-button:hover {
+  border: none;
+  background: var(--accent2);
+  color: var(--black);
+}
+
+.navbar-button-short {
+  display: none;
+}
+
+@media (max-width: 1600px) {
+  .navbar-button-long {
+    display: none;
+  }
+  .navbar-button-short {
+    display: initial;
+  }
+}
+
+@media (max-width: 1200px) {
+  nav {
+    width: calc(100vw - 160px);
+    padding: 0 80px;
+  }
+
+  .navbar-logo {
+    height: 35px;
+  }
+
+  .counter {
+    min-width: 35px;
+    width: 35px;
+    height: 35px;
+  }
+
+  .navbar-button {
+    height: 35px;
+    width: fit-content;
+    min-width: 70px;
+    max-width: 15dvw;
+    padding: 0 5px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    height: 50px;
+    width: calc(100vw - 80px);
+    padding: 0 40px;
+  }
+
+  #navbar-left {
+    width: 21px;
+    overflow: hidden;
+  }
+
+  .navbar-logo {
+    height: 30px;
+  }
+
+  .counter {
+    min-width: 30px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .navbar-button {
+    height: 30px;
+    width: fit-content;
+    min-width: 50px;
+    max-width: 20dvw;
+    padding: 0 5px;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    width: calc(100vw - 40px);
+    padding: 0 20px;
+  }
+
+  .navbar-button {
+    font-size: 0.75rem;
+  }
 }

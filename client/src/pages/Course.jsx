@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Carousel from "../components/Carousel";
+import NotFound404 from "./NotFound404";
 import Popup from "../components/Popup";
 
 export default function Course() {
@@ -84,7 +85,7 @@ export default function Course() {
 
   return (
     <>
-      {course && (
+      {course ? (
         <>
           <div className="course-bar-fixed">
             <div className="course-bar-left">
@@ -183,6 +184,8 @@ export default function Course() {
             setShowPopup={setShowPopup}
           />
         </>
+      ) : (
+        <NotFound404 />
       )}
     </>
   );
