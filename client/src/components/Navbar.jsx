@@ -19,8 +19,18 @@ function Navbar() {
   }, [loggedUser]);
 
   const logout = function () {
-    // if (!loggedUser) return;
-    setLoggedUser(null);
+    const token = localStorage.getItem("jwtToken");
+    if (!Axios.defaults.headers.common["Authorization"]) {
+      Axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+    }
+
+    Axios.get(`${API_URL}/logout`)
+      .then((res) => {
+        localStorage.removeItem("jwtToken");
+        delete Axios.defaults.headers.common["Authorization"];
+        setLoggedUser(null);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

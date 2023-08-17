@@ -31,13 +31,19 @@ function Login() {
       username: username,
       password: password,
     }).then((response) => {
+      console.log(response);
       if (response.data.message) {
         setMessage(response.data.message);
         setShowPopup(true);
       } else {
         setMessage("Succesfully logged in!");
         setShowPopup(true);
-        setLoggedUser(response.data);
+        const token = response.data.token;
+        console.log(token);
+        // Store the token in localStorage for persistence
+        localStorage.setItem("jwtToken", token);
+        Axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+        setLoggedUser(response.data.user);
         navigate("/");
       }
     });
@@ -63,10 +69,12 @@ function Login() {
         setMessage(response.data.message);
         setShowPopup(true);
       } else {
-        setMessage("Succesfully registered user!");
+        setMessage("Succesfully registered! You can log in now");
         setRegisterMode(false);
+        setShowPopup(true);
         setUsername("");
         setPassword("");
+        setPasswordCheck("");
       }
     });
   };
