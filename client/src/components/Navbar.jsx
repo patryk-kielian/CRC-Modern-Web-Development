@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import Axios from "axios";
 import "../styles/Navbar.css";
+import { useNavigate } from "react-router-dom";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 
 function Navbar() {
   const { loggedUser, setLoggedUser } = useContext(LoggedUserContext);
   const [courseCount, setCourseCount] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (loggedUser) {
@@ -50,25 +53,40 @@ function Navbar() {
             <div className="counter">
               <span className="number">{courseCount}</span>
             </div>
-            <button className="violet my-trainings">
-              <Link to="/user">{loggedUser.login}</Link>
+            <button
+              className="violet navbar-button"
+              onClick={() => navigate("/user")}
+            >
+              {loggedUser.login}
             </button>
             {loggedUser.isAdmin ? (
-              <button className="violet my-trainings">
-                <Link to="/create-new-tutorial">Create a new tutorial</Link>
+              <button
+                className="violet navbar-button"
+                onClick={() => navigate("/create-new-tutorial")}
+              >
+                <span className="navbar-button-long">
+                  Create a new tutorial
+                </span>
+                <span className="navbar-button-short">New tutorial</span>
               </button>
             ) : null}
-            <button className="violet my-trainings" onClick={logout}>
+            <button className="violet navbar-button" onClick={logout}>
               Log out
             </button>
           </>
         ) : (
           <>
-            <button className="violet my-trainings">
-              <Link to="/login/reg">Register</Link>
+            <button
+              className="violet navbar-button"
+              onClick={() => navigate("/login/reg")}
+            >
+              Register
             </button>
-            <button className="violet my-trainings">
-              <Link to="/login">Log in</Link>
+            <button
+              className="violet navbar-button"
+              onClick={() => navigate("/login")}
+            >
+              Log in
             </button>
           </>
         )}
