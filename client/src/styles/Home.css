@@ -5,7 +5,7 @@ h4 {
 }
 
 .home-content {
-  margin: 0 180px;
+  margin: 0 min(10vw, 180px);
   padding: 0;
 }
 
@@ -67,7 +67,7 @@ h2 {
 }
 
 .courses-container {
-  height: 440px;
+  height: 420px;
 }
 
 .courses-container .slick-slider {
@@ -209,6 +209,34 @@ section.cta {
     max-width: 240px;
     font-size: 1.25rem;
   }
+
+  .home-content {
+    margin: 0 80px;
+  }
+
+  .home-content section {
+    margin: -40px;
+    margin-top: 60px;
+    padding: 20px 30px 30px;
+  }
+
+  h2 {
+    font-size: 2.25rem;
+  }
+
+  .courses h2 {
+    margin-bottom: -10px;
+  }
+
+  .courses-container {
+    height: unset;
+  }
+
+  .courses-button-container button {
+    height: 40px;
+    max-width: 240px;
+    font-size: 1.25rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -236,10 +264,36 @@ section.cta {
   }
 
   .hero-buttons button {
-    height: 40px;
     width: 100%;
     max-width: unset;
     font-size: 1rem;
+  }
+
+  .home-content {
+    margin: 0 40px;
+  }
+
+  .home-content section {
+    margin: -20px;
+    margin-top: 60px;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  .courses h2 {
+    margin-bottom: -20px;
+  }
+
+  .courses-button-container {
+    margin-top: -10px;
+  }
+
+  .courses-button-container button {
+    font-size: 1rem;
+    border: 2px solid var(--white);
   }
 }
 
@@ -270,6 +324,30 @@ section.cta {
   }
 
   .hero-buttons button {
+    height: 30px;
+    font-size: 0.75rem;
+    border: 2px solid var(--white);
+  }
+
+  .home-content {
+    margin: 0 20px;
+  }
+
+  .home-content section {
+    margin: -10px;
+    margin-top: 60px;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.375rem;
+  }
+
+  .courses h2 {
+    margin-bottom: -20px;
+  }
+
+  .courses-button-container button {
     height: 30px;
     font-size: 0.75rem;
   }
