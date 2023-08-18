@@ -161,7 +161,10 @@ function Home() {
                   Create an account
                 </button>
                 <button className="ghost" onClick={() => navigate("/login")}>
-                  Already have an account? Sign in{" "}
+                  <span className="cta-buttons-long">
+                    Already have an account? Sign in
+                  </span>
+                  <span className="cta-buttons-short">Sign in</span>
                 </button>
               </div>
             </div>
