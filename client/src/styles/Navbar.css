@@ -3,7 +3,9 @@ nav {
   display: flex;
   position: fixed;
   top: 0;
-  width: calc(100vw - min(20vw, 360px));
+  /* width: calc(100vw - min(20vw, 360px)); */
+  width: 100%;
+  box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
   background-color: var(--black);
@@ -80,7 +82,7 @@ nav {
 
 @media (max-width: 1200px) {
   nav {
-    width: calc(100vw - 160px);
+    /* width: calc(100vw - 160px); */
     padding: 0 80px;
   }
 
@@ -107,7 +109,7 @@ nav {
 @media (max-width: 768px) {
   nav {
     height: 50px;
-    width: calc(100vw - 80px);
+    /* width: calc(100vw - 80px); */
     padding: 0 40px;
   }
 
@@ -138,7 +140,7 @@ nav {
 
 @media (max-width: 480px) {
   nav {
-    width: calc(100vw - 40px);
+    /* width: calc(100vw - 40px); */
     padding: 0 20px;
   }
 
