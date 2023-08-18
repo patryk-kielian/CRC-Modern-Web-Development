@@ -312,3 +312,38 @@
   height: 5px;
   width: 50px;
 }
+
+@media (max-width: 1200px) {
+  .slick-dots {
+    bottom: -30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slick-dots li {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .slick-dots li {
+    width: 8dvw;
+    margin: 0 0.75dvw;
+  }
+
+  .slick-dots li button {
+    width: 8dvw;
+  }
+
+  .slick-dots li button:before {
+    top: auto;
+    left: 0;
+    width: 8dvw;
+  }
+
+  .slick-dots li.slick-active button:before {
+    top: auto;
+    left: 0;
+    width: 8dvw;
+  }
+}

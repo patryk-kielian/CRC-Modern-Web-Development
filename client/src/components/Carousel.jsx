@@ -17,7 +17,7 @@ function Carousel({ content, contentType }) {
     arrows: false,
     responsive: [
       {
-        breakpoint: 320,
+        breakpoint: 360,
         settings: { slidesToShow: 1, slidesToScroll: 1, infinite: true },
       },
       {
@@ -25,7 +25,7 @@ function Carousel({ content, contentType }) {
         settings: { slidesToShow: 2, slidesToScroll: 2, infinite: true },
       },
       {
-        breakpoint: 1024,
+        breakpoint: 1200,
         settings: { slidesToShow: 3, slidesToScroll: 3, infinite: true },
       },
     ],

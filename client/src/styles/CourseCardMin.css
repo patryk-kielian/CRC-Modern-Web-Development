@@ -78,3 +78,83 @@
   height: 40px;
   font-size: 1.25rem;
 }
+
+@media (max-width: 1600px) {
+  .card-min {
+    margin: 8px;
+  }
+  .card-min h4 {
+    padding: 0;
+    font-size: 1.25rem;
+  }
+  .card-min p {
+    margin-top: 8px;
+    padding: 0 5px;
+    font-size: 1rem;
+    color: var(--black);
+  }
+}
+
+@media (max-width: 1200px) {
+  .card-min {
+    height: min(30dvw, 290px);
+    padding: 10px;
+  }
+
+  .card-min-logo {
+    height: min(18dvw, 200px);
+  }
+}
+
+@media (max-width: 768px) {
+  .card-min {
+    margin: 8px;
+    padding: 8px;
+    height: min(36dvw, 230px);
+  }
+  .card-min h4 {
+    padding: 0 8px;
+    font-size: 1rem;
+  }
+  .card-min p {
+    margin-top: 8px;
+    padding: 0 13px;
+    font-size: 0.875rem;
+    color: var(--black);
+  }
+
+  .card-min-logo {
+    height: min(22dvw, 200px);
+  }
+}
+
+@media (max-width: 480px) {
+  .card-min {
+    margin: 8px;
+    padding: 5px;
+    height: min(45dvw, 175px);
+    border-radius: 20px;
+  }
+  .card-min h4 {
+    padding: 0 5px;
+    font-size: 0.875rem;
+  }
+  .card-min p {
+    margin-top: 8px;
+    padding: 0 10px;
+    font-size: 0.75rem;
+    color: var(--black);
+  }
+
+  .card-min-logo {
+    height: min(25dvw, 100px);
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .card-min-logo {
+    height: min(33dvw, 100px);
+    border-radius: 20px;
+  }
+}

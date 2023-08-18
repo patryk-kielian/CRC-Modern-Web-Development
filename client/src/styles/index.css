@@ -57,7 +57,8 @@ main {
 .background-subtle:before {
   content: "";
   background: url(/img/background.png);
-  background-size: 50%;
+  /* background-size: 50%; */
+  background-size: max(600px, 50dvw);
   position: absolute;
   top: 0px;
   right: 0px;
