@@ -1,24 +1,24 @@
 .login-background {
   background-image: url(/img/background.png);
-  background-size: 50%;
+  background-size: max(600px, 50dvw);
   width: 100%;
   min-height: calc(100dvh - 600px);
   margin-top: 70px;
-  padding: 120px 0 200px;
+  padding: 120px 0 160px;
 }
 
 .login-content {
   width: 40%;
-
   gap: 80px;
   margin: 0 auto;
-  padding: 40px 100px;
+  padding: 40px 80px;
   border-radius: 50px;
   background-color: var(--white);
   box-shadow: 35px 50px 50px 0px rgba(0, 0, 0, 0.5);
 }
 
 .login-content h2 {
+  text-align: center;
   font-size: 3rem;
   color: var(--black);
 }
@@ -33,6 +33,7 @@
 
 .login-form-inputs {
   height: 280px;
+  width: 100%;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -41,12 +42,15 @@
 }
 
 .login-form-input-block {
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 label {
-  font-size: 18px;
+  font-size: 1.125rem;
   margin-bottom: 5px;
   display: inline-block;
   text-align: center;
@@ -56,7 +60,7 @@ label {
 
 input[type="text"],
 input[type="password"] {
-  width: 380px;
+  width: min(380px, 100%);
 }
 
 input[type="text"],
@@ -65,13 +69,13 @@ input[type="password"] {
   border: 1px solid var(--lightgrey);
   border-radius: 4px;
   font-family: "Poppins";
-  font-size: 16px;
+  font-size: 1rem;
   padding-left: 5px;
 }
 
 input[type="text"]::placeholder {
   font-family: "Poppins";
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--lightgrey);
   padding-left: 5px;
 }
@@ -83,6 +87,7 @@ input[type="text"]::placeholder {
 }
 
 .login-buttons {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -91,14 +96,168 @@ input[type="text"]::placeholder {
 }
 
 .login-button {
-  width: 380px;
+  width: min(380px, 100%);
 }
 
 .register-account-button {
-  width: 380px;
-  font-size: 18px;
+  width: min(380px, 100%);
+  font-size: 1.125rem;
 }
 
 .fine-button {
   font-weight: 400;
+}
+
+@media (max-width: 1200px) {
+  .login-background {
+    padding: 60px 0 120px;
+  }
+
+  .login-content {
+    width: 50%;
+    padding: 40px 50px;
+  }
+
+  .login-content h2 {
+    font-size: 2.5rem;
+  }
+
+  .login-buttons .login-button {
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .register-account-button {
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-background {
+    margin-top: 50px;
+    padding: 40px 0 80px;
+  }
+
+  .login-content {
+    width: 60%;
+    padding: 40px 50px;
+  }
+
+  .login-content h2 {
+    height: 75px;
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .login-form {
+    margin-top: 30px;
+  }
+
+  .login-form-inputs {
+    height: 220px;
+    margin-bottom: 30px;
+    gap: 10px;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    height: 30px;
+    font-size: 0.875rem;
+    padding-left: 5px;
+  }
+
+  input[type="text"]::placeholder {
+    font-size: 0.875rem;
+  }
+
+  .login-tip {
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--lightgrey);
+  }
+
+  .login-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .login-buttons .login-button {
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .register-account-button {
+    height: 40px;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-background {
+    margin-top: 50px;
+    padding: 40px 0 80px;
+  }
+
+  .login-content {
+    width: auto;
+    margin: 0 20px;
+    padding: 40px 30px;
+  }
+
+  .login-content h2 {
+    height: auto;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .login-form {
+    margin-top: 30px;
+  }
+
+  .login-form-inputs {
+    height: 220px;
+    margin-bottom: 30px;
+    gap: 10px;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    height: 30px;
+    font-size: 0.875rem;
+    padding-left: 5px;
+  }
+
+  input[type="text"]::placeholder {
+    font-size: 0.875rem;
+  }
+
+  .login-tip {
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--lightgrey);
+  }
+
+  .login-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .login-buttons .login-button {
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .register-account-button {
+    height: 40px;
+    font-size: 0.875rem;
+  }
 }
