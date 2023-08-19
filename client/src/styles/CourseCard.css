@@ -101,23 +101,24 @@
 /* **************************** */
 
 .card-user {
-  height: 370px;
+  height: 350px;
 }
 
 .card-user .card-bottom {
-  height: 130px;
+  height: 110px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .card-user .card-bottom button {
-  height: 40px;
+  height: 30px;
   margin: 0 auto;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 
 .card.dummy {
+  width: auto !important; /* without !important gets changed to 100% (wider by normal card by padding value) by the slider */
   display: flex !important; /* without !important gets changed to inline-block by the slider */
   flex-direction: column;
   justify-content: space-around;
@@ -192,16 +193,27 @@
     padding: 0 15px;
     font-size: 0.8125rem;
   }
+
+  /* **************************** */
+  /* Card when displayed in the users tab  */
+  /* **************************** */
+
+  .card-user {
+    height: 320px;
+  }
+
+  .card-user .card-bottom button {
+    font-size: 1rem;
+  }
+
+  .card-user.dummy button {
+    font-size: 1.125rem;
+  }
 }
 
 @media (max-width: 768px) {
   .card {
     height: 400px;
-  }
-
-  .card:hover {
-    cursor: pointer;
-    transform: translateY(-6px);
   }
 
   .card-top {
@@ -260,8 +272,54 @@
     font-size: 0.75rem;
   }
 
-  .card-star.filled {
-    font-variation-settings: "FILL" 1;
+  /* **************************** */
+  /* Card when displayed in the users tab  */
+  /* **************************** */
+
+  .card-user {
+    height: 440px;
+  }
+
+  .card-user .card-bottom {
+    height: 108px;
+  }
+
+  .card-user .card-bottom button {
+    width: min(80%, 180px);
+    font-size: 0.875rem;
+    padding: 0;
+  }
+
+  .card-user.dummy h4 {
+    padding: 0 20px;
+    font-size: 1.5rem;
+  }
+
+  .card-user.dummy button {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    height: 370px;
+  }
+
+  .card-top {
+    flex-direction: column;
+  }
+
+  .card-bottom {
+    margin-top: 5px;
+  }
+
+  .card-logo {
+    width: 100%;
+    height: 150px;
+  }
+
+  .card-content {
+    height: 150px;
   }
 
   /* **************************** */
@@ -269,42 +327,27 @@
   /* **************************** */
 
   .card-user {
-    height: 370px;
+    height: 410px;
   }
 
   .card-user .card-bottom {
-    height: 130px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    height: 90px;
   }
 
   .card-user .card-bottom button {
-    height: 40px;
-    margin: 0 auto;
-    font-size: 1.25rem;
-  }
-
-  .card.dummy {
-    display: flex !important; /* without !important gets changed to inline-block by the slider */
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  .card.dummy:hover {
-    cursor: default;
+    width: min(80%, 180px);
+    font-size: 0.875rem;
+    padding: 0;
   }
 
   .card-user.dummy h4 {
     padding: 0 50px;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     text-align: center;
     color: var(--black);
   }
 
   .card-user.dummy button {
-    height: 40px;
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }
