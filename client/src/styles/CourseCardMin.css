@@ -47,14 +47,13 @@
 .card-min-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 0 30px;
+  justify-content: space-around;
 }
 
 .card-min-buttons button {
   height: 40px;
   margin-top: 10px;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 
 .card-min.dummy {
@@ -83,15 +82,35 @@
   .card-min {
     margin: 8px;
   }
+
   .card-min h4 {
     padding: 0;
     font-size: 1.25rem;
   }
+
   .card-min p {
     margin-top: 8px;
-    padding: 0 5px;
+    padding: 0;
     font-size: 1rem;
     color: var(--black);
+  }
+
+  .card-min.dummy h4 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 1400px) {
+  .card-min-buttons button {
+    height: 40px;
+    margin-top: 10px;
+    padding: 0 10px;
+    font-size: 1.125rem;
+  }
+
+  .card-min.dummy button {
+    height: 40px;
+    font-size: 1.125rem;
   }
 }
 
@@ -103,6 +122,35 @@
 
   .card-min-logo {
     height: min(18dvw, 200px);
+  }
+
+  .card-min-user {
+    height: min(calc(30dvw + 50px), 340px);
+  }
+
+  .card-min-user .card-min-content {
+    height: 75px;
+  }
+
+  .card-min-buttons button {
+    font-size: 1rem;
+  }
+
+  .card-min.dummy {
+    width: unset !important; /* without !important gets changed to 100% which is wider than normal */
+    display: flex !important; /* without !important gets changed to inline-block by the slider */
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .card-min.dummy:hover {
+    cursor: default;
+  }
+
+  .card-min.dummy button {
+    height: 40px;
+    font-size: 1.125rem;
   }
 }
 
@@ -118,13 +166,37 @@
   }
   .card-min p {
     margin-top: 8px;
-    padding: 0 13px;
+    padding: 0 8px;
     font-size: 0.875rem;
     color: var(--black);
   }
 
   .card-min-logo {
     height: min(22dvw, 200px);
+  }
+
+  .card-min-user {
+    height: min(calc(36dvw + 50px), 280px);
+  }
+
+  .card-min-user .card-min-content {
+    height: 60px;
+  }
+
+  .card-min.dummy h4 {
+    font-size: 1.25rem;
+  }
+
+  .card-min-buttons button {
+    height: 30px;
+    margin-top: 10px;
+    padding: 0 10px;
+    font-size: 1rem;
+  }
+
+  .card-min.dummy button {
+    height: 40px;
+    font-size: 1rem;
   }
 }
 
@@ -141,7 +213,7 @@
   }
   .card-min p {
     margin-top: 8px;
-    padding: 0 10px;
+    padding: 0 5px;
     font-size: 0.75rem;
     color: var(--black);
   }
@@ -150,11 +222,55 @@
     height: min(25dvw, 100px);
     border-radius: 20px;
   }
+
+  .card-min-user {
+    height: min(calc(45dvw + 65px), 240px);
+  }
+
+  .card-min-user .card-min-content {
+    height: 60px;
+  }
+
+  .card-min.dummy h4 {
+    font-size: 1.25rem;
+  }
+
+  .card-min-buttons {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+  }
+
+  .card-min-buttons button {
+    height: 25px;
+    width: min(100%, 120px);
+    margin-top: 5px;
+    padding: 0 10px;
+    font-size: 0.875rem;
+  }
+
+  .card-min.dummy button {
+    height: 40px;
+    font-size: 0.875rem;
+  }
 }
 
 @media (max-width: 360px) {
   .card-min-logo {
     height: min(33dvw, 100px);
     border-radius: 20px;
+  }
+
+  .card-min-user {
+    height: min(calc(45dvw + 120px), 250px);
+  }
+
+  .card-min-user .card-min-content {
+    height: 60px;
+  }
+
+  .card-min-buttons button {
+    width: min(80%, 180px);
   }
 }

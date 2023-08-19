@@ -23,16 +23,12 @@ function CarouselUser({ content, handleFunction }) {
     arrows: false,
     responsive: [
       {
-        breakpoint: 320,
+        breakpoint: 480,
         settings: { slidesToShow: 1, slidesToScroll: 1, infinite: true },
       },
       {
-        breakpoint: 768,
+        breakpoint: 1200,
         settings: { slidesToShow: 2, slidesToScroll: 2, infinite: true },
-      },
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 3, slidesToScroll: 3, infinite: true },
       },
     ],
   };
@@ -71,7 +67,7 @@ function CarouselAdmin({ content, handleFunction }) {
     arrows: false,
     responsive: [
       {
-        breakpoint: 320,
+        breakpoint: 360,
         settings: { slidesToShow: 1, slidesToScroll: 1, infinite: true },
       },
       {
@@ -79,7 +75,7 @@ function CarouselAdmin({ content, handleFunction }) {
         settings: { slidesToShow: 2, slidesToScroll: 2, infinite: true },
       },
       {
-        breakpoint: 1024,
+        breakpoint: 1200,
         settings: { slidesToShow: 3, slidesToScroll: 3, infinite: true },
       },
     ],
@@ -220,7 +216,7 @@ function User() {
               </div>
             </section>
             {loggedUser.isAdmin ? (
-              <section className="user-cards">
+              <section className="user-cards admin-cards">
                 <h3 className="user-subtitle">
                   Manage the tutorials you created
                 </h3>

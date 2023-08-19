@@ -5,18 +5,22 @@ section.user-cards {
   background-color: var(--grey);
 }
 
+section.admin-cards {
+  padding: 10px 10px 30px;
+}
+
 .user-cards h2 {
   margin-left: 20px;
 }
 
 .user-subtitle {
   margin-left: 20px;
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   color: var(--white);
 }
 
 .user-slider-container {
-  margin-bottom: 100px;
+  margin-bottom: 60px;
 }
 
 .user-prompt {
@@ -38,4 +42,62 @@ section.user-cards {
 .user-prompt button {
   display: block;
   align-self: center;
+}
+
+@media (max-width: 1200px) {
+  section.user-cards {
+    margin: -20px -60px 50px -40px;
+  }
+
+  .user-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .user-slider-container {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  section.user-cards {
+    margin: -20px -20px 50px;
+  }
+
+  .user-subtitle {
+    font-size: 1.125rem;
+    margin-bottom: -20px;
+  }
+}
+
+@media (max-width: 480px) {
+  section.user-cards {
+    margin: -20px -10px 50px;
+  }
+
+  .user-subtitle {
+    font-size: 1rem;
+  }
+
+  .user-cards:not(.admin-cards) {
+    & .slick-dots li {
+      width: 8dvw;
+      margin: 0 0.75dvw;
+    }
+
+    & .slick-dots li button {
+      width: 8dvw;
+    }
+
+    & .slick-dots li button:before {
+      top: auto;
+      left: 0;
+      width: 8dvw;
+    }
+
+    & .slick-dots li.slick-active button:before {
+      top: auto;
+      left: 0;
+      width: 8dvw;
+    }
+  }
 }
