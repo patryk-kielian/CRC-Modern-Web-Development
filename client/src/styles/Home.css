@@ -80,8 +80,8 @@ h2 {
 }
 
 section.advantages {
-  margin: 120px -180px 0;
-  padding: 80px 180px;
+  margin: 120px max(-10vw, -180px) 0;
+  padding: 80px min(10vw, 180px);
   background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.3) 0%,
@@ -417,17 +417,17 @@ section.cta {
 }
 
 @media (max-width: 480px) {
-  /* .hero {
-    min-height: min(70dvw, calc(100dvh - 50px));
+  .hero {
+    min-height: calc(100dvh - 50px);
     margin-top: 50px;
-  } */
+  }
 
   .hero-content {
     padding: 40px 20px 20px;
   }
 
   .hero-content h1 {
-    /* font-size: 7.5dvw; */
+    font-size: 12dvw;
     margin-bottom: 40px;
   }
 
@@ -436,10 +436,15 @@ section.cta {
   }
 
   .hero-buttons {
+    grid-template-columns: 1fr;
     max-width: 400px;
     width: 100%;
     margin: 40px auto;
     gap: 20px;
+  }
+
+  .hero-buttons a {
+    width: min(100%, 250px);
   }
 
   .hero-buttons button {
