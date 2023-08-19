@@ -218,7 +218,7 @@ function CreateNewTutorial() {
     if (nameChars >= 45) {
       return `Exceeded maximum number of characters in field "Name" - max. 45`;
     }
-    if (descShortChars >= 255) {
+    if (descShortChars >= 90) {
       return `Exceeded maximum number of characters in field "Description short" - max. 255`;
     }
     if (descPointsChars >= 800) {
@@ -366,8 +366,8 @@ function CreateNewTutorial() {
                       }
                     />
                     <p className="create-form-char-counter">
-                      {descShortChars}/255{" "}
-                      {descShortChars >= 255 && (
+                      {descShortChars}/90{" "}
+                      {descShortChars >= 90 && (
                         <span>Exceeded the character limit!</span>
                       )}
                     </p>

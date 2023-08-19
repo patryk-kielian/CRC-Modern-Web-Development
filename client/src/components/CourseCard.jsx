@@ -29,26 +29,28 @@ function CourseCard({ course, isUserCourse = false, ...props }) {
           />
           <div className="card-content">
             <h4>{course.name}</h4>
-            <div className="card-item">
-              <span className="material-symbols-outlined card-item-icon">
-                person_raised_hand
-              </span>
-              {/* <img src="icons/trainer_logo.svg" alt="Trainer Icon" /> */}
-              <span className="card-item-text">{course.trainer}</span>
-            </div>
-            <div className="card-item">
-              <span className="material-symbols-outlined card-item-icon">
-                translate
-              </span>
-              {/* <img src="icons/language_icon.svg" alt="UK Flag Icon" /> */}
-              <span className="card-item-text">{course.language}</span>
-            </div>
-            <div className="card-item">
-              <span className="material-symbols-outlined card-item-icon">
-                bar_chart_4_bars
-              </span>
-              {/* <img src="icons/level_icon.svg" alt="Level Icon" /> */}
-              <span className="card-item-text">{course.level}</span>
+            <div className="card-items">
+              <div className="card-item">
+                <span className="material-symbols-outlined card-item-icon">
+                  person_raised_hand
+                </span>
+                {/* <img src="icons/trainer_logo.svg" alt="Trainer Icon" /> */}
+                <span className="card-item-text">{course.trainer}</span>
+              </div>
+              <div className="card-item">
+                <span className="material-symbols-outlined card-item-icon">
+                  translate
+                </span>
+                {/* <img src="icons/language_icon.svg" alt="UK Flag Icon" /> */}
+                <span className="card-item-text">{course.language}</span>
+              </div>
+              <div className="card-item">
+                <span className="material-symbols-outlined card-item-icon">
+                  bar_chart_4_bars
+                </span>
+                {/* <img src="icons/level_icon.svg" alt="Level Icon" /> */}
+                <span className="card-item-text">{course.level}</span>
+              </div>
             </div>
 
             <p>

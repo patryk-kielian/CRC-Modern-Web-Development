@@ -38,12 +38,12 @@ main {
 
 #container {
   padding-top: 140px;
-  margin: 0 180px;
+  margin: 0 min(10dvw, 180px);
 }
 
 #container h1 {
   color: var(--white);
-  font-size: 80px;
+  font-size: 5rem;
   line-height: 100%;
 }
 
@@ -135,4 +135,37 @@ button.violet:hover,
 input[type="submit"].violet:hover {
   background: var(--accent1dark);
   color: var(--white);
+}
+
+@media (max-width: 1200px) {
+  #container {
+    padding-top: 140px;
+    margin: 0 80px;
+  }
+
+  #container h1 {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #container {
+    padding-top: 120px;
+    margin: 0 40px;
+  }
+
+  #container h1 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #container {
+    padding-top: 100px;
+    margin: 0 20px;
+  }
+
+  #container h1 {
+    font-size: 1.375rem;
+  }
 }
