@@ -101,7 +101,7 @@ export default function Course() {
               </div>
               <div className="course-bar-item">
                 <span className="material-symbols-outlined course-bar-icon">
-                  <span class="material-symbols-outlined">group</span>
+                  group
                 </span>
                 <span className="course-bar-text">TODO students enrolled</span>
               </div>

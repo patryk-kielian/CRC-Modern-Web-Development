@@ -95,7 +95,7 @@ function Login() {
                   type="text"
                   id="login"
                   name="login"
-                  placeholder="Type login"
+                  placeholder="Type username"
                   value={username}
                   onChange={(e) => {
                     setUsername(e.target.value);
