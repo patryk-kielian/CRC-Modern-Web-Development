@@ -146,6 +146,10 @@ input[type="submit"].violet:hover {
   #container h1 {
     font-size: 2.25rem;
   }
+
+  main {
+    padding-bottom: 140px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -156,6 +160,10 @@ input[type="submit"].violet:hover {
 
   #container h1 {
     font-size: 1.75rem;
+  }
+
+  main {
+    padding-bottom: 100px;
   }
 }
 
