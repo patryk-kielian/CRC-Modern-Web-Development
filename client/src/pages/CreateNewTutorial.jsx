@@ -41,8 +41,8 @@ function LessonForm({ lesson, updateLesson, deleteLesson, error }) {
             }}
           />
           <p className="create-form-char-counter">
-            {titleChars}/45{" "}
-            {titleChars >= 45 && <span>Exceeded the character limit!</span>}
+            {titleChars}/90{" "}
+            {titleChars >= 90 && <span>Exceeded the character limit!</span>}
           </p>
         </div>
         <div>
@@ -232,8 +232,8 @@ function CreateNewTutorial() {
     }
 
     for (const lesson of lessons) {
-      if (lesson.title.length >= 45) {
-        return `Exceeded maximum number of characters in field "Lesson ${lesson.lessonNr}: Title" - max. 45`;
+      if (lesson.title.length >= 90) {
+        return `Exceeded maximum number of characters in field "Lesson ${lesson.lessonNr}: Title" - max. 90`;
       }
 
       if (lesson.videoURL.length >= 255) {
