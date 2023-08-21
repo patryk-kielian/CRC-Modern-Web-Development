@@ -13,8 +13,8 @@
 }
 
 .popup-body {
-  max-width: 20vw;
   min-height: 150px;
+  width: 280px;
   padding: 40px 100px;
   display: flex;
   flex-direction: column;
@@ -29,12 +29,12 @@
 .popup-message {
   font-size: 1.75rem;
   text-align: center;
-  /* color: var(--accent1dark); */
+  line-height: 1.3;
 }
 
 .popup-button {
   height: 40px;
-  width: 300px;
+  width: 100%;
   color: var(--white);
   background-color: var(--accent1);
 }
@@ -54,4 +54,94 @@
 .popup-decision-button {
   height: 40px;
   width: 200px;
+}
+
+@media (max-width: 1200px) {
+  .popup-body {
+    padding: 30px 80px;
+  }
+
+  /* **************************** */
+  /* POPUP-DECISION */
+  /* **************************** */
+
+  .popup-decision-button {
+    height: 40px;
+    font-size: 1.37rem;
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .popup-body {
+    width: 260px;
+    padding: 20px 40px;
+  }
+
+  .popup-message {
+    font-size: 1.5rem;
+  }
+
+  .popup-button {
+    font-size: 1.375rem;
+    height: 30px;
+    width: 100%;
+  }
+
+  /* **************************** */
+  /* POPUP-DECISION */
+  /* **************************** */
+
+  .popup-decision-buttons {
+    gap: 20px;
+  }
+
+  .popup-decision-button {
+    height: 30px;
+    font-size: 1.25rem;
+  }
+
+  .popup-decision-button:nth-child(2) {
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 480px) {
+  .popup-body {
+    width: 100%;
+    padding: 10px 20px 20px;
+    margin: 30px;
+  }
+
+  .popup-message {
+    font-size: 1.25rem;
+  }
+
+  .popup-button {
+    font-size: 1.25rem;
+    height: 30px;
+    width: 100%;
+  }
+
+  /* **************************** */
+  /* POPUP-DECISION */
+  /* **************************** */
+
+  .popup-decision-buttons {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .popup-decision-button {
+    height: 25px;
+    width: min(100%, 200px);
+    font-size: 1.125rem;
+  }
+
+  .popup-decision-button:nth-child(2) {
+    border: 1px solid var(--black);
+    font-weight: 500;
+  }
 }

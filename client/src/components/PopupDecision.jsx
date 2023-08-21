@@ -45,7 +45,7 @@ function PopupDecision({ message, showPopup, setShowPopup, onConfirm }) {
             <h3 className="popup-message">{message}</h3>
             <div className="popup-decision-buttons">
               <button
-                className="ghost-black popup-decision-button"
+                className="violet popup-decision-button"
                 onClick={handleConfirm}
               >
                 Yes
