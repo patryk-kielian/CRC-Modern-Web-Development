@@ -1,12 +1,20 @@
 #create-container {
-  margin: 120px 360px 0;
+  padding-top: 70px;
 }
 
 .create-form {
-  background-color: var(--white);
+  width: 960px;
+  padding: 40px 80px 30px;
+  margin: 60px auto 0;
   border-radius: 40px;
-  padding: 60px 100px 30px;
-  margin-top: 50px;
+  background-color: var(--white);
+}
+
+.create-form h1 {
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--black);
 }
 
 .create-form-columns {
@@ -29,7 +37,6 @@
 }
 
 .create-form {
-  & label,
   .language p {
     font-size: 1.125rem;
     margin-bottom: 5px;
@@ -62,6 +69,7 @@
     font-size: 0.875rem;
     font-family: "Poppins";
     padding: 5px 10px;
+    border-radius: 4px;
     border: 1px solid var(--lightgrey);
   }
 
@@ -141,10 +149,16 @@
   justify-content: space-between;
   align-items: start;
   margin-top: 10px;
+  gap: 10px;
+}
+
+.form-lesson-input-block {
+  flex-grow: 1;
 }
 
 .form-lesson-inputs input {
   margin-bottom: 2px;
+  width: max-content;
 }
 
 .form-lesson button {
@@ -162,13 +176,14 @@ button.form-lesson-add {
   border: 1px solid var(--black);
 }
 
-.upload-button {
+/* Image upload button */
+/* .upload-button {
   width: 100%;
   font-size: 18px;
   line-height: 100%;
   text-align: center;
   padding: 10px 0;
-}
+} */
 
 .form-buttons {
   display: grid;
@@ -185,4 +200,197 @@ button.form-lesson-add {
 
 .create-form-missing-value {
   border: 2px solid red !important;
+}
+
+@media (max-width: 1200px) {
+  .create-form {
+    width: auto;
+    padding: 40px 40px 30px;
+    margin: 60px 80px 0;
+  }
+
+  .create-form h1 {
+    margin-bottom: 30px;
+    font-size: 2.25rem;
+  }
+
+  .create-form-columns {
+    gap: 0 8dvw;
+  }
+
+  .create-form {
+    .language p {
+      font-size: 1.125rem;
+    }
+
+    & input[type="text"] {
+      font-size: 0.875rem;
+    }
+
+    & input[type="text"]::placeholder {
+      font-size: 0.875rem;
+    }
+  }
+
+  .language-options label {
+    font-size: 1rem;
+  }
+
+  .form-lesson-inputs button {
+    padding: 0 10px;
+  }
+
+  .form-buttons button,
+  .form-buttons input[type="submit"] {
+    font-size: 1.25rem;
+  }
+
+  .form-buttons button {
+    border: 1px solid var(--black);
+  }
+}
+
+@media (max-width: 768px) {
+  #create-container {
+    padding-top: 50px;
+  }
+
+  .create-form {
+    width: auto;
+    padding: 30px;
+    margin: 50px 40px 0;
+  }
+
+  .create-form h1 {
+    margin-bottom: 30px;
+    font-size: 1.875rem;
+  }
+
+  .create-form-columns {
+    grid-template-columns: 1fr;
+    gap: 0 8dvw;
+  }
+
+  .create-form-col-left,
+  .create-form-col-right {
+    gap: 15px;
+  }
+
+  .create-form {
+    & input#name {
+      width: 100%;
+    }
+  }
+
+  .language-options label {
+    font-size: 1rem;
+  }
+
+  .form-lesson-inputs {
+    flex-direction: column;
+  }
+
+  .form-lesson-input-block {
+    width: 100%;
+  }
+
+  .form-lesson-inputs input {
+    width: 100% !important;
+  }
+
+  .form-lesson-inputs button {
+    height: 30px;
+    width: min(160px, 100%);
+    margin: 0 auto 5px;
+    padding: 0 10px;
+  }
+
+  .form-buttons button,
+  .form-buttons input[type="submit"] {
+    font-size: 1.25rem;
+  }
+
+  .form-buttons button {
+    border: 1px solid var(--black);
+  }
+}
+
+@media (max-width: 480px) {
+  .create-form {
+    width: auto;
+    padding: 20px;
+    margin: 30px 20px 0;
+  }
+
+  .create-form h1 {
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .create-form-columns {
+    grid-template-columns: 1fr;
+    gap: 0 8dvw;
+  }
+
+  .create-form-col-left,
+  .create-form-col-right {
+    gap: 15px;
+  }
+
+  .create-form {
+    .language p {
+      font-size: 1.125rem;
+      margin-bottom: 5px;
+      display: inline-block;
+      text-align: center;
+      font-weight: 700;
+      width: 100%;
+    }
+
+    & input[type="text"],
+    select,
+    textarea {
+      height: 30px;
+      font-size: 0.875rem;
+      padding-left: 5px;
+    }
+
+    & input[type="text"]::placeholder,
+    select::placeholder,
+    textarea::placeholder {
+      font-size: 0.875rem;
+    }
+
+    & input#name {
+      width: 100%;
+    }
+  }
+
+  .language-options label {
+    font-size: 0.875rem;
+  }
+
+  .form-lesson-inputs button {
+    font-weight: 500;
+  }
+
+  button.form-lesson-add {
+    height: 30px;
+    margin-top: 20px;
+    font-size: 1rem;
+  }
+
+  .form-buttons {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  .form-buttons button,
+  .form-buttons input[type="submit"] {
+    height: 40px;
+    font-size: 1.125rem;
+  }
 }

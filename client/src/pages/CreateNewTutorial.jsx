@@ -25,7 +25,7 @@ function LessonForm({ lesson, updateLesson, deleteLesson, error }) {
     <div className="form-lesson">
       <h6>Lesson {lessonNr}</h6>
       <div className="form-lesson-inputs">
-        <div>
+        <div className="form-lesson-input-block">
           <input
             type="text"
             id="title"
@@ -45,7 +45,7 @@ function LessonForm({ lesson, updateLesson, deleteLesson, error }) {
             {titleChars >= 90 && <span>Exceeded the character limit!</span>}
           </p>
         </div>
-        <div>
+        <div className="form-lesson-input-block">
           <input
             type="text"
             id="videoURL"
@@ -245,11 +245,11 @@ function CreateNewTutorial() {
 
   return (
     <>
-      <main id="create-container">
+      <main id="create-container" className="background-subtle">
         {loggedUser && loggedUser.isAdmin ? (
           <>
-            <h1>Create a new training:</h1>
             <form className="create-form" onSubmit={handleSubmit} ref={formRef}>
+              <h1>Create a new tutorial</h1>
               <div className="create-form-columns">
                 <div className="create-form-col-left">
                   <div className="create-form-input-block">
@@ -355,7 +355,7 @@ function CreateNewTutorial() {
                     <textarea
                       id="descriptionShort"
                       name="descriptionShort"
-                      placeholder="Type a short description of the course (max. 250 characters)"
+                      placeholder="Type a short description of the course (max. 90 characters)"
                       className={
                         error &&
                         !descShortChars > 0 &&
