@@ -27,3 +27,36 @@
   font-weight: 700;
   line-height: 100%; /* 80px */
 }
+
+@media (max-width: 1200px) {
+  .error-404 h1 {
+    font-size: 300px;
+  }
+
+  .error-404 h2 {
+    font-size: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .error-404 h1 {
+    font-size: 200px;
+    transform: translateX(-20px);
+  }
+
+  .error-404 h2 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .error-404 h1 {
+    font-size: 40dvw;
+    transform: translateX(-5dvw);
+    text-shadow: 15px 15px 50px rgba(0, 0, 0, 0.75);
+  }
+
+  .error-404 h2 {
+    font-size: 10dvw;
+  }
+}

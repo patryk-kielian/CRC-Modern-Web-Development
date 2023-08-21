@@ -1,6 +1,6 @@
 .error-background {
   background-image: url(/img/background.png);
-  background-size: 50%;
+  background-size: max(600px, 50dvw);
   width: 100%;
   height: fit-content;
   min-height: calc(100dvh - 342px);
