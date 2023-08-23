@@ -132,9 +132,7 @@ app.get("/courses", (req, res) => {
       res.status(500).send("Internal Server Error");
     } else {
       const courses = result;
-      console.log(courses);
       const courseIdList = courses.map((course) => course.id); // Extracting course IDs
-      console.log(courseIdList);
       // Query to fetch trainer information for each course
       const trainerQuery = `
         SELECT course_creation.course_id, creators.name AS trainer
@@ -148,7 +146,6 @@ app.get("/courses", (req, res) => {
           console.log("Error executing the MySQL query: " + err.message);
           res.status(500).send("Internal Server Error");
         } else {
-          console.log(trainerResult);
           // Organize the trainer information into a map for efficient lookup
           const trainerMap = {};
           trainerResult.forEach((row) => {
@@ -157,13 +154,10 @@ app.get("/courses", (req, res) => {
             }
             trainerMap[row.course_id].push(row.trainer);
           });
-          console.log(trainerMap);
           // Combine the trainer information with each course
           courses.forEach((course) => {
             course.trainer = trainerMap[course.id] || null;
           });
-
-          console.log(courses);
           res.send({ courses });
         }
       });
@@ -297,17 +291,6 @@ app.post("/new-course", (req, res) => {
   const descriptionPoints = req.body.descriptionPoints;
   const descriptionLong = req.body.descriptionLong;
   const demoURL = req.body.demoURL;
-
-  // TODO: to be removed after redeployment and DB changes
-  const location = req.body.location;
-  const frequency = req.body.frequency;
-  const dateStart = req.body.dateStart;
-  const dateEnd = req.body.dateEnd;
-  const timeStart = req.body.timeStart;
-  const timeEnd = req.body.timeEnd;
-
-  const trainer = req.body.trainer;
-  //
   const user_id = req.body.user_id;
 
   const lessons = req.body.lessons || []; // Set lessons to an empty array if not provided
@@ -318,22 +301,15 @@ app.post("/new-course", (req, res) => {
       .send("At least one lesson is required to create a course");
   }
 
-  const courseInsertSql = `INSERT INTO courses (name, language, location, level, trainer, dateStart, dateEnd, timeStart, timeEnd, frequency, image, category, descriptionShort, descriptionPoints, descriptionLong, demoURL)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const courseInsertSql = `INSERT INTO courses (name, language, level, image, category, descriptionShort, descriptionPoints, descriptionLong, demoURL)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   db.query(
     courseInsertSql,
     [
       name,
       language,
-      location,
       level,
-      trainer,
-      dateStart,
-      dateEnd,
-      timeStart,
-      timeEnd,
-      frequency,
       image,
       category,
       descriptionShort,

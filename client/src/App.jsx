@@ -47,6 +47,7 @@ function App() {
       } catch (error) {
         // There was an error decoding the token, handle it if needed
         console.error("Error decoding token:", error);
+        console.log();
         localStorage.removeItem("jwtToken");
       }
     }
