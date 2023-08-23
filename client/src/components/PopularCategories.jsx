@@ -1,30 +1,56 @@
 import { Link } from "react-router-dom";
 import "../styles/PopularCategories.css";
 const categories = [
-  { id: 0, name: "Programming", short: "category_programming" },
-  { id: 1, name: "IT & Software", short: "category_it_software" },
-  { id: 2, name: "Photography", short: "category_photography" },
-  { id: 3, name: "School", short: "category_school" },
-  { id: 4, name: "Business", short: "category_business" },
-  { id: 5, name: "Music", short: "category_music" },
+  {
+    id: 0,
+    name: "Programming",
+    imgName: "category_programming",
+    short: "programming",
+  },
+  {
+    id: 1,
+    name: "IT & Software",
+    imgName: "category_it_software",
+    short: "it_software",
+  },
+  {
+    id: 2,
+    name: "Photography",
+    imgName: "category_photography",
+    short: "photography",
+  },
+  { id: 3, name: "School", imgName: "category_school", short: "school" },
+  {
+    id: 4,
+    name: "Business",
+    imgName: "category_business",
+    short: "business",
+  },
+  { id: 5, name: "Music", imgName: "category_music", short: "music" },
   {
     id: 6,
     name: "Personal Development",
-    short: "category_personal_development",
+    imgName: "category_personal_development",
+    short: "personal_development",
   },
-  { id: 7, name: "Languages", short: "category_languages" },
+  {
+    id: 7,
+    name: "Languages",
+    imgName: "category_languages",
+    short: "languages",
+  },
 ];
 
 function CategoryCard(props) {
-  const { name, short } = props.category;
+  const { name, imgName, short } = props.category;
 
   return (
-    <Link to={`/courses?${short}`}>
+    <Link to={`/courses?category=${short}`}>
       <div className="categories-card">
         <div
           className="categories-img"
           style={{
-            backgroundImage: `url(img/${short}.png)`,
+            backgroundImage: `url(img/${imgName}.png)`,
             backgroundPosition: "center",
             backgroundSize: "cover",
           }}

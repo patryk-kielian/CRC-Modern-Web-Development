@@ -72,7 +72,7 @@ export default function Course() {
   } else if (loggedUser) {
     buttonComponent = (
       <button className="course-bar-button" onClick={handleRegister}>
-        Register
+        Enroll
       </button>
     );
   } else {

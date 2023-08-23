@@ -102,10 +102,7 @@ function Login() {
             <form className="login-form">
               <div className="login-form-inputs">
                 <div className="login-form-input-block">
-                  <label htmlFor="login">
-                    {registerMode ? "Username:" : "Login:"}
-                  </label>
-
+                  <label htmlFor="login">Username:</label>
                   <input
                     type="text"
                     id="login"
