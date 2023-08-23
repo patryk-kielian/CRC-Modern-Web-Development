@@ -1,13 +1,22 @@
 import { API_URL } from "../config";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/CreateNewTutorial.css";
 
 import { LoggedUserContext } from "../contexts/LoggedUserContext";
 import Popup from "../components/Popup";
+import PopupDecision from "../components/PopupDecision";
+import Error from "./Error";
 
-function LessonForm({ lesson, updateLesson, deleteLesson, error }) {
+function LessonForm({
+  lesson,
+  updateLesson,
+  deleteLesson,
+  error,
+  reset,
+  setReset,
+}) {
   const { lessonNr, title, videoURL } = lesson;
   const [titleChars, setTitleChars] = useState(0);
   const [videoChars, setVideoChars] = useState(0);
@@ -20,6 +29,14 @@ function LessonForm({ lesson, updateLesson, deleteLesson, error }) {
   const handleDelete = () => {
     deleteLesson(lessonNr);
   };
+
+  useEffect(() => {
+    if (reset) {
+      setTitleChars(0);
+      setVideoChars(0);
+      setReset(false);
+    }
+  }, [reset]);
 
   return (
     <div className="form-lesson">
@@ -77,7 +94,11 @@ function CreateNewTutorial() {
   const { loggedUser } = useContext(LoggedUserContext);
 
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [showPopupDecision, setShowPopupDecision] = useState(false);
+  const [actionToConfirm, setActionToConfirm] = useState(null);
+  const [reset, setReset] = useState(false);
   const [lessons, setLessons] = useState([
     { lessonNr: 1, title: "", videoURL: "" },
   ]);
@@ -95,6 +116,14 @@ function CreateNewTutorial() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setActionToConfirm(() => () => submitCourse());
+    setMessage(
+      "Are you sure you want to add the course? You can go back to the Form by clicking Cancel"
+    );
+    setShowPopupDecision(true);
+  };
+
+  const submitCourse = async () => {
     const form = formRef.current;
     const submitter = submitRef.current;
 
@@ -145,22 +174,34 @@ function CreateNewTutorial() {
       dataToSend.user_id = loggedUser.id;
       dataToSend.lessons = lessons;
 
-      // TODO: remove when no longer required in DB
-      dataToSend.location = "placeholder";
-      dataToSend.dateStart = "placeholder";
-      dataToSend.dateEnd = "placeholder";
-      dataToSend.timeStart = "placeholder";
-      dataToSend.timeEnd = "placeholder";
-      dataToSend.frequency = "placeholder";
-      //
-
-      // TODO: should be coming from the DB
-      dataToSend.trainer = "placeholder";
       console.log(dataToSend);
       const response = await Axios.post(`${API_URL}/new-course`, dataToSend);
       console.log(response);
-      // navigate("/user");
+      setActionToConfirm(() => () => navigate("/user"));
+      setMessage(
+        "Succesfully added course! Do you want to see it in your profile?"
+      );
+      setShowPopupDecision(true);
     }
+  };
+
+  const handleCancel = (event) => {
+    event.preventDefault();
+    setActionToConfirm(() => () => cancel());
+    setMessage("Are you sure? Cancelling will reset the Form");
+    setShowPopupDecision(true);
+  };
+
+  const cancel = () => {
+    const form = formRef.current;
+    form.reset();
+    setLessons([{ lessonNr: 1, title: "", videoURL: "" }]); // keeps only the first lesson
+    setReset(true); // clears the fields in LessonForm
+    setNameChars(0);
+    setDescShortChars(0);
+    setDescPointsChars(0);
+    setDescLongChars(0);
+    setDemoChars(0);
   };
 
   const addLesson = () => {
@@ -245,252 +286,257 @@ function CreateNewTutorial() {
 
   return (
     <>
-      <main id="create-container" className="background-subtle">
-        {loggedUser && loggedUser.isAdmin ? (
-          <>
-            <form className="create-form" onSubmit={handleSubmit} ref={formRef}>
-              <h1>Create a new tutorial</h1>
-              <div className="create-form-columns">
-                <div className="create-form-col-left">
-                  <div className="create-form-input-block">
-                    <label htmlFor="name">Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      placeholder="Type name"
-                      className={
-                        error &&
-                        missingFields.current.includes("name") &&
-                        "create-form-missing-value"
-                      }
-                      onChange={(e) =>
-                        updateChars(e.target.value.length, "name")
-                      }
-                    />
-                    <p className="create-form-char-counter">
-                      {nameChars}/45{" "}
-                      {nameChars >= 45 && (
-                        <span>Exceeded the character limit!</span>
-                      )}
-                    </p>
-                  </div>
-                  <div className="create-form-input-block language">
-                    <p>Language</p>
-                    <div
-                      className={`language-options ${
-                        error &&
-                        missingFields.current.includes("language") &&
-                        "create-form-missing-value"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        id="language-pl"
-                        name="language"
-                        value="Polish"
-                      />
-                      <label htmlFor="language-pl">Polish</label>
-                      <input
-                        type="radio"
-                        id="language-en"
-                        name="language"
-                        value="English"
-                        defaultChecked="checked"
-                      />
-                      <label htmlFor="language-en">English</label>
-                    </div>
-                  </div>
-                  <div className="create-form-input-block dropdown">
-                    <label htmlFor="level">Level</label>
-                    <br />
-                    <select
-                      id="level"
-                      name="level"
-                      placeholder="Select level"
-                      className={
-                        error &&
-                        missingFields.current.includes("level") &&
-                        "create-form-missing-value"
-                      }
-                    >
-                      <option value="" disabled defaultValue>
-                        Select level
-                      </option>
-                      <option value="Beginner">Beginner</option>
-                      <option value="Intermediate">Intermediate</option>
-                      <option value="Advanced">Advanced</option>
-                    </select>
-                  </div>
-                  <div className="create-form-input-block dropdown">
-                    <label htmlFor="category">Category</label>
-                    <select
-                      id="category"
-                      name="category"
-                      placeholder="Select category"
-                      className={
-                        error &&
-                        missingFields.current.includes("category") &&
-                        "create-form-missing-value"
-                      }
-                    >
-                      <option value="" disabled defaultValue>
-                        Select category
-                      </option>
-                      <option value="Programming">Programming</option>
-                      <option value="IT & Software">IT & Software</option>
-                      <option value="Photography">Photography</option>
-                      <option value="School">School</option>
-                      <option value="Business">Business</option>
-                      <option value="Music">Music</option>
-                      <option value="Personal Development">
-                        Personal Development
-                      </option>
-                      <option value="Languages">Languages</option>
-                    </select>
-                  </div>
-                  <div className="create-form-input-block">
-                    <label htmlFor="descriptionShort">Description short</label>
-                    <br />
-                    <textarea
-                      id="descriptionShort"
-                      name="descriptionShort"
-                      placeholder="Type a short description of the course (max. 90 characters)"
-                      className={
-                        error &&
-                        !descShortChars > 0 &&
-                        "create-form-missing-value"
-                      }
-                      onChange={(e) =>
-                        updateChars(e.target.value.length, "descShort")
-                      }
-                    />
-                    <p className="create-form-char-counter">
-                      {descShortChars}/90{" "}
-                      {descShortChars >= 90 && (
-                        <span>Exceeded the character limit!</span>
-                      )}
-                    </p>
-                  </div>
-                  <div className="create-form-input-block">
-                    <label htmlFor="descriptionPoints">
-                      Description points
-                    </label>
-                    <textarea
-                      id="descriptionPoints"
-                      name="descriptionPoints"
-                      placeholder="Type what the user will learn, in points (max. 800 characters)"
-                      className={
-                        error &&
-                        !descPointsChars > 0 &&
-                        "create-form-missing-value"
-                      }
-                      onChange={(e) =>
-                        updateChars(e.target.value.length, "descPoints")
-                      }
-                    />
-                    <p className="create-form-char-counter">
-                      {descPointsChars}/800{" "}
-                      {descPointsChars >= 800 && (
-                        <span>Exceeded the character limit!</span>
-                      )}
-                    </p>
-                  </div>
-                </div>
-                <div className="create-form-col-right">
-                  <div className="create-form-input-block">
-                    <label className="ghost-button upload-button">
-                      <input type="file" />
-                      Upload an image
-                    </label>
-                    <span>No file chosen</span>
-                  </div>
-                  <div className="create-form-input-block">
-                    <label htmlFor="descriptionLong">Description long</label>
-                    <textarea
-                      id="descriptionLong"
-                      name="descriptionLong"
-                      placeholder="Write a full description of the course, mention the content, who is it for, what will be done, how long will it take and what should be the outcome (max. 2000 characters)"
-                      className={
-                        error &&
-                        !descLongChars > 0 &&
-                        "create-form-missing-value"
-                      }
-                      onChange={(e) =>
-                        updateChars(e.target.value.length, "descLong")
-                      }
-                    />
-                    <p className="create-form-char-counter">
-                      {descLongChars}/2000{" "}
-                      {descLongChars >= 2000 && (
-                        <span>Exceeded the character limit!</span>
-                      )}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="form-full-width">
-                <div>
-                  <label htmlFor="demoURL">Demo URL</label>
+      {loggedUser && loggedUser.isAdmin ? (
+        <main id="create-container" className="background-subtle">
+          <form className="create-form" onSubmit={handleSubmit} ref={formRef}>
+            <h1>Create a new tutorial</h1>
+            <div className="create-form-columns">
+              <div className="create-form-col-left">
+                <div className="create-form-input-block">
+                  <label htmlFor="name">Name</label>
                   <input
                     type="text"
-                    id="demoURL"
-                    name="demoURL"
-                    placeholder="Paste the address (URL) of the YouTube video that should be the demo of the course"
-                    className={`create-form-demo-input ${
+                    id="name"
+                    name="name"
+                    placeholder="Type name"
+                    className={
                       error &&
-                      missingFields.current.includes("demoURL") > 0 &&
+                      missingFields.current.includes("name") &&
                       "create-form-missing-value"
-                    }`}
-                    onChange={(e) => updateChars(e.target.value.length, "demo")}
+                    }
+                    onChange={(e) => updateChars(e.target.value.length, "name")}
                   />
                   <p className="create-form-char-counter">
-                    {demoChars}/255{" "}
-                    {demoChars >= 255 && (
+                    {nameChars}/45{" "}
+                    {nameChars >= 45 && (
+                      <span>Exceeded the character limit!</span>
+                    )}
+                  </p>
+                </div>
+                <div className="create-form-input-block language">
+                  <p>Language</p>
+                  <div
+                    className={`language-options ${
+                      error &&
+                      missingFields.current.includes("language") &&
+                      "create-form-missing-value"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      id="language-pl"
+                      name="language"
+                      value="Polish"
+                    />
+                    <label htmlFor="language-pl">Polish</label>
+                    <input
+                      type="radio"
+                      id="language-en"
+                      name="language"
+                      value="English"
+                      defaultChecked="checked"
+                    />
+                    <label htmlFor="language-en">English</label>
+                  </div>
+                </div>
+                <div className="create-form-input-block dropdown">
+                  <label htmlFor="level">Level</label>
+                  <br />
+                  <select
+                    id="level"
+                    name="level"
+                    placeholder="Select level"
+                    className={
+                      error &&
+                      missingFields.current.includes("level") &&
+                      "create-form-missing-value"
+                    }
+                  >
+                    <option value="" disabled defaultValue>
+                      Select level
+                    </option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                  </select>
+                </div>
+                <div className="create-form-input-block dropdown">
+                  <label htmlFor="category">Category</label>
+                  <select
+                    id="category"
+                    name="category"
+                    placeholder="Select category"
+                    className={
+                      error &&
+                      missingFields.current.includes("category") &&
+                      "create-form-missing-value"
+                    }
+                  >
+                    <option value="" disabled defaultValue>
+                      Select category
+                    </option>
+                    <option value="Programming">Programming</option>
+                    <option value="IT & Software">IT & Software</option>
+                    <option value="Photography">Photography</option>
+                    <option value="School">School</option>
+                    <option value="Business">Business</option>
+                    <option value="Music">Music</option>
+                    <option value="Personal Development">
+                      Personal Development
+                    </option>
+                    <option value="Languages">Languages</option>
+                  </select>
+                </div>
+                <div className="create-form-input-block">
+                  <label htmlFor="descriptionShort">Description short</label>
+                  <br />
+                  <textarea
+                    id="descriptionShort"
+                    name="descriptionShort"
+                    placeholder="Type a short description of the course (max. 90 characters)"
+                    className={
+                      error &&
+                      !descShortChars > 0 &&
+                      "create-form-missing-value"
+                    }
+                    onChange={(e) =>
+                      updateChars(e.target.value.length, "descShort")
+                    }
+                  />
+                  <p className="create-form-char-counter">
+                    {descShortChars}/90{" "}
+                    {descShortChars >= 90 && (
+                      <span>Exceeded the character limit!</span>
+                    )}
+                  </p>
+                </div>
+                <div className="create-form-input-block">
+                  <label htmlFor="descriptionPoints">Description points</label>
+                  <textarea
+                    id="descriptionPoints"
+                    name="descriptionPoints"
+                    placeholder="Type what the user will learn, in points (max. 800 characters)"
+                    className={
+                      error &&
+                      !descPointsChars > 0 &&
+                      "create-form-missing-value"
+                    }
+                    onChange={(e) =>
+                      updateChars(e.target.value.length, "descPoints")
+                    }
+                  />
+                  <p className="create-form-char-counter">
+                    {descPointsChars}/800{" "}
+                    {descPointsChars >= 800 && (
                       <span>Exceeded the character limit!</span>
                     )}
                   </p>
                 </div>
               </div>
-              <div>
-                {lessons.map((lesson) => (
-                  <LessonForm
-                    key={lesson.lessonNr}
-                    lesson={lesson}
-                    updateLesson={updateLesson}
-                    deleteLesson={deleteLesson}
-                    error={error}
+              <div className="create-form-col-right">
+                <div className="create-form-input-block">
+                  <label className="ghost-button upload-button">
+                    <input type="file" />
+                    Upload an image
+                  </label>
+                  <span>No file chosen</span>
+                </div>
+                <div className="create-form-input-block">
+                  <label htmlFor="descriptionLong">Description long</label>
+                  <textarea
+                    id="descriptionLong"
+                    name="descriptionLong"
+                    placeholder="Write a full description of the course, mention the content, who is it for, what will be done, how long will it take and what should be the outcome (max. 2000 characters)"
+                    className={
+                      error && !descLongChars > 0 && "create-form-missing-value"
+                    }
+                    onChange={(e) =>
+                      updateChars(e.target.value.length, "descLong")
+                    }
                   />
-                ))}
-                <button
-                  className="ghost-black form-lesson-add"
-                  type="button"
-                  onClick={addLesson}
-                >
-                  Add another lesson
-                </button>
+                  <p className="create-form-char-counter">
+                    {descLongChars}/2000{" "}
+                    {descLongChars >= 2000 && (
+                      <span>Exceeded the character limit!</span>
+                    )}
+                  </p>
+                </div>
               </div>
-              <div className="form-buttons">
+            </div>
+            <div className="form-full-width">
+              <div>
+                <label htmlFor="demoURL">Demo URL</label>
                 <input
-                  className="violet"
-                  type="submit"
-                  value="Create training"
-                  ref={submitRef}
+                  type="text"
+                  id="demoURL"
+                  name="demoURL"
+                  placeholder="Paste the address (URL) of the YouTube video that should be the demo of the course"
+                  className={`create-form-demo-input ${
+                    error &&
+                    missingFields.current.includes("demoURL") > 0 &&
+                    "create-form-missing-value"
+                  }`}
+                  onChange={(e) => updateChars(e.target.value.length, "demo")}
                 />
-                <button className="ghost-black" onClick={() => navigate("/")}>
-                  Cancel
-                </button>
+                <p className="create-form-char-counter">
+                  {demoChars}/255{" "}
+                  {demoChars >= 255 && (
+                    <span>Exceeded the character limit!</span>
+                  )}
+                </p>
               </div>
-            </form>
-          </>
-        ) : (
-          <h1>You must have admin permissions to view this page</h1>
-        )}
-      </main>
+            </div>
+            <div>
+              {lessons.map((lesson) => (
+                <LessonForm
+                  key={lesson.lessonNr}
+                  lesson={lesson}
+                  updateLesson={updateLesson}
+                  deleteLesson={deleteLesson}
+                  error={error}
+                  reset={reset}
+                  setReset={setReset}
+                />
+              ))}
+              <button
+                className="ghost-black form-lesson-add"
+                type="button"
+                onClick={addLesson}
+              >
+                Add another lesson
+              </button>
+            </div>
+            <div className="form-buttons">
+              <input
+                className="violet"
+                type="submit"
+                value="Create training"
+                ref={submitRef}
+              />
+              <button className="ghost-black" onClick={handleCancel}>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </main>
+      ) : (
+        <Error
+          textMessage="You must have admin permissions to view this page"
+          textButton="Homepage"
+          route="/"
+        />
+      )}
+
       <Popup
         message={error}
         showPopup={showPopup}
         setShowPopup={setShowPopup}
+      />
+      <PopupDecision
+        message={message}
+        showPopup={showPopupDecision}
+        setShowPopup={setShowPopupDecision}
+        onConfirm={actionToConfirm}
       />
     </>
   );
