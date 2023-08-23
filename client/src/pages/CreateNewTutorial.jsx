@@ -174,17 +174,6 @@ function CreateNewTutorial() {
       dataToSend.user_id = loggedUser.id;
       dataToSend.lessons = lessons;
 
-      // TODO: remove when no longer required in DB
-      dataToSend.location = "placeholder";
-      dataToSend.dateStart = "placeholder";
-      dataToSend.dateEnd = "placeholder";
-      dataToSend.timeStart = "placeholder";
-      dataToSend.timeEnd = "placeholder";
-      dataToSend.frequency = "placeholder";
-      //
-
-      // TODO: should be coming from the DB
-      dataToSend.trainer = "placeholder";
       console.log(dataToSend);
       const response = await Axios.post(`${API_URL}/new-course`, dataToSend);
       console.log(response);

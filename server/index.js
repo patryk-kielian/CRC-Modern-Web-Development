@@ -1,7 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -35,7 +34,7 @@ const db = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DBNAME,
   waitForConnections: true,
-  connectionLimit: 1,
+  connectionLimit: 3,
   // queueLimit: 0,
 });
 
@@ -76,12 +75,7 @@ app.post("/login", (req, res) => {
             login: result[0].login,
             isAdmin: result[0].isAdmin,
           };
-          const privateKey = process.env.JWT_SECRET;
-          token = jwt.sign({ userID: user.id }, privateKey, {
-            expiresIn: "1h",
-          });
-          res.json({ token: token, user });
-          // res.send(user);
+          res.send(user);
         } else {
           res.send({ message: "Wrong username/password combination!" });
         }
@@ -137,7 +131,42 @@ app.get("/courses", (req, res) => {
       console.log("Error executing the MySQL query: " + err.message);
       res.status(500).send("Internal Server Error");
     } else {
-      res.send({ courses: result });
+      const courses = result;
+      console.log(courses);
+      const courseIdList = courses.map((course) => course.id); // Extracting course IDs
+      console.log(courseIdList);
+      // Query to fetch trainer information for each course
+      const trainerQuery = `
+        SELECT course_creation.course_id, creators.name AS trainer
+        FROM course_creation
+        JOIN creators ON course_creation.creator_id = creators.id
+        WHERE course_creation.course_id IN (?)
+      `;
+
+      db.query(trainerQuery, [courseIdList], (err, trainerResult) => {
+        if (err) {
+          console.log("Error executing the MySQL query: " + err.message);
+          res.status(500).send("Internal Server Error");
+        } else {
+          console.log(trainerResult);
+          // Organize the trainer information into a map for efficient lookup
+          const trainerMap = {};
+          trainerResult.forEach((row) => {
+            if (!trainerMap[row.course_id]) {
+              trainerMap[row.course_id] = [];
+            }
+            trainerMap[row.course_id].push(row.trainer);
+          });
+          console.log(trainerMap);
+          // Combine the trainer information with each course
+          courses.forEach((course) => {
+            course.trainer = trainerMap[course.id] || null;
+          });
+
+          console.log(courses);
+          res.send({ courses });
+        }
+      });
     }
   });
 });
@@ -450,51 +479,6 @@ app.delete("/course-attendance", (req, res) => {
       }
     }
   );
-});
-
-app.use((req, res, next) => {
-  req.user = { userID: null, verified: false };
-  const privateKey = process.env.JWT_SECRET;
-  const bearerHeader = req.headers["authorization"];
-  if (typeof bearerHeader !== "undefined") {
-    const bearerToken = bearerHeader.split(" ")[1];
-    jwt.verify(bearerToken, privateKey, function (err, data) {
-      if (!(err && typeof data === "undefined")) {
-        req.user = { userID: data.userID, verified: true };
-        next();
-      } else {
-        return res.sendStatus(403); // Send a 403 response if token is invalid
-      }
-    });
-  } else {
-    return res.sendStatus(403); // Send a 403 response if no token is present
-  }
-});
-
-app.get("/login-by-id", (req, res) => {
-  const userID = req.query.userID;
-  db.query("SELECT * FROM users WHERE users.id = ?", userID, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.send({ err: err });
-    } else if (result && result.length > 0) {
-      const user = {
-        id: result[0].id,
-        login: result[0].login,
-        isAdmin: result[0].isAdmin,
-      };
-      res.json(user);
-    }
-  });
-});
-
-app.get("/logout", (req, res) => {
-  const bearerHeader = req.headers["authorization"];
-  if (typeof bearerHeader !== "undefined") {
-    const bearerToken = bearerHeader.split(" ")[1];
-    // add bearerToken to blacklist
-  }
-  return res.sendStatus(200);
 });
 
 // app.get("/init", (req, res) => {
