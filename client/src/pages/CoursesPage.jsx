@@ -2,7 +2,7 @@ import Axios from "axios";
 import { API_URL } from "../config";
 import { useState, useEffect, useContext } from "react";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../styles/CoursesPage.css";
 import "../styles/Carousel.css";
 
@@ -44,6 +44,9 @@ function CarouselCoursesPage({ content }) {
 
 function CoursesPage() {
   const [courses, setCourses] = useState([]);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const categoryToView = titleCase(searchParams.get("category"));
 
   useEffect(() => {
     // Fetch courses from the server
@@ -54,20 +57,44 @@ function CoursesPage() {
 
   const groupedCourses = courses.reduce((acc, item) => {
     const { category } = item;
-    // If the category key doesn't exist in the accumulator object, create it and initialize it with an empty array
-    if (!acc[category]) {
-      acc[category] = [];
+    if (categoryToView) {
+      // If the category key doesn't exist in the accumulator object, create it and initialize it with an empty array
+      if (category === categoryToView) {
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        // Push the item into the corresponding category array
+        acc[category].push(item);
+      }
+    } else {
+      // if no category selected through URL query, display all categories
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(item);
     }
-    // Push the item into the corresponding category array
-    acc[category].push(item);
+
     return acc;
   }, {});
+  console.log(groupedCourses);
+  function titleCase(str) {
+    if (!str) {
+      return;
+    }
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map(function (word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(" ");
+  }
 
   return (
     <>
       <main className="background-subtle">
         <div id="container">
-          {Object.keys(groupedCourses).length !== 0 && (
+          {Object.keys(groupedCourses).length !== 0 ? (
             <>
               {Object.keys(groupedCourses).map((category) => (
                 <div key={category} className="category-container">
@@ -83,6 +110,10 @@ function CoursesPage() {
                 </div>
               ))}
             </>
+          ) : (
+            <div className="category-container empty">
+              <h2>No Tutorials to show</h2>
+            </div>
           )}
         </div>
         {/* {showPopup && (

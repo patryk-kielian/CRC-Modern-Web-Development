@@ -6,10 +6,21 @@
   box-shadow: 0 0 50px var(--black);
 }
 
+.category-container.empty {
+  height: min(300px, 50dvw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .category-container h2 {
   font-size: 2.25rem;
   margin: 0 0 -20px 20px;
 }
+
+/* .category-container.empty h2 {
+  text-align: center;
+} */
 
 .slick-slider {
   margin: 30px 0;
